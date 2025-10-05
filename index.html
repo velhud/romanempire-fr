@@ -1,130 +1,479 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roman Empire</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roman Empire — Roman Chuikov</title>
+  <meta name="description" content="You searched Rome and found Roman. A minimal, ironic one-page empire by Roman Chuikov." />
+  <link rel="canonical" href="https://romanempire.fr/" />
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Roman Empire — Roman Chuikov" />
+  <meta property="og:description" content="You searched Rome and found Roman. A minimal, ironic one-page empire by Roman Chuikov." />
+  <meta property="og:url" content="https://romanempire.fr/" />
+  <meta property="og:image" content="/assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon as inline SVG for simplicity -->
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="black"/><text x="32" y="40" font-size="28" text-anchor="middle" fill="white" font-family="Inter,Arial,sans-serif">SPQR</text></svg>' />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&display=swap" rel="stylesheet">
+
   <style>
+    /* ---------- Design tokens ---------- */
     :root {
-      --font-primary: 'Inter', sans-serif;
-      --hero-image: url('assets/hero.jpg');
-      --primary-color: #222;
-      --accent-color: #c59c6c;
+      --bg: #0b0b0c;
+      --fg: #e9eaee;
+      --muted: #b3b6bf;
+      --accent: #ffd166;
+      --line: #26262a;
+      --maxw: 1120px;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --hero-image: url('assets/hero.jpg'), url('assets/hero.svg'); /* replace hero.jpg to override */
+      --space-1: 6px;
+      --space-2: 10px;
+      --space-3: 16px;
+      --space-4: 22px;
+      --space-5: 30px;
+      --space-6: 42px;
+    }
+    [data-theme="light"] {
+      --bg: #f6f7fb;
+      --fg: #0f1115;
+      --muted: #525967;
+      --line: #e5e7ef;
+      --shadow: 0 10px 30px rgba(10,14,25,.08);
     }
 
-    body, html {
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
       margin: 0;
-      padding: 0;
-      font-family: var(--font-primary);
-      background-color: #f8f8f8;
-      color: #222;
+      font-family: Inter, ui-sans-serif, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+    .prose { color: var(--fg); opacity: .92; }
+    ::selection { background: rgba(255,209,102,.35); }
 
+    /* ---------- Header ---------- */
+    header {
+      position: fixed; inset: 0 0 auto 0;
+      height: 56px; display: flex; align-items: center;
+      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+      z-index: 10;
+    }
+    header .inner { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .brand { font-weight: 800; letter-spacing: .02em; }
+    .nav { display: flex; gap: 14px; align-items: center; }
+    .nav a { color: var(--fg); opacity: .8; font-weight: 600; font-size: 14px; }
+    .theme-toggle { border: 1px solid rgba(255,255,255,.18); padding: 8px 10px; border-radius: 12px; background: transparent; color: var(--fg); cursor: pointer; }
+    [data-theme="light"] .theme-toggle { border-color: rgba(0,0,0,.12); }
+
+    /* ---------- Hero ---------- */
     .hero {
-      background-image: var(--hero-image);
+      position: relative;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      isolation: isolate;
+      overflow: hidden;
+      padding-top: 56px; /* header offset */
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to bottom, rgba(6,6,8,.70), rgba(6,6,8,.25) 30%, rgba(6,6,8,.72)),
+        var(--hero-image);
       background-size: cover;
       background-position: center;
-      min-height: 100vh;
+      filter: saturate(1.05) contrast(1.05);
+      z-index: -2;
+      transform: scale(1.02);
+    }
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      box-shadow: inset 0 0 160px rgba(0,0,0,.5);
+      z-index: -1;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero::before { transition: transform 900ms ease; }
+      .hero:hover::before { transform: scale(1.05); }
+    }
+
+    .hero-inner { padding: 16vh 0 12vh; }
+    .eyebrow {
+      display: inline-block;
+      font-size: clamp(12px, 1.4vw, 14px);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(0,0,0,.35);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(4px);
+    }
+    [data-theme="light"] .eyebrow { background: rgba(255,255,255,.75); border-color: rgba(0,0,0,.06); color: #3b3f47; }
+    h1 {
+      margin: 16px 0 10px;
+      font-weight: 900;
+      font-size: clamp(42px, 7vw, 88px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+    }
+    .lead {
+      margin: 0 auto;
+      max-width: 880px;
+      font-size: clamp(16px, 1.8vw, 20px);
+    }
+    .cta-row {
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
-      color: #fff;
-      position: relative;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      backdrop-filter: blur(3px);
-      background: rgba(0, 0, 0, 0.4);
-    }
-
-    .content {
-      position: relative;
-      max-width: 800px;
-      padding: 2rem;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 8px;
-    }
-
-    .content h1 {
-      font-size: 3rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-
-    .content p {
-      font-size: 1.2rem;
-      line-height: 1.5;
-    }
-
-    .content a {
-      color: var(--accent-color);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .logos {
-      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
       flex-wrap: wrap;
-      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
       align-items: center;
-      gap: 2rem;
-      margin: 3rem 0;
-      padding: 0 2rem;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      color: var(--fg);
+      box-shadow: var(--shadow);
+      font-weight: 700;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
     }
+    .btn:hover { transform: translateY(-1px); background: rgba(0,0,0,.45); border-color: rgba(255,255,255,.28); }
+    [data-theme="light"] .btn { background: rgba(255,255,255,.6); border-color: rgba(0,0,0,.12); }
+    [data-theme="light"] .btn:hover { background: rgba(255,255,255,.85); }
+    .btn--accent { background: linear-gradient(180deg, #ffe08a, #ffd166); color: #121316; border: none; }
+    .btn--accent:hover { transform: translateY(-1px) scale(1.01); }
+    .btn--ghost { opacity: .9; }
 
-    .logos img {
-      max-height: 60px;
-      opacity: 0.8;
-      transition: transform 0.2s, opacity 0.2s;
+    .contact { margin-top: 18px; color: var(--muted); font-size: 14px; }
+    .contact a { color: var(--fg); text-decoration: underline; }
+    .copy {
+      display: inline-flex; gap: 8px; align-items: center; margin-left: 8px;
+      padding: 6px 10px; border: 1px solid rgba(255,255,255,.18); border-radius: 10px; background: transparent; color: var(--fg); cursor: pointer; font-weight: 600;
     }
+    [data-theme="light"] .copy { border-color: rgba(0,0,0,.12); }
 
-    .logos img:hover {
-      transform: scale(1.1);
-      opacity: 1;
+    .scroll-cue { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--muted); opacity: .85; }
+
+    /* ---------- Logos strip ---------- */
+    .logos { background: radial-gradient(80% 80% at 50% 0%, color-mix(in oklab, var(--accent) 6%, transparent) 0%, transparent 60%); }
+    .logos .container { padding: 54px 20px; }
+    .logos h2 { margin: 0 0 22px; font-size: clamp(18px, 2.2vw, 22px); color: var(--muted); font-weight: 700; text-align: center; }
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 22px 28px;
+      align-items: center;
+      container-type: inline-size;
     }
-
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      color: #555;
+    .logo {
+      height: 56px;
+      width: 100%;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: color-mix(in oklab, var(--bg) 86%, #ffffff 14%);
+      border: 1px solid rgba(255,255,255,.08);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease, opacity .2s ease;
+      overflow: hidden;
+      opacity: .96;
     }
+    [data-theme="light"] .logo { border-color: rgba(0,0,0,.08); }
+    .logo:hover { transform: translateY(-2px); }
+    .logo img { max-height: 30px; max-width: 80%; filter: grayscale(100%) contrast(1.05); opacity: .95; }
+    .inai-feature { margin-top: 36px; display: grid; place-items: center; }
+    .inai-card {
+      width: min(460px, 92vw);
+      height: 96px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.16);
+      display: grid; place-items: center; box-shadow: var(--shadow);
+    }
+    [data-theme="light"] .inai-card { background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.02)); border-color: rgba(0,0,0,.12); }
+    .inai-card img { max-width: 72%; max-height: 46px; filter: none; opacity: 1; }
+    .inai-card .fallback { font-weight: 900; letter-spacing: .02em; font-size: 30px; }
 
+    /* ---------- Timeline ---------- */
+    .timeline { border-top: 1px solid var(--line); }
+    .timeline .container { padding: 72px 20px; }
+    .timeline header { position: static; border: none; background: transparent; backdrop-filter: none; height: auto; }
+    .timeline h2 { margin: 0 0 10px; font-size: clamp(26px, 3.4vw, 38px); letter-spacing: -0.01em; }
+    .timeline p.lead { margin-bottom: 22px; color: var(--muted); }
+    .tl { position: relative; margin: 32px 0 0; padding-left: 22px; border-left: 2px solid rgba(255,255,255,.08); }
+    [data-theme="light"] .tl { border-left-color: rgba(0,0,0,.08); }
+    .tl-item { position: relative; margin: 0 0 28px 0; padding-left: 14px; }
+    .tl-item::before {
+      content: ""; position: absolute; left: -24px; top: 6px; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent);
+    }
+    .tl h3 { margin: 0 0 6px; font-size: clamp(18px, 2.2vw, 22px); }
+    .tl time { font-size: 12px; color: var(--muted); }
+    .tl p { margin: 6px 0 0; }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--line); color: var(--muted); }
+    footer .container { padding: 24px 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .foot-right a { color: var(--muted); }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; border: 1px solid rgba(255,255,255,.2); padding: 0 6px; border-radius: 6px; font-size: 12px; }
+    [data-theme="light"] .kbd { border-color: rgba(0,0,0,.2); }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(10px); }
+    .reveal.is-visible { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+
+    /* ---------- Utilities ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+    @supports not (color: color-mix(in oklab, white, black)) {
+      /* Fallbacks where color-mix isn't supported */
+      .logos { background: radial-gradient(80% 80% at 50% 0%, rgba(255,209,102,.06), transparent 60%); }
+    }
   </style>
 </head>
 <body>
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="content">
-      <h1>Hi.</h1>
-      <p>
-        You’ve probably been thinking about the Roman Empire.<br>
-        Congratulations. You found one.<br><br>
-        This Roman is building an empire across the world and across disciplines. It is wide and multidimensional.<br><br>
-        But let’s not dwell on the past. Empires rise and fall. Better to try <a href="https://inai.fr">inAi.fr</a>.<br><br>
-        Below is a short timeline of the epochs this empire has passed through.<br><br>
-        Need Roman? <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a><br>
-        Happy domination.
-      </p>
+  <a class="visually-hidden" href="#timeline">Skip to content</a>
+
+  <header role="banner" aria-label="Top bar">
+    <div class="container inner">
+      <div class="brand">Roman Empire</div>
+      <nav class="nav" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#timeline">Epochs</a>
+        <a href="mailto:ave@romanempire.fr">Contact</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">Theme</button>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <section class="logos">
-    <!-- Insert your logos here -->
-    <img src="assets/logo1.png" alt="Project 1">
-    <img src="assets/logo2.png" alt="Project 2">
-    <img src="assets/logo3.png" alt="Project 3">
-    <img src="assets/inai_logo.png" alt="inAi" style="height:80px;">
-  </section>
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero">
+      <div class="container hero-inner reveal">
+        <span class="eyebrow">Population: Roman</span>
+        <h1>Hi.</h1>
+        <p class="lead prose">
+          You’ve probably been thinking about the Roman Empire.<br />
+          Congratulations. You found one.
+        </p>
+        <p class="lead prose" style="margin-top:14px;">
+          This Roman is building an empire across the world and across disciplines.
+          It is wide and multidimensional.
+        </p>
+        <div class="cta-row" role="group" aria-label="Primary actions">
+          <a class="btn btn--accent" href="https://inai.fr" target="_blank" rel="noopener">Try inAi.fr</a>
+          <a class="btn btn--ghost" href="#timeline" aria-label="Jump to the timeline of epochs">View epochs</a>
+        </div>
+        <div class="contact">
+          Need Roman? <a id="emailLink" href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+          <button class="copy" type="button" id="copyBtn" aria-label="Copy email">Copy</button>
+        </div>
+        <div class="scroll-cue" aria-hidden="true">Scroll</div>
+      </div>
+    </section>
 
-  <footer>
-    &copy; 2025 Roman Empire. All rights reserved.
+    <!-- LOGOS -->
+    <section id="projects" class="logos" aria-label="Projects">
+      <div class="container reveal">
+        <h2>Some provinces of the empire</h2>
+        <div class="logo-grid" aria-label="Project logos">
+          <!-- Replace src with your logos. Keep alt accurate. Add/remove items freely. -->
+          <div class="logo"><img src="assets/logos/project-1.svg" alt="Project One" loading="lazy" decoding="async" /></div>
+          <div class="logo"><img src="assets/logos/project-2.svg" alt="Project Two" loading="lazy" decoding="async" /></div>
+          <div class="logo"><img src="assets/logos/project-3.svg" alt="Project Three" loading="lazy" decoding="async" /></div>
+          <div class="logo"><img src="assets/logos/project-4.svg" alt="Project Four" loading="lazy" decoding="async" /></div>
+          <div class="logo"><img src="assets/logos/project-5.svg" alt="Project Five" loading="lazy" decoding="async" /></div>
+          <div class="logo"><img src="assets/logos/project-6.svg" alt="Project Six" loading="lazy" decoding="async" /></div>
+        </div>
+
+        <!-- inAi spotlight -->
+        <div class="inai-feature">
+          <div class="inai-card">
+            <!-- Replace with your inAi logo -->
+            <img src="assets/logos/inai.svg" alt="inAi" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'fallback',textContent:'inAi'}));" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="timeline" aria-label="Epochs timeline">
+      <div class="container reveal">
+        <h2>Epochs</h2>
+        <p class="lead prose">A short timeline of the phases this empire has passed through.</p>
+
+        <div class="tl" role="list">
+          <!-- Duplicate and edit items below as needed -->
+          <article class="tl-item" role="listitem">
+            <h3>Epoch I — Foundation</h3>
+            <time datetime="2019">2019</time>
+            <p>Early campaigns. First prototypes. Territory scouted.</p>
+          </article>
+
+          <article class="tl-item" role="listitem">
+            <h3>Epoch II — Expansion</h3>
+            <time datetime="2021">2021</time>
+            <p>Projects launched. Teams formed. New provinces added.</p>
+          </article>
+
+          <article class="tl-item" role="listitem">
+            <h3>Epoch III — Consolidation</h3>
+            <time datetime="2023">2023</time>
+            <p>Focus sharpened. Systems fortified. Lessons archived.</p>
+          </article>
+
+          <article class="tl-item" role="listitem">
+            <h3>Epoch IV — inAi</h3>
+            <time datetime="2025">2025</time>
+            <p>inAi takes center stage. Practical intelligence delivered.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-label="Footer">
+    <div class="container">
+      <div class="foot-left">© <span id="year"></span> Roman Chuikov • <span class="kbd">T</span> theme • <span class="kbd">C</span> copy email</div>
+      <div class="foot-right">
+        <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+      </div>
+    </div>
   </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Roman Chuikov",
+    "url": "https://romanempire.fr/",
+    "email": "mailto:ave@romanempire.fr",
+    "sameAs": ["https://inai.fr"]
+  }
+  </script>
+
+  <script>
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with localStorage
+    (function() {
+      const key = 'roman-theme';
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const stored = localStorage.getItem(key);
+      if (stored === 'light') root.setAttribute('data-theme', 'light');
+      if (stored === 'dark') root.removeAttribute('data-theme');
+
+      function applyTheme(t) {
+        if (t === 'light') {
+          root.setAttribute('data-theme', 'light');
+          localStorage.setItem(key, 'light');
+          btn.setAttribute('aria-pressed', 'true');
+        } else {
+          root.removeAttribute('data-theme');
+          localStorage.setItem(key, 'dark');
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      }
+      btn.addEventListener('click', () => {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        applyTheme(isLight ? 'dark' : 'light');
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 't') {
+          btn.click();
+        }
+      });
+    })();
+
+    // Copy email
+    (function(){
+      const email = 'ave@romanempire.fr';
+      const btn = document.getElementById('copyBtn');
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          btn.textContent = 'Copied';
+          setTimeout(() => { btn.textContent = 'Copy'; }, 1200);
+        } catch(e) {
+          // Fallback
+          const sel = window.getSelection();
+          const range = document.createRange();
+          range.selectNode(document.getElementById('emailLink'));
+          sel.removeAllRanges(); sel.addRange(range);
+        }
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'c' && !/input|textarea/i.test(e.target.tagName)) {
+          btn.click();
+        }
+      });
+    })();
+
+    // Reveal on scroll
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    })();
+  </script>
+
+  <noscript>
+    <style>.reveal{opacity:1;transform:none}</style>
+  </noscript>
+
+  <!-- Implementation notes:
+    1) Background portrait: put your image at /assets/hero.jpg; a vector fallback /assets/hero.svg is included.
+    2) Logos: drop SVG/PNG files into /assets/logos/*.svg and update the src paths and alts.
+    3) inAi spotlight: replace img src with your real inAi logo. Fallback renders "inAi" text if missing.
+    4) Colors/spacing: tweak CSS variables in :root.
+    5) Copy: edit the hero text or timeline items directly in the HTML.
+  -->
 </body>
 </html>
