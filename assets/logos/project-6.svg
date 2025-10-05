@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 120" width="360" height="120">
+<rect rx="16" ry="16" width="360" height="120" fill="#ffffff" opacity="0.06"/>
+<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+      font-family="Inter,Arial,sans-serif" font-size="36" fill="#ffffff" opacity=".85">Project 6</text>
+</svg>
