@@ -14,21 +14,20 @@
 
   <style>
     :root{
-      /* palette: ink + parchment + bronze + imperial accent */
-      --bg:#0b0c12;           /* ink */
-      --fg:#f2efe7;           /* parchment */
-      --muted:#b9b3a8;        /* aged stone */
-      --gold:#c8a96b;         /* bronze */
-      --accent:#4a365a;       /* imperial purple tint */
-      --line:#171821;
+      /* deeper, warmer palette (less gray) */
+      --bg:#0a1016;          /* blue-black ink */
+      --fg:#f4efe4;          /* parchment */
+      --muted:#c8c0b0;       /* aged limestone */
+      --gold:#b7892d;        /* antique gold (less yellow) */
+      --line:#12141c;
       --shadow:0 14px 40px rgba(0,0,0,.35);
       --maxw:1160px;
       --peek:clamp(12px, 3.5vw, 44px);
       --card-min:220px;
       --card-max:420px;
 
-      /* keep vector hero fallback; replace later if wanted */
-      --hero-image:url('assets/hero.svg');
+      /* correct path */
+      --hero-image:url('hero.svg');
     }
 
     *{box-sizing:border-box}
@@ -38,8 +37,6 @@
       background:var(--bg);
       color:var(--fg);
       font-family:"Spectral", ui-serif, Georgia, serif;
-      font-kerning:normal;
-      font-feature-settings:"liga","kern","onum";
       line-height:1.7;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
@@ -47,7 +44,7 @@
     a{
       color:var(--fg);
       text-decoration:underline;
-      text-decoration-color:rgba(200,169,107,.55);
+      text-decoration-color:rgba(183,137,45,.55);
     }
     a:hover{ text-decoration-color:var(--gold); }
     .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
@@ -64,11 +61,10 @@
     }
     .hero::before{
       content:"";
-      position:absolute;
-      inset:0;
+      position:absolute; inset:0;
       background-image:
-        radial-gradient(60% 50% at 50% 15%, rgba(74,54,90,.18), transparent 55%),
-        linear-gradient(180deg, rgba(6,7,9,.80), rgba(6,7,9,.25) 32%, rgba(6,7,9,.85)),
+        radial-gradient(120% 80% at 50% -10%, rgba(183,137,45,.20), transparent 60%),
+        linear-gradient(180deg, rgba(8,10,14,.88), rgba(8,10,14,.22) 30%, rgba(8,10,14,.86)),
         var(--hero-image);
       background-size:cover;
       background-position:center 40%;
@@ -99,46 +95,31 @@
     }
     .lead{margin:0 auto; max-width:900px; font-size:clamp(18px, 2.2vw, 26px); opacity:.98;}
     .block{margin:20px auto 0; max-width:900px; font-size:clamp(17px, 1.9vw, 22px); opacity:.96;}
-
-    /* coin-like cameo frame for your future portrait */
-    .cameo{
-      width:min(220px, 38vw);
-      aspect-ratio:1/1;
-      margin:0 auto 14px;
-      border-radius:50%;
-      background:
-        radial-gradient(60% 60% at 50% 35%, rgba(255,255,255,.10), rgba(255,255,255,0) 62%),
-        linear-gradient(180deg, rgba(200,169,107,.45), rgba(200,169,107,.12));
-      border:1px solid rgba(200,169,107,.65);
-      box-shadow:
-        inset 0 2px 0 rgba(255,255,255,.12),
-        inset 0 -2px 0 rgba(0,0,0,.35),
-        0 24px 60px rgba(0,0,0,.45);
-      overflow:hidden;
-    }
-    .cameo img{
-      width:100%; height:100%; object-fit:cover;
-      transform:translateY(2%);
-      filter:contrast(1.05) saturate(1.02);
-    }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       margin-top:22px; padding:14px 22px; border:none; border-radius:12px;
-      background:linear-gradient(180deg, #e0c48a, var(--gold));
-      color:#121316; font-weight:700; font-family:"Cinzel", ui-serif, Georgia, serif;
-      letter-spacing:.25px; box-shadow:var(--shadow); cursor:pointer;
+      background:linear-gradient(180deg,#d4ad66,var(--gold));
+      color:#0f1115;
+      font:700 1rem/1 "Spectral", ui-serif, Georgia, serif;
+      letter-spacing:.01em;
+      box-shadow:var(--shadow); cursor:pointer;
       transition:transform .15s ease, filter .2s ease, box-shadow .2s ease;
     }
     .btn:hover{transform:translateY(-1px); filter:brightness(1.02); box-shadow:0 10px 30px rgba(0,0,0,.45);}
-    .domain-dot{display:inline-block; transform:scale(1.35); line-height:0; margin:0 .02em;}
+    .brand{ font:700 1em/1 "Spectral", ui-serif, Georgia, serif; letter-spacing:.01em; }
+    .brand .A{ font-weight:800; }
+    .brand .dot{
+      display:inline-block;
+      transform:translateY(-0.02em) scale(1.28);
+      margin-inline:-0.06em;
+    }
     .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px);}
 
     /* ===== SHOWCASE ===== */
     .showcase{
       position:relative; padding:64px 0 72px;
       background:
-        radial-gradient(80% 60% at 50% 0%, rgba(74,54,90,.18), transparent 60%), /* imperial tint */
-        radial-gradient(70% 60% at 50% 0%, rgba(200,169,107,.10), transparent 60%), /* bronze glow */
+        radial-gradient(80% 60% at 50% 0%, rgba(183,137,45,.16), transparent 60%),
         linear-gradient(var(--bg), var(--bg));
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
@@ -175,8 +156,8 @@
     .logo-card.tall{
       aspect-ratio:4/3;                            /* normalize height across mixed logo shapes */
       border-radius:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.18);
       box-shadow:var(--shadow);
       overflow:hidden;
       display:flex; align-items:center; justify-content:center;
@@ -237,11 +218,6 @@
     <!-- HERO -->
     <section class="hero" aria-label="Hero">
       <div class="container hero-inner">
-        <!-- Portrait slot; drop your image later -->
-        <figure class="cameo" aria-label="Portrait">
-          <!-- <img src="assets/portrait.jpg" alt="Portrait"> -->
-        </figure>
-
         <h1>Hi.</h1>
 
         <p class="lead">
@@ -256,11 +232,11 @@
 
         <p class="block" style="margin-top:10px">
           But let’s not dwell on the past. Empires rise and fall.
-          <br><strong>Better to try inAi<span class="domain-dot" aria-hidden="true">.</span>fr. They are building the future.</strong>
+          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i<span class="dot" aria-hidden="true">.</span>fr</span>. They are building the future.</strong>
         </p>
 
         <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">
-          Try inAi<span class="domain-dot" aria-hidden="true">.</span>fr
+          Try <span class="brand">in<span class="A">A</span>i<span class="dot" aria-hidden="true">.</span>fr</span>
         </a>
 
         <p class="contact">
