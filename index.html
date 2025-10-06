@@ -7,25 +7,24 @@
   <meta name="description" content="You searched Rome and found Roman. A minimal, ironic one‑page empire." />
   <meta name="theme-color" content="#0c0d0f" />
 
-  <!-- Fonts: Roman feel for headings, elegant serif for body -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Newsreader:opsz,wght@6..72,300;6..72,500;6..72,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Newsreader:opsz,wght@6..72,300;6..72,700&display=swap" rel="stylesheet">
 
   <style>
-    /* ====== Tokens ====== */
     :root{
       --bg:#0c0d0f;
       --fg:#e8e6e3;
       --muted:#b1aca4;
-      --gold:#dec074;          /* accent */
+      --gold:#dec074;
       --line:#1a1b20;
       --shadow:0 14px 40px rgba(0,0,0,.35);
       --maxw:1160px;
-      --hero-image:url('assets/hero.svg'); /* replace with your portrait to use full-bleed background */
+      --peek:min(9vw, 96px);           /* side glimpse in carousel */
+      --hero-image:url('assets/hero.svg'); /* use existing SVG portrait */
     }
 
-    /* ====== Base ====== */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -33,26 +32,24 @@
       background:var(--bg);
       color:var(--fg);
       font-family:"Newsreader", ui-serif, Georgia, serif;
-      line-height:1.75;
+      line-height:1.8;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      text-rendering:optimizeLegibility;
     }
     a{color:var(--gold);text-decoration:none}
     a:hover{text-decoration:underline}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
 
-    /* ====== HERO ====== */
+    /* ===== HERO ===== */
     .hero{
       position:relative;
       min-height:100vh;
       display:grid;
       place-items:center;
       text-align:center;
-      overflow:hidden;
       isolation:isolate;
+      overflow:hidden;
     }
-    /* Full-bleed portrait background with readable overlay */
     .hero::before{
       content:"";
       position:absolute; inset:0;
@@ -75,15 +72,14 @@
       .hero::before{transition:transform 850ms ease}
       .hero:hover::before{transform:scale(1.05)}
     }
-
     .hero-inner{padding:18vh 0 14vh}
     h1{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:800;
-      font-size:clamp(72px, 12vw, 160px);
-      line-height:.92;
+      font-size:clamp(56px, 9vw, 104px);
+      line-height:.94;
       letter-spacing:.5px;
-      margin:0 0 10px 0;
+      margin:0 0 14px 0;
       text-wrap:balance;
     }
     .lead{
@@ -93,37 +89,25 @@
       color:var(--fg);
     }
     .block{
-      margin:16px auto 0;
+      margin:18px auto 0;
       max-width:900px;
       font-size:clamp(17px, 1.9vw, 22px);
       color:var(--fg);
-      opacity:.95;
+      opacity:.96;
     }
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      margin-top:22px;
-      padding:14px 22px;
-      border:none;
-      border-radius:12px;
-      background:linear-gradient(180deg, #f3d98c, var(--gold));
-      color:#111216;
-      font-weight:700;
-      font-family:"Cinzel", ui-serif, Georgia, serif;
-      letter-spacing:.3px;
-      box-shadow:var(--shadow);
-      cursor:pointer;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      margin-top:22px;padding:14px 22px;border:none;border-radius:12px;
+      background:linear-gradient(180deg,#f3d98c,var(--gold));color:#111216;
+      font-weight:700;font-family:"Cinzel", ui-serif, Georgia, serif;letter-spacing:.3px;
+      box-shadow:var(--shadow);cursor:pointer;
       transition:transform .15s ease, filter .2s ease;
     }
-    .btn:hover{transform:translateY(-1px); filter:brightness(1.02)}
+    .btn:hover{transform:translateY(-1px);filter:brightness(1.02)}
+    .contact{margin-top:18px;color:var(--muted);font-size:clamp(14px, 1.4vw, 16px)}
 
-    .contact{
-      margin-top:18px;
-      color:var(--muted);
-      font-size:clamp(14px, 1.4vw, 16px);
-    }
-
-    /* ====== PROJECTS STRIP ====== */
-    .projects{
+    /* ===== SHOWCASE (carousel + inAi spotlight) ===== */
+    .showcase{
       position:relative;
       padding:64px 0 72px;
       background:
@@ -133,86 +117,65 @@
       border-bottom:1px solid var(--line);
     }
 
-    /* Carousel shell */
-    .carousel{
-      position:relative;
-      margin:18px 0 26px;
+    .slider{position:relative; margin:10px 0 26px}
+    .viewport{
+      overflow:hidden;
+      padding-inline:var(--peek);
     }
     .track{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:clamp(160px, 18vw, 240px);
-      gap:18px;
-      overflow-x:auto;
-      overscroll-behavior-x:contain;
-      scroll-snap-type:x mandatory;
-      padding:8px 6px 8px 6px;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      mask-image:linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
-      -webkit-mask-image:linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
+      display:flex;
+      will-change:transform;
+      transition:transform 520ms ease;
+      touch-action:pan-x;
     }
-    .track::-webkit-scrollbar{display:none}
-
-    .card{
-      scroll-snap-align:start;
-      height:86px;
-      display:grid; place-items:center;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      padding:18px;
-      transition:transform .15s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
-      opacity:.95;
+    .slide{flex:0 0 calc(100% - (var(--peek) * 2)); padding:12px}
+    .logo-card{
+      height:clamp(120px, 22vw, 190px);
+      display:grid;place-items:center;
+      border-radius:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:var(--shadow);
     }
-    .card:hover{transform:translateY(-2px); background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.18)}
-    .card img{max-height:46px; max-width:90%; filter:grayscale(100%) contrast(1.05); opacity:.95}
+    .logo-card img{max-height:72%;max-width:86%;filter:none;opacity:1}
 
     .arrow{
-      position:absolute; inset:0 auto 0 0; width:64px; height:64px; margin:auto 0;
-      display:grid; place-items:center;
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:60px;height:60px; display:grid;place-items:center;
       border-radius:50%;
       border:1px solid rgba(255,255,255,.18);
       background:rgba(0,0,0,.35);
-      color:var(--fg);
-      cursor:pointer;
-      backdrop-filter:blur(6px);
+      color:var(--fg); cursor:pointer; backdrop-filter:blur(6px);
       box-shadow:var(--shadow);
-      transform:translateX(-10px);
     }
-    .arrow.right{left:auto; right:0; transform:translateX(10px)}
+    .arrow.left{left:8px}
+    .arrow.right{right:8px}
     .arrow svg{width:18px;height:18px}
     @media (max-width:720px){ .arrow{display:none} }
 
-    /* inAi spotlight (static, larger, not moving) */
+    /* inAi spotlight: much bigger, clickable */
     .inai{
-      display:grid; place-items:center;
-      width:min(520px, 92vw);
-      height:120px;
-      margin:26px auto 0;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.16);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      display:grid;place-items:center;
+      width:min(720px, 94vw);
+      height:clamp(140px, 26vw, 220px);
+      margin:28px auto 0;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.22);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
+        radial-gradient(70% 120% at 50% 0%, rgba(222,192,116,.18), transparent 70%);
       box-shadow:var(--shadow);
     }
-    .inai img{max-width:72%; max-height:64px; filter:none; opacity:1}
+    .inai img{max-width:80%;max-height:70%;filter:none}
 
-    /* ====== CLOSING LINE ====== */
-    .closing{
-      display:grid; place-items:center;
-      padding:64px 22px 80px;
-      text-align:center;
-    }
+    /* ===== CLOSING ===== */
+    .closing{display:grid;place-items:center;padding:64px 22px 80px;text-align:center}
     .closing .line{
       font-family:"Cinzel", ui-serif, Georgia, serif;
-      font-weight:700;
-      letter-spacing:.6px;
-      font-size:clamp(18px, 2vw, 22px);
-      color:var(--muted);
+      font-weight:700;letter-spacing:.6px;
+      font-size:clamp(18px, 2vw, 22px);color:var(--muted)
     }
 
-    /* ====== Utilities ====== */
-    .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
     @media (prefers-reduced-motion:reduce){
       *{animation:none!important;transition:none!important}
     }
@@ -249,38 +212,40 @@
       </div>
     </section>
 
-    <!-- PROJECTS: horizontal carousel + static inAi spotlight -->
-    <section class="projects" aria-label="Projects">
+    <!-- SHOWCASE -->
+    <section class="showcase" aria-label="Projects">
       <div class="container">
-        <!-- Carousel -->
-        <div class="carousel" role="region" aria-label="Project logos">
-          <button class="arrow left" type="button" aria-label="Scroll left" data-dir="-1">
+
+        <div class="slider" role="region" aria-label="Project logos">
+          <button class="arrow left" type="button" aria-label="Previous" data-dir="-1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
 
-          <div class="track" id="logoTrack">
-            <!-- Project logo items -->
-            <div class="card"><img src="assets/logos/copycat.jpg" alt="CopyCat"></div>
-            <div class="card"><img src="assets/logos/everbet.jpg" alt="EverBet"></div>
-            <div class="card"><img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu"></div>
-            <div class="card"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Universite Catholique de Lille"></div>
-            <div class="card"><img src="assets/logos/i-pressa.jpg" alt="iPressa"></div>
-            <div class="card"><img src="assets/logos/diplosha.jpg" alt="Diplosha"></div>
-            <div class="card"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety"></div>
-            <div class="card"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU-MSKHA"></div>
-            <div class="card"><img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU"></div>
-            <div class="card"><img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies"></div>
+          <div class="viewport">
+            <div class="track" id="logoTrack">
+              <!-- Slides with logos -->
+              <div class="slide"><div class="logo-card"><img src="assets/logos/copycat.jpg" alt="CopyCat"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/everbet.jpg" alt="EverBet"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Universite Catholique de Lille"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/i-pressa.jpg" alt="iPressa"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/diplosha.jpg" alt="Diplosha"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU-MSKHA"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies"></div></div>
+            </div>
           </div>
 
-          <button class="arrow right" type="button" aria-label="Scroll right" data-dir="1">
+          <button class="arrow right" type="button" aria-label="Next" data-dir="1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 19l7-7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
 
-        <!-- Static inAi spotlight (bigger, not moving). -->
-        <div class="inai">
+        <!-- inAi spotlight -->
+        <a class="inai" href="https://inai.fr" target="_blank" rel="noopener" aria-label="Open inAi.fr">
           <img src="assets/logos/inai.webp" alt="inAi">
-        </div>
+        </a>
       </div>
     </section>
 
@@ -291,17 +256,74 @@
   </main>
 
   <script>
-    // Horizontal carousel controls
+    // Centered, infinite carousel
     (function(){
       const track = document.getElementById('logoTrack');
-      const arrows = document.querySelectorAll('.arrow');
-      function step(){ return Math.max(240, Math.floor(track.clientWidth * 0.6)); }
-      arrows.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const dir = Number(btn.dataset.dir || 1);
-          track.scrollBy({ left: step() * dir, behavior: 'smooth' });
-        });
+      const leftBtn = document.querySelector('.arrow.left');
+      const rightBtn = document.querySelector('.arrow.right');
+
+      // Clone edges for seamless loop
+      function setupClones(){
+        const items = Array.from(track.children);
+        const first = items[0].cloneNode(true);
+        const last  = items[items.length-1].cloneNode(true);
+        first.dataset.clone = 'first';
+        last.dataset.clone  = 'last';
+        track.insertBefore(last, items[0]);
+        track.appendChild(first);
+      }
+
+      setupClones();
+      let slides = Array.from(track.children);
+      let index = 1; // start at real first
+      let anim = false;
+
+      function slideWidth(){
+        return slides[0].getBoundingClientRect().width;
+      }
+
+      function setX(animate=true){
+        if(!animate){ track.style.transition = 'none'; }
+        const x = -index * slideWidth();
+        track.style.transform = `translateX(${x}px)`;
+        if(!animate){
+          track.offsetHeight;
+          track.style.transition = 'transform 520ms ease';
+        }
+      }
+
+      function normalize(){
+        if(slides[index] && slides[index].dataset.clone === 'first'){
+          index = 1;
+          setX(false);
+        } else if(slides[index] && slides[index].dataset.clone === 'last'){
+          index = slides.length - 2;
+          setX(false);
+        }
+      }
+
+      function move(dir){
+        if(anim) return;
+        anim = true;
+        index += dir;
+        setX(true);
+      }
+
+      track.addEventListener('transitionend', () => {
+        normalize();
+        anim = false;
       });
+
+      rightBtn.addEventListener('click', () => move(1));
+      leftBtn.addEventListener('click', () => move(-1));
+
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowRight') move(1);
+        if(e.key === 'ArrowLeft') move(-1);
+      });
+
+      window.addEventListener('resize', () => setX(false));
+      setX(false);
     })();
   </script>
 
