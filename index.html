@@ -193,7 +193,7 @@
     /* inAi spotlight remains large and distinct */
     .inai{
       display:flex; align-items:center; justify-content:center;
-      width:min(760px, 95vw);                       /* unchanged on purpose */
+      width:min(530px, 90vw);                       /* scaled down for better balance */
       aspect-ratio:1/1; margin:30px auto 0;
       border-radius:22px; border:1px solid rgba(255,255,255,.22);
       background:
@@ -204,12 +204,13 @@
     }
     .inai img{width:100%; height:100%; object-fit:contain; display:block;}
     /* ===== CLOSING ===== */
-    .closing{display:grid; place-items:center; padding:64px 22px 80px; text-align:center;}
+    .closing{display:grid; place-items:center; padding:80px 22px 96px; text-align:center;}
     .closing .line{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:700;
-      letter-spacing:.6px;
-      font-size:clamp(18px, 2vw, 22px);
+      letter-spacing:.8px;
+      font-size:clamp(24px, 2.8vw, 32px);
+      text-transform:uppercase;
       color:var(--muted);
     }
     @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
