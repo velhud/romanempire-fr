@@ -10,21 +10,24 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Newsreader:opsz,wght@6..72,300;6..72,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* palette and sizing tokens */
-      --bg:#0c0d0f;
-      --fg:#e8e6e3;
-      --muted:#b1aca4;
-      --gold:#dec074;
-      --line:#1a1b20;
+      /* palette: ink + parchment + bronze + imperial accent */
+      --bg:#0b0c12;           /* ink */
+      --fg:#f2efe7;           /* parchment */
+      --muted:#b9b3a8;        /* aged stone */
+      --gold:#c8a96b;         /* bronze */
+      --accent:#4a365a;       /* imperial purple tint */
+      --line:#171821;
       --shadow:0 14px 40px rgba(0,0,0,.35);
       --maxw:1160px;
-      /* edge glimpse for carousel */
-      --peek:clamp(20px, 5vw, 70px);
-      /* use hero.svg since we don't have a .jpg */
+      --peek:clamp(12px, 3.5vw, 44px);
+      --card-min:220px;
+      --card-max:420px;
+
+      /* keep vector hero fallback; replace later if wanted */
       --hero-image:url('assets/hero.svg');
     }
 
@@ -34,13 +37,19 @@
       margin:0;
       background:var(--bg);
       color:var(--fg);
-      font-family:"Newsreader", ui-serif, Georgia, serif;
-      line-height:1.8;
+      font-family:"Spectral", ui-serif, Georgia, serif;
+      font-kerning:normal;
+      font-feature-settings:"liga","kern","onum";
+      line-height:1.7;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
-    a{color:var(--gold);text-decoration:none}
-    a:hover{text-decoration:underline}
+    a{
+      color:var(--fg);
+      text-decoration:underline;
+      text-decoration-color:rgba(200,169,107,.55);
+    }
+    a:hover{ text-decoration-color:var(--gold); }
     .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
 
     /* ===== HERO ===== */
@@ -58,7 +67,8 @@
       position:absolute;
       inset:0;
       background-image:
-        linear-gradient(180deg, rgba(6,7,9,.78), rgba(6,7,9,.25) 32%, rgba(6,7,9,.80)),
+        radial-gradient(60% 50% at 50% 15%, rgba(74,54,90,.18), transparent 55%),
+        linear-gradient(180deg, rgba(6,7,9,.80), rgba(6,7,9,.25) 32%, rgba(6,7,9,.85)),
         var(--hero-image);
       background-size:cover;
       background-position:center 40%;
@@ -83,51 +93,56 @@
       font-weight:800;
       font-size:clamp(48px, 7vw, 82px);
       line-height:.94;
-      letter-spacing:.5px;
-      margin:0 0 16px 0;
+      letter-spacing:.3px;
+      margin:14px 0 14px;
       text-wrap:balance;
     }
-    .lead{margin:0 auto; max-width:900px; font-size:clamp(18px, 2.2vw, 26px);}
+    .lead{margin:0 auto; max-width:900px; font-size:clamp(18px, 2.2vw, 26px); opacity:.98;}
     .block{margin:20px auto 0; max-width:900px; font-size:clamp(17px, 1.9vw, 22px); opacity:.96;}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin-top:22px;
-      padding:14px 22px;
-      border:none;
-      border-radius:12px;
-      background:linear-gradient(180deg,#f3d98c,var(--gold));
-      color:#111216;
-      font-weight:700;
-      font-family:"Cinzel", ui-serif, Georgia, serif;
-      letter-spacing:.3px;
-      box-shadow:var(--shadow);
-      cursor:pointer;
-      transition:transform .15s ease, filter .2s ease;
+
+    /* coin-like cameo frame for your future portrait */
+    .cameo{
+      width:min(220px, 38vw);
+      aspect-ratio:1/1;
+      margin:0 auto 14px;
+      border-radius:50%;
+      background:
+        radial-gradient(60% 60% at 50% 35%, rgba(255,255,255,.10), rgba(255,255,255,0) 62%),
+        linear-gradient(180deg, rgba(200,169,107,.45), rgba(200,169,107,.12));
+      border:1px solid rgba(200,169,107,.65);
+      box-shadow:
+        inset 0 2px 0 rgba(255,255,255,.12),
+        inset 0 -2px 0 rgba(0,0,0,.35),
+        0 24px 60px rgba(0,0,0,.45);
+      overflow:hidden;
     }
-    .btn:hover{transform:translateY(-1px); filter:brightness(1.02);}
+    .cameo img{
+      width:100%; height:100%; object-fit:cover;
+      transform:translateY(2%);
+      filter:contrast(1.05) saturate(1.02);
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      margin-top:22px; padding:14px 22px; border:none; border-radius:12px;
+      background:linear-gradient(180deg, #e0c48a, var(--gold));
+      color:#121316; font-weight:700; font-family:"Cinzel", ui-serif, Georgia, serif;
+      letter-spacing:.25px; box-shadow:var(--shadow); cursor:pointer;
+      transition:transform .15s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px); filter:brightness(1.02); box-shadow:0 10px 30px rgba(0,0,0,.45);}
+    .domain-dot{display:inline-block; transform:scale(1.35); line-height:0; margin:0 .02em;}
     .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px);}
 
     /* ===== SHOWCASE ===== */
     .showcase{
-      position:relative;
-      padding:64px 0 72px;
+      position:relative; padding:64px 0 72px;
       background:
-        radial-gradient(80% 60% at 50% 0%, rgba(222,192,116,.10), transparent 60%),
+        radial-gradient(80% 60% at 50% 0%, rgba(74,54,90,.18), transparent 60%), /* imperial tint */
+        radial-gradient(70% 60% at 50% 0%, rgba(200,169,107,.10), transparent 60%), /* bronze glow */
         linear-gradient(var(--bg), var(--bg));
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
     }
-
-    /* sizing tokens for the carousel */
-    :root{
-      --peek: clamp(12px, 3.5vw, 44px);           /* edge glimpse */
-      --card-min: 220px;                           /* min logo card width */
-      --card-max: 420px;                           /* max logo card width */
-    }
-
     .slider{position:relative; margin:10px 0 26px;}
     .viewport{
       position:relative;
@@ -160,8 +175,8 @@
     .logo-card.tall{
       aspect-ratio:4/3;                            /* normalize height across mixed logo shapes */
       border-radius:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.16);
       box-shadow:var(--shadow);
       overflow:hidden;
       display:flex; align-items:center; justify-content:center;
@@ -197,8 +212,8 @@
       aspect-ratio:1/1; margin:30px auto 0;
       border-radius:22px; border:1px solid rgba(255,255,255,.22);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
-        radial-gradient(70% 120% at 50% 0%, rgba(222,192,116,.18), transparent 70%);
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
+        radial-gradient(70% 120% at 50% 0%, rgba(200,169,107,.16), transparent 70%);
       box-shadow:var(--shadow);
       padding:clamp(16px,3.5vw,42px);
     }
@@ -208,9 +223,9 @@
     .closing .line{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:700;
-      letter-spacing:.8px;
+      font-variant-caps:small-caps;
+      letter-spacing:.08em;
       font-size:clamp(24px, 2.8vw, 32px);
-      text-transform:uppercase;
       color:var(--muted);
     }
     @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
@@ -222,6 +237,11 @@
     <!-- HERO -->
     <section class="hero" aria-label="Hero">
       <div class="container hero-inner">
+        <!-- Portrait slot; drop your image later -->
+        <figure class="cameo" aria-label="Portrait">
+          <!-- <img src="assets/portrait.jpg" alt="Portrait"> -->
+        </figure>
+
         <h1>Hi.</h1>
 
         <p class="lead">
@@ -236,10 +256,12 @@
 
         <p class="block" style="margin-top:10px">
           But let’s not dwell on the past. Empires rise and fall.
-          <br><strong>Better to try inAi.fr. They are building the future.</strong>
+          <br><strong>Better to try inAi<span class="domain-dot" aria-hidden="true">.</span>fr. They are building the future.</strong>
         </p>
 
-        <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">Try inAi.fr</a>
+        <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">
+          Try inAi<span class="domain-dot" aria-hidden="true">.</span>fr
+        </a>
 
         <p class="contact">
           Need Roman? <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
