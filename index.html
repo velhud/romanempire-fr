@@ -120,6 +120,14 @@
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
     }
+
+    /* sizing tokens for the carousel */
+    :root{
+      --peek: clamp(12px, 3.5vw, 44px);           /* edge glimpse */
+      --card-min: 220px;                           /* min logo card width */
+      --card-max: 420px;                           /* max logo card width */
+    }
+
     .slider{position:relative; margin:10px 0 26px;}
     .viewport{
       position:relative;
@@ -131,87 +139,70 @@
     .viewport::after{
       content:"";
       position:absolute;
-      top:0;
-      bottom:0;
-      width:var(--peek);
-      pointer-events:none;
-      z-index:2;
-      opacity:.75;
+      top:0; bottom:0; width:var(--peek);
+      pointer-events:none; z-index:2; opacity:.75;
     }
-    .viewport::before{left:0; background:linear-gradient(to right, rgba(12,13,15,1), rgba(12,13,15,0));}
-    .viewport::after{right:0; background:linear-gradient(to left, rgba(12,13,15,1), rgba(12,13,15,0));}
+    .viewport::before{left:0;  background:linear-gradient(to right, rgba(12,13,15,1), rgba(12,13,15,0));}
+    .viewport::after {right:0; background:linear-gradient(to left,  rgba(12,13,15,1), rgba(12,13,15,0));}
+
     .track{display:flex; will-change:transform; transition:transform 520ms ease; touch-action:pan-x;}
-    .slide{flex:0 0 calc(100% - (var(--peek) * 2)); padding:12px;}
-    /* adaptive logo frame; JS will add orientation classes */
-    .logo-card{
+    /* show multiple cards per view on wide screens; one on small screens */
+    .slide{
+      flex:0 0 auto;
+      width:clamp(var(--card-min), 28vw, var(--card-max));
+      padding:10px;                                /* spacing without flex gap (keeps JS math exact) */
+    }
+
+    /* one consistent frame for all logos */
+    .logo-card,
+    .logo-card.wide,
+    .logo-card.square,
+    .logo-card.tall{
+      aspect-ratio:4/3;                            /* normalize height across mixed logo shapes */
       border-radius:16px;
       background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.14);
       box-shadow:var(--shadow);
       overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:clamp(12px, 2vw, 22px);
+      display:flex; align-items:center; justify-content:center;
+      padding:clamp(10px, 1.6vw, 18px);
     }
-    .logo-card.wide   { aspect-ratio: 16/9; }
-    .logo-card.square { aspect-ratio: 1/1; }
-    .logo-card.tall   { aspect-ratio: 3/4; }
+
+    /* fit every logo cleanly inside the frame */
     .logo-card img{
-      max-width:100%;
-      max-height:100%;
-      width:auto;
-      height:auto;
-      display:block;
-      filter:none;
-      opacity:1;
-      border-radius:10px;
+      width:100%; height:100%;
+      object-fit:contain;                          /* preserve proportions; no crop */
+      display:block; border-radius:10px;
     }
+
+    /* controls */
     .arrow{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:54px;
-      height:54px;
-      display:grid;
-      place-items:center;
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px;
+      display:grid; place-items:center;
       border-radius:50%;
       border:1px solid rgba(255,255,255,.18);
       background:rgba(0,0,0,.35);
-      color:var(--fg);
-      cursor:pointer;
-      backdrop-filter:blur(6px);
-      box-shadow:var(--shadow);
-      z-index:3;
+      color:var(--fg); cursor:pointer;
+      backdrop-filter:blur(6px); box-shadow:var(--shadow); z-index:3;
     }
-    .arrow.left{left:8px;}
-    .arrow.right{right:8px;}
-    .arrow svg{width:18px;height:18px;}
+    .arrow.left{left:8px;} .arrow.right{right:8px;}
+    .arrow svg{width:16px;height:16px;}
     @media (max-width:720px){ .arrow{display:none;} }
-    /* bigger square inAi card */
+
+    /* inAi spotlight remains large and distinct */
     .inai{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:min(760px, 95vw);
-      aspect-ratio:1/1;
-      margin:30px auto 0;
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,.22);
+      display:flex; align-items:center; justify-content:center;
+      width:min(760px, 95vw);                       /* unchanged on purpose */
+      aspect-ratio:1/1; margin:30px auto 0;
+      border-radius:22px; border:1px solid rgba(255,255,255,.22);
       background:
         linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
         radial-gradient(70% 120% at 50% 0%, rgba(222,192,116,.18), transparent 70%);
       box-shadow:var(--shadow);
       padding:clamp(16px,3.5vw,42px);
     }
-    .inai img{
-      max-width:100%;
-      max-height:100%;
-      width:auto;
-      height:auto;
-      filter:none;
-      display:block;
-    }
+    .inai img{width:100%; height:100%; object-fit:contain; display:block;}
     /* ===== CLOSING ===== */
     .closing{display:grid; place-items:center; padding:64px 22px 80px; text-align:center;}
     .closing .line{
