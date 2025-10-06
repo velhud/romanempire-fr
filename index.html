@@ -109,6 +109,26 @@
       transition:transform .15s ease, filter .2s ease, box-shadow .2s ease;
     }
     .btn:hover{transform:translateY(-1px); filter:brightness(1.02); box-shadow:0 10px 30px rgba(0,0,0,.45);}
+    /* make the button larger without changing text size */
+    .btn{ padding:20px 28px; }
+    /* brand styling scoped to the button only */
+    .btn .btn-brand{
+      font-family:"Newsreader", ui-serif, Georgia, serif;
+      font-weight:700;
+      letter-spacing:0;
+      white-space:nowrap;
+    }
+    .btn .btn-A{ font-weight:800; }
+    /* bigger dot with tight kerning, no added space */
+    .btn .btn-dot{
+      display:inline-block;
+      transform:scale(1.55);
+      transform-origin:center;
+      line-height:0;
+      vertical-align:-0.06em;
+      margin-left:-0.08em;
+      margin-right:-0.08em;
+    }
     .brand{
       font-family:"Newsreader", ui-serif, Georgia, serif;
       font-weight:700;
@@ -246,7 +266,7 @@
         </p>
 
         <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">
-          Try <span class="brand">in<span class="A">A</span>i<span class="dot">.</span>fr</span>
+          Try <span class="btn-brand">in<span class="btn-A">A</span>i<span class="btn-dot">.</span>fr</span>
         </a>
 
         <p class="contact">
