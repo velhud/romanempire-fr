@@ -21,7 +21,7 @@
       --line:#1a1b20;
       --shadow:0 14px 40px rgba(0,0,0,.35);
       --maxw:1160px;
-      --peek:min(9vw, 96px);           /* side glimpse in carousel */
+      --peek:clamp(28px, 6vw, 90px);     /* small edge glimpse */
       --hero-image:url('assets/hero.svg'); /* use existing SVG portrait */
     }
 
@@ -42,143 +42,109 @@
 
     /* ===== HERO ===== */
     .hero{
-      position:relative;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      isolation:isolate;
-      overflow:hidden;
+      position:relative; min-height:100vh; display:grid; place-items:center; text-align:center; isolation:isolate; overflow:hidden;
     }
     .hero::before{
-      content:"";
-      position:absolute; inset:0;
-      background-image:
-        linear-gradient(180deg, rgba(6,7,9,.78), rgba(6,7,9,.25) 32%, rgba(6,7,9,.80)),
-        var(--hero-image);
-      background-size:cover;
-      background-position:center 40%;
-      filter:saturate(1.02) contrast(1.04);
-      transform:scale(1.02);
-      z-index:-2;
+      content:""; position:absolute; inset:0;
+      background-image:linear-gradient(180deg, rgba(6,7,9,.78), rgba(6,7,9,.25) 32%, rgba(6,7,9,.80)), var(--hero-image);
+      background-size:cover; background-position:center 40%;
+      filter:saturate(1.02) contrast(1.04); transform:scale(1.02); z-index:-2;
     }
-    .hero::after{
-      content:"";
-      position:absolute; inset:0;
-      box-shadow:inset 0 0 200px rgba(0,0,0,.55);
-      z-index:-1;
-    }
-    @media (prefers-reduced-motion:no-preference){
-      .hero::before{transition:transform 850ms ease}
-      .hero:hover::before{transform:scale(1.05)}
-    }
+    .hero::after{content:""; position:absolute; inset:0; box-shadow:inset 0 0 200px rgba(0,0,0,.55); z-index:-1;}
+    @media (prefers-reduced-motion:no-preference){ .hero::before{transition:transform 850ms ease} .hero:hover::before{transform:scale(1.05)} }
+
     .hero-inner{padding:18vh 0 14vh}
     h1{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:800;
-      font-size:clamp(56px, 9vw, 104px);
-      line-height:.94;
-      letter-spacing:.5px;
-      margin:0 0 14px 0;
-      text-wrap:balance;
+      font-size:clamp(52px, 8vw, 90px); /* reduced */
+      line-height:.94; letter-spacing:.5px; margin:0 0 14px 0; text-wrap:balance;
     }
-    .lead{
-      margin:0 auto;
-      max-width:900px;
-      font-size:clamp(18px, 2.2vw, 26px);
-      color:var(--fg);
-    }
-    .block{
-      margin:18px auto 0;
-      max-width:900px;
-      font-size:clamp(17px, 1.9vw, 22px);
-      color:var(--fg);
-      opacity:.96;
-    }
+    .lead{margin:0 auto; max-width:900px; font-size:clamp(18px, 2.2vw, 26px);}
+    .block{margin:18px auto 0; max-width:900px; font-size:clamp(17px, 1.9vw, 22px); opacity:.96;}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      margin-top:22px;padding:14px 22px;border:none;border-radius:12px;
-      background:linear-gradient(180deg,#f3d98c,var(--gold));color:#111216;
-      font-weight:700;font-family:"Cinzel", ui-serif, Georgia, serif;letter-spacing:.3px;
-      box-shadow:var(--shadow);cursor:pointer;
-      transition:transform .15s ease, filter .2s ease;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      margin-top:22px; padding:14px 22px; border:none; border-radius:12px;
+      background:linear-gradient(180deg,#f3d98c,var(--gold)); color:#111216;
+      font-weight:700; font-family:"Cinzel", ui-serif, Georgia, serif; letter-spacing:.3px;
+      box-shadow:var(--shadow); cursor:pointer; transition:transform .15s ease, filter .2s ease;
     }
-    .btn:hover{transform:translateY(-1px);filter:brightness(1.02)}
-    .contact{margin-top:18px;color:var(--muted);font-size:clamp(14px, 1.4vw, 16px)}
+    .btn:hover{transform:translateY(-1px); filter:brightness(1.02)}
+    .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px)}
 
-    /* ===== SHOWCASE (carousel + inAi spotlight) ===== */
+    /* ===== SHOWCASE ===== */
     .showcase{
-      position:relative;
-      padding:64px 0 72px;
-      background:
-        radial-gradient(80% 60% at 50% 0%, rgba(222,192,116,.10), transparent 60%),
-        linear-gradient(var(--bg), var(--bg));
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
+      position:relative; padding:64px 0 72px;
+      background: radial-gradient(80% 60% at 50% 0%, rgba(222,192,116,.10), transparent 60%), linear-gradient(var(--bg), var(--bg));
+      border-top:1px solid var(--line); border-bottom:1px solid var(--line);
     }
-
     .slider{position:relative; margin:10px 0 26px}
     .viewport{
+      position:relative;
       overflow:hidden;
-      padding-inline:var(--peek);
+      padding-inline:var(--peek);          /* reveal edges without cutting content */
     }
-    .track{
-      display:flex;
-      will-change:transform;
-      transition:transform 520ms ease;
-      touch-action:pan-x;
+    /* subtle feather over edges, not a hard mask */
+    .viewport::before,
+    .viewport::after{
+      content:""; position:absolute; top:0; bottom:0; width:var(--peek); pointer-events:none; z-index:2;
     }
-    .slide{flex:0 0 calc(100% - (var(--peek) * 2)); padding:12px}
+    .viewport::before{left:0; background:linear-gradient(to right, rgba(12,13,15,1), rgba(12,13,15,0))}
+    .viewport::after{right:0; background:linear-gradient(to left, rgba(12,13,15,1), rgba(12,13,15,0))}
+
+    .track{display:flex; will-change:transform; transition:transform 520ms ease; touch-action:pan-x;}
+    .slide{flex:0 0 calc(100% - (var(--peek) * 2)); padding:12px;}
+
+    /* Uniform frame that adapts to any logo shape */
     .logo-card{
-      height:clamp(120px, 22vw, 190px);
-      display:grid;place-items:center;
+      aspect-ratio:16/7;                    /* cinematic letterbox */
       border-radius:16px;
       background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.14);
       box-shadow:var(--shadow);
+      padding:clamp(14px, 2.8vw, 28px);     /* inner safe area so edges never crop logos */
+      overflow:hidden;                       /* hide any accidental overflow */
+      display:grid; place-items:center;
     }
-    .logo-card img{max-height:72%;max-width:86%;filter:none;opacity:1}
+    .logo-card img{
+      display:block;
+      width:100%; height:100%;
+      object-fit:contain;                    /* preserve aspect for horizontal/vertical/square */
+      filter:none; opacity:1;                /* full color */
+    }
 
     .arrow{
       position:absolute; top:50%; transform:translateY(-50%);
-      width:60px;height:60px; display:grid;place-items:center;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.18);
-      background:rgba(0,0,0,.35);
-      color:var(--fg); cursor:pointer; backdrop-filter:blur(6px);
-      box-shadow:var(--shadow);
+      width:54px; height:54px; display:grid; place-items:center;
+      border-radius:50%; border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.35); color:var(--fg); cursor:pointer;
+      backdrop-filter:blur(6px); box-shadow:var(--shadow); z-index:3;
     }
     .arrow.left{left:8px}
     .arrow.right{right:8px}
     .arrow svg{width:18px;height:18px}
     @media (max-width:720px){ .arrow{display:none} }
 
-    /* inAi spotlight: much bigger, clickable */
+    /* Bigger inAi spotlight */
     .inai{
-      display:grid;place-items:center;
-      width:min(720px, 94vw);
-      height:clamp(140px, 26vw, 220px);
-      margin:28px auto 0;
-      border-radius:20px;
+      display:grid; place-items:center;
+      width:min(760px, 95vw); height:clamp(160px, 28vw, 240px);
+      margin:30px auto 0; border-radius:20px;
       border:1px solid rgba(255,255,255,.22);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
-        radial-gradient(70% 120% at 50% 0%, rgba(222,192,116,.18), transparent 70%);
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
+                 radial-gradient(70% 120% at 50% 0%, rgba(222,192,116,.18), transparent 70%);
       box-shadow:var(--shadow);
     }
-    .inai img{max-width:80%;max-height:70%;filter:none}
+    .inai img{max-width:84%; max-height:78%; filter:none}
 
     /* ===== CLOSING ===== */
-    .closing{display:grid;place-items:center;padding:64px 22px 80px;text-align:center}
+    .closing{display:grid; place-items:center; padding:64px 22px 80px; text-align:center}
     .closing .line{
-      font-family:"Cinzel", ui-serif, Georgia, serif;
-      font-weight:700;letter-spacing:.6px;
-      font-size:clamp(18px, 2vw, 22px);color:var(--muted)
+      font-family:"Cinzel", ui-serif, Georgia, serif; font-weight:700; letter-spacing:.6px;
+      font-size:clamp(18px, 2vw, 22px); color:var(--muted)
     }
 
-    @media (prefers-reduced-motion:reduce){
-      *{animation:none!important;transition:none!important}
-    }
+    @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
   </style>
 </head>
 <body>
@@ -223,15 +189,15 @@
 
           <div class="viewport">
             <div class="track" id="logoTrack">
-              <!-- Slides with logos -->
+              <!-- Replace slides with your logos. Keep class="slide" and nested .logo-card -->
               <div class="slide"><div class="logo-card"><img src="assets/logos/copycat.jpg" alt="CopyCat"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/everbet.jpg" alt="EverBet"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Universite Catholique de Lille"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/i-pressa.jpg" alt="iPressa"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/i-pressa.jpg" alt="i-Pressa"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/diplosha.jpg" alt="Diplosha"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU-MSKHA"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz drysha v atlety"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies"></div></div>
             </div>
@@ -256,73 +222,47 @@
   </main>
 
   <script>
-    // Centered, infinite carousel
+    // Centered infinite carousel with safe edges
     (function(){
       const track = document.getElementById('logoTrack');
       const leftBtn = document.querySelector('.arrow.left');
       const rightBtn = document.querySelector('.arrow.right');
 
-      // Clone edges for seamless loop
-      function setupClones(){
-        const items = Array.from(track.children);
-        const first = items[0].cloneNode(true);
-        const last  = items[items.length-1].cloneNode(true);
-        first.dataset.clone = 'first';
-        last.dataset.clone  = 'last';
-        track.insertBefore(last, items[0]);
+      function makeClones(){
+        const kids = Array.from(track.children);
+        const first = kids[0].cloneNode(true); first.dataset.clone='first';
+        const last  = kids[kids.length-1].cloneNode(true); last.dataset.clone='last';
+        track.insertBefore(last, kids[0]);
         track.appendChild(first);
       }
+      makeClones();
 
-      setupClones();
       let slides = Array.from(track.children);
-      let index = 1; // start at real first
+      let index = 1;
       let anim = false;
 
-      function slideWidth(){
-        return slides[0].getBoundingClientRect().width;
-      }
-
+      function slideW(){ return slides[0].getBoundingClientRect().width; }
       function setX(animate=true){
-        if(!animate){ track.style.transition = 'none'; }
-        const x = -index * slideWidth();
-        track.style.transform = `translateX(${x}px)`;
-        if(!animate){
-          track.offsetHeight;
-          track.style.transition = 'transform 520ms ease';
-        }
+        if(!animate) track.style.transition='none';
+        track.style.transform = `translateX(${-index*slideW()}px)`;
+        if(!animate){ track.offsetHeight; track.style.transition='transform 520ms ease'; }
       }
-
       function normalize(){
-        if(slides[index] && slides[index].dataset.clone === 'first'){
-          index = 1;
-          setX(false);
-        } else if(slides[index] && slides[index].dataset.clone === 'last'){
-          index = slides.length - 2;
-          setX(false);
-        }
+        if(slides[index]?.dataset.clone === 'first'){ index = 1; setX(false); }
+        else if(slides[index]?.dataset.clone === 'last'){ index = slides.length - 2; setX(false); }
       }
-
       function move(dir){
         if(anim) return;
-        anim = true;
-        index += dir;
-        setX(true);
+        anim = true; index += dir; setX(true);
       }
 
-      track.addEventListener('transitionend', () => {
-        normalize();
-        anim = false;
-      });
+      track.addEventListener('transitionend', ()=>{ normalize(); anim = false; });
+      rightBtn.addEventListener('click', ()=>move(1));
+      leftBtn.addEventListener('click', ()=>move(-1));
+      window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
+      window.addEventListener('resize', ()=> setX(false));
 
-      rightBtn.addEventListener('click', () => move(1));
-      leftBtn.addEventListener('click', () => move(-1));
-
-      window.addEventListener('keydown', (e) => {
-        if(e.key === 'ArrowRight') move(1);
-        if(e.key === 'ArrowLeft') move(-1);
-      });
-
-      window.addEventListener('resize', () => setX(false));
+      // init
       setX(false);
     })();
   </script>
