@@ -14,7 +14,7 @@
 
   <style>
     :root{
-      /* colour palette and sizing tokens */
+      /* palette and sizing tokens */
       --bg:#0c0d0f;
       --fg:#e8e6e3;
       --muted:#b1aca4;
@@ -22,13 +22,12 @@
       --line:#1a1b20;
       --shadow:0 14px 40px rgba(0,0,0,.35);
       --maxw:1160px;
-      /* small edge glimpse for carousel */
-      --peek:clamp(28px, 6vw, 90px);
-      /* use hero.svg so the portrait loads; update if you add a jpg */
+      /* edge glimpse for carousel */
+      --peek:clamp(20px, 5vw, 70px);
+      /* use hero.svg since we don't have a .jpg */
       --hero-image:url('assets/hero.svg');
     }
 
-    /* ===== Base ===== */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -82,14 +81,14 @@
     h1{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:800;
-      font-size:clamp(52px, 8vw, 90px);
+      font-size:clamp(48px, 7vw, 82px);
       line-height:.94;
       letter-spacing:.5px;
-      margin:0 0 14px 0;
+      margin:0 0 16px 0;
       text-wrap:balance;
     }
     .lead{margin:0 auto; max-width:900px; font-size:clamp(18px, 2.2vw, 26px);}
-    .block{margin:18px auto 0; max-width:900px; font-size:clamp(17px, 1.9vw, 22px); opacity:.96;}
+    .block{margin:20px auto 0; max-width:900px; font-size:clamp(17px, 1.9vw, 22px); opacity:.96;}
     .btn{
       display:inline-flex;
       align-items:center;
@@ -127,7 +126,7 @@
       overflow:hidden;
       padding-inline:var(--peek);
     }
-    /* feathered edges to hint at more content */
+    /* subtle feather on edges */
     .viewport::before,
     .viewport::after{
       content:"";
@@ -137,30 +136,36 @@
       width:var(--peek);
       pointer-events:none;
       z-index:2;
+      opacity:.75;
     }
     .viewport::before{left:0; background:linear-gradient(to right, rgba(12,13,15,1), rgba(12,13,15,0));}
     .viewport::after{right:0; background:linear-gradient(to left, rgba(12,13,15,1), rgba(12,13,15,0));}
     .track{display:flex; will-change:transform; transition:transform 520ms ease; touch-action:pan-x;}
     .slide{flex:0 0 calc(100% - (var(--peek) * 2)); padding:12px;}
-    /* uniform logo frame */
+    /* adaptive logo frame; JS will add orientation classes */
     .logo-card{
-      aspect-ratio:16/7;
       border-radius:16px;
       background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
       border:1px solid rgba(255,255,255,.14);
       box-shadow:var(--shadow);
-      padding:clamp(14px, 2.8vw, 28px);
       overflow:hidden;
-      display:grid;
-      place-items:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:clamp(12px, 2vw, 22px);
     }
+    .logo-card.wide   { aspect-ratio: 16/9; }
+    .logo-card.square { aspect-ratio: 1/1; }
+    .logo-card.tall   { aspect-ratio: 3/4; }
     .logo-card img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
       display:block;
-      width:100%;
-      height:100%;
-      object-fit:contain;
       filter:none;
       opacity:1;
+      border-radius:10px;
     }
     .arrow{
       position:absolute;
@@ -183,21 +188,30 @@
     .arrow.right{right:8px;}
     .arrow svg{width:18px;height:18px;}
     @media (max-width:720px){ .arrow{display:none;} }
-    /* larger inAi spotlight card */
+    /* bigger square inAi card */
     .inai{
-      display:grid;
-      place-items:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       width:min(760px, 95vw);
-      height:clamp(160px, 28vw, 240px);
+      aspect-ratio:1/1;
       margin:30px auto 0;
-      border-radius:20px;
+      border-radius:22px;
       border:1px solid rgba(255,255,255,.22);
       background:
         linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04)),
         radial-gradient(70% 120% at 50% 0%, rgba(222,192,116,.18), transparent 70%);
       box-shadow:var(--shadow);
+      padding:clamp(16px,3.5vw,42px);
     }
-    .inai img{max-width:84%; max-height:78%; filter:none;}
+    .inai img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
+      filter:none;
+      display:block;
+    }
     /* ===== CLOSING ===== */
     .closing{display:grid; place-items:center; padding:64px 22px 80px; text-align:center;}
     .closing .line{
@@ -244,104 +258,95 @@
     <!-- SHOWCASE -->
     <section class="showcase" aria-label="Projects">
       <div class="container">
-
         <div class="slider" role="region" aria-label="Project logos">
           <button class="arrow left" type="button" aria-label="Previous" data-dir="-1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-
           <div class="viewport">
             <div class="track" id="logoTrack">
-              <!-- Each slide holds a logo; update src and alt for your projects -->
+              <!-- Replace src + alt with your logos -->
               <div class="slide"><div class="logo-card"><img src="assets/logos/copycat.jpg" alt="CopyCat"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/everbet.jpg" alt="EverBet"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Universite catholique de Lille"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/i-pressa.jpg" alt="i-Pressa"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/i-pressa.jpg" alt="i‑Pressa"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/diplosha.jpg" alt="Diplosha"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA"></div></div>
-              <div class="slide"><div class="logo-card"><img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA"></div></div>
+              <div class="slide"><div class="logo-card"><img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU"></div></div>
               <div class="slide"><div class="logo-card"><img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies"></div></div>
             </div>
           </div>
-
           <button class="arrow right" type="button" aria-label="Next" data-dir="1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 19l7-7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
-
-        <!-- inAi spotlight -->
+        <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" href="https://inai.fr" target="_blank" rel="noopener" aria-label="Open inAi.fr">
           <img src="assets/logos/inai.webp" alt="inAi">
         </a>
       </div>
     </section>
-
     <!-- CLOSING -->
     <section class="closing" aria-label="Closing line">
       <div class="line">Happy domination.</div>
     </section>
   </main>
-
   <script>
-    // Centered infinite carousel with safe edges
+    // Centered infinite carousel + orientation-aware frames
     (function(){
       const track = document.getElementById('logoTrack');
       const leftBtn = document.querySelector('.arrow.left');
       const rightBtn = document.querySelector('.arrow.right');
-
-      // Clone first and last slides to create seamless looping
+      // classify orientation for each logo and set frame ratio
+      function classifyFrames(scope=document){
+        scope.querySelectorAll('.logo-card img').forEach(img=>{
+          const set = () => {
+            const w = img.naturalWidth, h = img.naturalHeight;
+            if(!w || !h) return;
+            const card = img.closest('.logo-card');
+            card.classList.remove('wide','square','tall');
+            if (w > h * 1.15) card.classList.add('wide');
+            else if (h > w * 1.15) card.classList.add('tall');
+            else card.classList.add('square');
+          };
+          if (img.complete) set(); else img.addEventListener('load', set, {once:true});
+        });
+      }
       function makeClones(){
         const kids = Array.from(track.children);
-        const first = kids[0].cloneNode(true);
-        first.dataset.clone='first';
-        const last  = kids[kids.length-1].cloneNode(true);
-        last.dataset.clone='last';
+        const first = kids[0].cloneNode(true); first.dataset.clone='first';
+        const last  = kids[kids.length-1].cloneNode(true); last.dataset.clone='last';
         track.insertBefore(last, kids[0]);
         track.appendChild(first);
+        classifyFrames(track);
       }
       makeClones();
-
+      classifyFrames();
       let slides = Array.from(track.children);
       let index = 1;
       let anim = false;
       function slideW(){ return slides[0].getBoundingClientRect().width; }
       function setX(animate=true){
-        if(!animate){ track.style.transition='none'; }
+        if(!animate) track.style.transition='none';
         track.style.transform = `translateX(${-index*slideW()}px)`;
         if(!animate){ track.offsetHeight; track.style.transition='transform 520ms ease'; }
       }
       function normalize(){
-        if(slides[index]?.dataset.clone === 'first'){
-          index = 1;
-          setX(false);
-        } else if(slides[index]?.dataset.clone === 'last'){
-          index = slides.length - 2;
-          setX(false);
-        }
+        if(slides[index]?.dataset.clone === 'first'){ index = 1; setX(false); }
+        else if(slides[index]?.dataset.clone === 'last'){ index = slides.length - 2; setX(false); }
       }
       function move(dir){
         if(anim) return;
-        anim = true;
-        index += dir;
-        setX(true);
+        anim = true; index += dir; setX(true);
       }
-      track.addEventListener('transitionend', ()=>{
-        normalize();
-        anim = false;
-      });
-      rightBtn.addEventListener('click', ()=> move(1));
-      leftBtn.addEventListener('click', ()=> move(-1));
-      window.addEventListener('keydown', e=>{
-        if(e.key==='ArrowRight') move(1);
-        if(e.key==='ArrowLeft') move(-1);
-      });
+      track.addEventListener('transitionend', ()=>{ normalize(); anim = false; });
+      rightBtn.addEventListener('click', ()=>move(1));
+      leftBtn.addEventListener('click', ()=>move(-1));
+      window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
       window.addEventListener('resize', ()=> setX(false));
-      // initialise at first real slide
       setX(false);
     })();
   </script>
-
 </body>
 </html>
