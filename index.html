@@ -10,7 +10,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=Newsreader:opsz,wght@6..72,300;6..72,700;6..72,800&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -100,18 +100,28 @@
       margin-top:22px; padding:14px 22px; border:none; border-radius:12px;
       background:linear-gradient(180deg,#d4ad66,var(--gold));
       color:#0f1115;
-      font:700 1rem/1 "Spectral", ui-serif, Georgia, serif;
-      letter-spacing:.01em;
+      font-family:"Cinzel", ui-serif, Georgia, serif;
+      font-weight:700;
+      letter-spacing:.3px;
+      font-size:inherit;
+      line-height:inherit;
       box-shadow:var(--shadow); cursor:pointer;
       transition:transform .15s ease, filter .2s ease, box-shadow .2s ease;
     }
     .btn:hover{transform:translateY(-1px); filter:brightness(1.02); box-shadow:0 10px 30px rgba(0,0,0,.45);}
-    .brand{ font:700 1em/1 "Spectral", ui-serif, Georgia, serif; letter-spacing:.01em; }
+    .brand{
+      font-family:"Newsreader", ui-serif, Georgia, serif;
+      font-weight:700;
+      letter-spacing:0;
+    }
     .brand .A{ font-weight:800; }
     .brand .dot{
       display:inline-block;
-      transform:translateY(-0.02em) scale(1.28);
-      margin-inline:-0.06em;
+      font-size:1.25em;
+      line-height:0;
+      vertical-align:-0.06em;
+      margin-left:-0.09em;
+      margin-right:-0.09em;
     }
     .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px);}
 
@@ -232,11 +242,11 @@
 
         <p class="block" style="margin-top:10px">
           But let’s not dwell on the past. Empires rise and fall.
-          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i<span class="dot" aria-hidden="true">.</span>fr</span>. They are building the future.</strong>
+          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i<span class="dot">.</span>fr</span>. They are building the future.</strong>
         </p>
 
         <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">
-          Try <span class="brand">in<span class="A">A</span>i<span class="dot" aria-hidden="true">.</span>fr</span>
+          Try <span class="brand">in<span class="A">A</span>i<span class="dot">.</span>fr</span>
         </a>
 
         <p class="contact">
