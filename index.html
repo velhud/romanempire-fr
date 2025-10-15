@@ -159,30 +159,22 @@
     /* brand styling scoped to the button only */
     .btn .btn-brand{
       font-family:"Newsreader", ui-serif, Georgia, serif;
-      font-weight:700;
+      font-weight:600;
       letter-spacing:0;
       white-space:nowrap;
-      font-kerning:none;
-      font-feature-settings:"kern" 0;
+      font-kerning:normal;
+      font-feature-settings:"kern" 1;
     }
     .btn .btn-A{ font-weight:800; }
-    .btn .btn-dot,
-    .brand .dot{
-      display:inline-block;
-      width:0.34em;
-      height:0.34em;
-      border-radius:50%;
-      background:currentColor;
-      vertical-align:-0.03em;
-      margin-inline:-0.10em;
-      transform:none;
-    }
     .brand{
       font-family:"Newsreader", ui-serif, Georgia, serif;
       font-weight:700;
+    }
+    .btn-brand,
+    .brand{
+      font-kerning:normal;
+      font-feature-settings:"kern" 1;
       letter-spacing:0;
-      font-kerning:none;
-      font-feature-settings:"kern" 0;
     }
     .brand .A{ font-weight:800; }
     .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px);}
@@ -341,11 +333,11 @@
 
         <p class="block" style="margin-top:10px">
           But let’s not dwell on the past. Empires rise and fall.
-          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i<span class="dot" aria-hidden="true"></span><span class="sr-only">.</span>fr</span>. They are building the future.</strong>
+          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i.fr</span>. They are building the future.</strong>
         </p>
 
         <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">
-          Try <span class="btn-brand">in<span class="btn-A">A</span>i<span class="btn-dot" aria-hidden="true"></span><span class="sr-only">.</span>fr</span>
+          Try <span class="btn-brand">in<span class="btn-A">A</span>i.fr</span>
         </a>
 
         <p class="contact">
