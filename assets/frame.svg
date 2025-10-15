@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#d9b87c" />
+      <stop offset="42%" stop-color="#b78434" />
+      <stop offset="100%" stop-color="#563618" />
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#fff3d5" stop-opacity=".3" />
+      <stop offset="50%" stop-color="#d7a85a" stop-opacity=".12" />
+      <stop offset="100%" stop-color="#2c1a0c" stop-opacity=".4" />
+    </linearGradient>
+    <radialGradient id="cornerGlow" cx="0" cy="0" r="1" gradientUnits="objectBoundingBox" gradientTransform="translate(.5 .5) scale(.7 .7)">
+      <stop offset="0%" stop-color="#fce19f" stop-opacity=".35" />
+      <stop offset="65%" stop-color="#c48a2b" stop-opacity=".18" />
+      <stop offset="100%" stop-color="#442710" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <path d="M0 0h256v256H0zM48 48h160v160H48z" fill="url(#wood)" />
+    <path d="M0 0h256v256H0zM48 48h160v160H48z" fill="url(#sheen)" opacity=".75" />
+    <path d="M18 18h220v220H18zM48 48h160v160H48z" fill="url(#cornerGlow)" opacity=".6" />
+    <rect x="48" y="48" width="160" height="160" fill="none" stroke="#2c1e10" stroke-width="6" stroke-opacity=".45" />
+    <rect x="52" y="52" width="152" height="152" fill="none" stroke="#f4e0b6" stroke-width="3" stroke-opacity=".4" />
+    <rect x="47" y="47" width="162" height="162" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="1" />
+  </g>
+</svg>
