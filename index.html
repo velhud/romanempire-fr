@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=Newsreader:opsz,wght@6..72,300;6..72,700;6..72,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;600;700&display=swap&subset=cyrillic" rel="stylesheet">
 
   <style>
     :root{
@@ -235,38 +236,101 @@
       display:block; border-radius:10px;
     }
 
+    #modal-root{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:60;
+    }
+    #modal-root.open{display:block;}
+    #modal-root .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.58);
+    }
+    #modal-root .modal-panel{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:min(860px, 92vw);
+      max-height:86vh;
+      overflow:auto;
+      background:linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.04));
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:22px 22px 10px;
+    }
+    #modal-root .modal-close{
+      position:sticky;
+      top:0;
+      float:right;
+      font-size:22px;
+      line-height:1;
+      padding:6px 10px;
+      border-radius:10px;
+      background:rgba(0,0,0,.35);
+      color:var(--fg);
+      border:1px solid rgba(255,255,255,.18);
+      cursor:pointer;
+    }
+    .case h3{
+      font-family:"Cinzel", ui-serif, Georgia, serif;
+      font-weight:700;
+      margin:8px 0 10px;
+      font-size:clamp(22px,2.4vw,28px);
+    }
+    .case-body{
+      font-family:"PT Serif","Spectral", ui-serif, Georgia, serif;
+      font-size:clamp(16px,1.8vw,18px);
+      color:var(--fg);
+    }
+    .case-body p{margin:0 0 12px;}
+    @media (max-width: 640px){
+      #modal-root .modal-panel{
+        left:50%;
+        top:auto;
+        bottom:0;
+        transform:translateX(-50%);
+        max-height:88vh;
+        border-radius:16px 16px 0 0;
+      }
+    }
+    body.modal-open{overflow:hidden;}
+
     .tooltip{
       position:fixed;
+      inset:auto auto 0 0;
+      transform:translate(-9999px,-9999px);
+      background:rgba(30,26,21,.96);
+      color:var(--fg);
+      border:1px solid rgba(255,255,255,.14);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:14px;
+      line-height:1.35;
+      max-width:min(58ch, 80vw);
+      box-shadow:var(--shadow);
       pointer-events:none;
       z-index:40;
       opacity:0;
-      padding:10px 14px;
-      border-radius:12px;
-      background:rgba(244,239,228,.92);
-      color:#2d1b0f;
-      border:1px solid rgba(183,137,45,.35);
-      box-shadow:var(--shadow);
-      transform:translateY(8px);
-      transition:opacity 120ms ease, transform 120ms ease;
-      max-width:min(280px, 70vw);
-      font-size:0.94rem;
-      line-height:1.35;
-      text-align:center;
+      transition:opacity .12s ease, transform .12s ease;
     }
-    .tooltip.is-above{ transform:translateY(-8px); }
-    .tooltip.is-visible{ opacity:1; transform:translateY(0); }
+    .tooltip.show{opacity:1;}
     .tooltip::after{
       content:"";
       position:absolute;
-      left:50%;
       width:10px;
       height:10px;
-      background:rgba(244,239,228,.92);
-      box-shadow:0 0 0 1px rgba(183,137,45,.35);
-      transform:translate(-50%, 0) rotate(45deg);
+      transform:rotate(45deg);
+      background:inherit;
+      border-left:inherit;
+      border-top:inherit;
+      z-index:-1;
     }
-    .tooltip.is-above::after{ bottom:-5px; }
-    .tooltip.is-below::after{ top:-5px; }
+    .tooltip.above::after{bottom:-5px; left:calc(50% - 5px);}
+    .tooltip.below::after{top:-5px; left:calc(50% - 5px);}
 
     /* controls */
     .arrow{
@@ -355,23 +419,180 @@
           </button>
           <div class="viewport">
             <div class="track" id="logoTrack">
-              <!-- Replace src + alt with your logos -->
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="CopyCat" aria-label="CopyCat"><img src="assets/logos/copycat.jpg" alt="CopyCat"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="EverBet" aria-label="EverBet"><img src="assets/logos/everbet.jpg" alt="EverBet"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="Franco Columbu" aria-label="Franco Columbu"><img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="Université Catholique de Lille" aria-label="Université Catholique de Lille"><img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="i‑Pressa" aria-label="i‑Pressa"><img src="assets/logos/i-pressa.jpg" alt="i‑Pressa"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="Diplosha" aria-label="Diplosha"><img src="assets/logos/diplosha.jpg" alt="Diplosha"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="Iz Drysha v Atlety" aria-label="Iz Drysha v Atlety"><img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="RGAU MSKHA" aria-label="RGAU MSKHA"><img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="Studgorodok RGAU" aria-label="Studgorodok RGAU"><img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU"></div></div>
-              <div class="slide"><div class="logo-card" tabindex="0" data-caption="EuraTechnologies" aria-label="EuraTechnologies"><img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies"></div></div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="iz-drysha-v-atlety"
+                     data-caption="Early media experiment to turn a very skinny student into an athlete on a tight program."
+                     aria-label="Early media experiment to turn a very skinny student into an athlete on a tight program.">
+                  <img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="rgau-mskha"
+                     data-caption="Coach, then sports manager at his home university; ran gym operations campus‑wide."
+                     aria-label="Coach, then sports manager at his home university; ran gym operations campus‑wide.">
+                  <img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="studgorodok-rgau"
+                     data-caption="Unofficial residences page used as a marketing platform that students perceived as official."
+                     aria-label="Unofficial residences page used as a marketing platform that students perceived as official.">
+                  <img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="i-pressa"
+                     data-caption="Print and copy business grown from zero to three Moscow offices; survived COVID."
+                     aria-label="Print and copy business grown from zero to three Moscow offices; survived COVID.">
+                  <img src="assets/logos/i-pressa.jpg" alt="i‑Pressa">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="copycat"
+                     data-caption="Spun out iPressa’s online services from a physical shop to widen perceived choice."
+                     aria-label="Spun out iPressa’s online services from a physical shop to widen perceived choice.">
+                  <img src="assets/logos/copycat.jpg" alt="CopyCat">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="diplosha"
+                     data-caption="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible."
+                     aria-label="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible.">
+                  <img src="assets/logos/diplosha.jpg" alt="Diplosha">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="franco-columbu"
+                     data-caption="Agent in Russia; verified VK page, translations, fan community, access to products, press."
+                     aria-label="Agent in Russia; verified VK page, translations, fan community, access to products, press.">
+                  <img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="everbet"
+                     data-caption="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed."
+                     aria-label="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed.">
+                  <img src="assets/logos/everbet.jpg" alt="EverBet">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="universite-catholique-de-lille"
+                     data-caption="First official job in France: taught genetics, then supported international students."
+                     aria-label="First official job in France: taught genetics, then supported international students.">
+                  <img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="euratechnologies"
+                     data-caption="Incubation that accelerates the inAi project."
+                     aria-label="Incubation that accelerates the inAi project.">
+                  <img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies">
+                </div>
+              </div>
             </div>
           </div>
           <button class="arrow right" type="button" aria-label="Next" data-dir="1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 19l7-7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
+        <section id="case-templates" hidden>
+          <template id="tpl-iz-drysha-v-atlety">
+            <h3>Из Дрыща в атлеты (From a Skinny Kid to an Athlete)</h3>
+            <div class="case-body">
+              <p>Roman’s first attempt at a media show. Together with friends he designed an experiment: take a very thin young man and transform him into an athlete in a short period using a strict plan for training, nutrition, and recovery. The project explored how far disciplined scheduling and coaching could move a beginner toward athletic form within limited time.</p>
+            </div>
+          </template>
+
+          <template id="tpl-rgau-mskha">
+            <h3>Тренажерный зал РГАУ‑МСХА (RGAU‑MSKHA Gym)</h3>
+            <div class="case-body">
+              <p>Roman was first hired as a fitness coach at the gym of his home university (RGAU‑MSKHA). He was later promoted to a sports manager role that required working with the university president and coordinating several gym‑related spaces. He combined evening coaching duties (and massage work as a bonus responsibility) with daytime management, organizing facilities and services for students and visitors across campus.</p>
+            </div>
+          </template>
+
+          <template id="tpl-studgorodok-rgau">
+            <h3>Студгородок (Student Residences)</h3>
+            <div class="case-body">
+              <p>Roman created a page about student residences that looked official and used it as a marketing platform. Because most students living in the university residences were his customers, posts with advertising were perceived as recommendations from the university itself, which increased reach and conversion.</p>
+            </div>
+          </template>
+
+          <template id="tpl-i-pressa">
+            <h3>iПресса (iPressa)</h3>
+            <div class="case-body">
+              <p>Roman’s most successful early venture. He built iPressa from nothing in the copy/printing field. At launch he presented it online as an established service while in reality he personally printed orders at night and delivered them during the day. The company survived COVID and was fully legalized. It expanded to three offices in Moscow. Growth stopped only because Roman remained in France and chose not to return.</p>
+            </div>
+          </template>
+
+          <template id="tpl-copycat">
+            <h3>Центр полиграфии CopyCat (CopyCat Polygraphy Center)</h3>
+            <div class="case-body">
+              <p>A successful attempt to separate iPressa’s online services from a standalone physical office in northern Moscow. The goal was increased client engagement by presenting multiple solutions in the market while some of them were owned by the same company.</p>
+            </div>
+          </template>
+
+          <template id="tpl-diplosha">
+            <h3>Диплошa (Diplosha)</h3>
+            <div class="case-body">
+              <p>Roman’s last business attempt in Russia before leaving. The idea was to build an additional platform, leveraging the existing client base, to help students with theses and other academic papers. The project was not finished because he could not return to Russia.</p>
+            </div>
+          </template>
+
+          <template id="tpl-franco-columbu">
+            <h3>Franco Columbu</h3>
+            <div class="case-body">
+              <p>Roman worked with Franco Columbu for almost two years as his personal agent in Russia. He verified Franco’s official page on VK, handled translations of books and interviews into Russian, managed the fan community, ensured access to Franco’s products, and communicated with the press.</p>
+            </div>
+          </template>
+
+          <template id="tpl-everbet">
+            <h3>EverBet</h3>
+            <div class="case-body">
+              <p>An experimental project that did not work out. Roman assembled a team of specialists in sports gambling to create a prediction algorithm with a more mathematical approach. Despite the effort, the experiment was ultimately discontinued.</p>
+            </div>
+          </template>
+
+          <template id="tpl-universite-catholique-de-lille">
+            <h3>Université Catholique de Lille</h3>
+            <div class="case-body">
+              <p>Roman’s first official job in France. Seeking a way to stay without returning to Russia, and drawing on his background in biology and strong communication skills, he convinced the management of FGES (the economics faculty) to hire him to teach genetics to final-year bachelor students. After successfully completing the semester, he moved to work with international students until the end of the contract.</p>
+            </div>
+          </template>
+
+          <template id="tpl-euratechnologies">
+            <h3>EuraTechnologies</h3>
+            <div class="case-body">
+              <p>EuraTechnologies became an important step to accelerate inAi. The incubation provides structure, network, and support for taking the product to market.</p>
+            </div>
+          </template>
+
+          <template id="tpl-inai">
+            <h3>inAi</h3>
+            <div class="case-body">
+              <p>Roman’s current work and the result of two years of planning. When ChatGPT arrived he conceived a fully independent, general-purpose AI agent. That led to months of brainstorming followed by months of solo development while supporting himself in France. Despite constraints, he created the product and registered it through his personally owned enterprise inAi. The company is incubated with EuraTechnologies and partners with Mistral and Bpifrance.</p>
+            </div>
+          </template>
+        </section>
         <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" href="https://inai.fr" target="_blank" rel="noopener" aria-label="Open inAi.fr">
           <img src="assets/logos/inai.webp" alt="inAi">
@@ -382,7 +603,65 @@
     <section class="closing" aria-label="Closing line">
       <div class="line">Happy domination.</div>
     </section>
+    <div id="modal-root" aria-hidden="true">
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" aria-describedby="case-body">
+        <button class="modal-close" type="button" aria-label="Close">×</button>
+        <article class="case">
+          <h3 id="case-title"></h3>
+          <div id="case-body" class="case-body"></div>
+        </article>
+      </div>
+    </div>
   </main>
+  <noscript>
+    <section id="cases" class="container">
+      <article id="iz-drysha-v-atlety">
+        <h3>Из Дрыща в атлеты (From a Skinny Kid to an Athlete)</h3>
+        <p>Roman’s first attempt at a media show. Together with friends he designed an experiment: take a very thin young man and transform him into an athlete in a short period using a strict plan for training, nutrition, and recovery. The project explored how far disciplined scheduling and coaching could move a beginner toward athletic form within limited time.</p>
+      </article>
+      <article id="rgau-mskha">
+        <h3>Тренажерный зал РГАУ‑МСХА (RGAU‑MSKHA Gym)</h3>
+        <p>Roman was first hired as a fitness coach at the gym of his home university (RGAU‑MSKHA). He was later promoted to a sports manager role that required working with the university president and coordinating several gym‑related spaces. He combined evening coaching duties (and massage work as a bonus responsibility) with daytime management, organizing facilities and services for students and visitors across campus.</p>
+      </article>
+      <article id="studgorodok-rgau">
+        <h3>Студгородок (Student Residences)</h3>
+        <p>Roman created a page about student residences that looked official and used it as a marketing platform. Because most students living in the university residences were his customers, posts with advertising were perceived as recommendations from the university itself, which increased reach and conversion.</p>
+      </article>
+      <article id="i-pressa">
+        <h3>iПресса (iPressa)</h3>
+        <p>Roman’s most successful early venture. He built iPressa from nothing in the copy/printing field. At launch he presented it online as an established service while in reality he personally printed orders at night and delivered them during the day. The company survived COVID and was fully legalized. It expanded to three offices in Moscow. Growth stopped only because Roman remained in France and chose not to return.</p>
+      </article>
+      <article id="copycat">
+        <h3>Центр полиграфии CopyCat (CopyCat Polygraphy Center)</h3>
+        <p>A successful attempt to separate iPressa’s online services from a standalone physical office in northern Moscow. The goal was increased client engagement by presenting multiple solutions in the market while some of them were owned by the same company.</p>
+      </article>
+      <article id="diplosha">
+        <h3>Диплошa (Diplosha)</h3>
+        <p>Roman’s last business attempt in Russia before leaving. The idea was to build an additional platform, leveraging the existing client base, to help students with theses and other academic papers. The project was not finished because he could not return to Russia.</p>
+      </article>
+      <article id="franco-columbu">
+        <h3>Franco Columbu</h3>
+        <p>Roman worked with Franco Columbu for almost two years as his personal agent in Russia. He verified Franco’s official page on VK, handled translations of books and interviews into Russian, managed the fan community, ensured access to Franco’s products, and communicated with the press.</p>
+      </article>
+      <article id="everbet">
+        <h3>EverBet</h3>
+        <p>An experimental project that did not work out. Roman assembled a team of specialists in sports gambling to create a prediction algorithm with a more mathematical approach. Despite the effort, the experiment was ultimately discontinued.</p>
+      </article>
+      <article id="universite-catholique-de-lille">
+        <h3>Université Catholique de Lille</h3>
+        <p>Roman’s first official job in France. Seeking a way to stay without returning to Russia, and drawing on his background in biology and strong communication skills, he convinced the management of FGES (the economics faculty) to hire him to teach genetics to final-year bachelor students. After successfully completing the semester, he moved to work with international students until the end of the contract.</p>
+      </article>
+      <article id="euratechnologies">
+        <h3>EuraTechnologies</h3>
+        <p>EuraTechnologies became an important step to accelerate inAi. The incubation provides structure, network, and support for taking the product to market.</p>
+      </article>
+      <article id="inai">
+        <h3>inAi</h3>
+        <p>Roman’s current work and the result of two years of planning. When ChatGPT arrived he conceived a fully independent, general-purpose AI agent. That led to months of brainstorming followed by months of solo development while supporting himself in France. Despite constraints, he created the product and registered it through his personally owned enterprise inAi. The company is incubated with EuraTechnologies and partners with Mistral and Bpifrance.</p>
+      </article>
+    </section>
+  </noscript>
   <script>
     // Centered infinite carousel + orientation-aware frames
     (function(){
@@ -443,183 +722,269 @@
       const track = document.getElementById('logoTrack');
       if(!track) return;
 
-      let tooltip = document.getElementById('logoTip');
-      if(!tooltip){
-        tooltip = document.createElement('div');
-        tooltip.className = 'tooltip is-above';
-        tooltip.id = 'logoTip';
-        tooltip.setAttribute('role','tooltip');
-        document.body.appendChild(tooltip);
-      }
+      const tooltip = document.createElement('div');
+      tooltip.className = 'tooltip';
+      document.body.appendChild(tooltip);
 
-      const GAP = 14;
-      const PADDING = 12;
-      let activeCard = null;
-      let touchTimeout = null;
-      let detachTouchListener = null;
+      let tooltipTarget = null;
+      let navigatingHistory = false;
 
-      function cleanupTouch(){
-        if(detachTouchListener){
-          detachTouchListener();
-          detachTouchListener = null;
-        }
-        if(touchTimeout){
-          clearTimeout(touchTimeout);
-          touchTimeout = null;
-        }
+      function hideTooltip(){
+        tooltipTarget = null;
+        tooltip.classList.remove('show','above','below');
+        tooltip.style.transform = 'translate(-9999px,-9999px)';
       }
 
       function positionTooltip(card){
-        if(!card || !tooltip.classList.contains('is-visible')) return;
-        tooltip.classList.remove('is-above','is-below');
-        tooltip.classList.add('is-above');
-        tooltip.style.left = '0px';
-        tooltip.style.top = '0px';
-
+        if(!card || tooltipTarget !== card || !tooltip.classList.contains('show')) return;
+        tooltip.style.maxWidth = Math.min(window.innerWidth - 24, 740) + 'px';
         const rect = card.getBoundingClientRect();
         const tipRect = tooltip.getBoundingClientRect();
-        const spaceAbove = rect.top;
-        const spaceBelow = window.innerHeight - rect.bottom;
-        let placeAbove = spaceAbove >= (tipRect.height + 16);
-        if(!placeAbove && spaceBelow < (tipRect.height + 16) && spaceAbove >= spaceBelow){
-          placeAbove = true;
+        let x = rect.left + rect.width / 2 - tipRect.width / 2;
+        x = Math.max(12, Math.min(x, window.innerWidth - tipRect.width - 12));
+        let y = rect.top - tipRect.height - 14;
+        let above = true;
+        if (y < 12){
+          y = rect.bottom + 14;
+          above = false;
         }
-
-        let top = placeAbove
-          ? rect.top - GAP - tipRect.height
-          : rect.bottom + GAP;
-
-        let left = rect.left + (rect.width / 2) - (tipRect.width / 2);
-        const maxLeft = window.innerWidth - PADDING - tipRect.width;
-        if(maxLeft < PADDING){
-          left = PADDING;
-        }else{
-          left = Math.min(Math.max(PADDING, left), maxLeft);
-        }
-
-        const maxTop = window.innerHeight - PADDING - tipRect.height;
-        top = Math.min(Math.max(PADDING, top), maxTop);
-
-        tooltip.classList.toggle('is-above', placeAbove);
-        tooltip.classList.toggle('is-below', !placeAbove);
-        tooltip.style.left = `${Math.round(left)}px`;
-        tooltip.style.top = `${Math.round(top)}px`;
+        tooltip.style.transform = `translate(${Math.round(x)}px,${Math.round(y)}px)`;
+        tooltip.classList.toggle('above', above);
+        tooltip.classList.toggle('below', !above);
       }
 
-      function show(card){
-        const caption = card?.dataset?.caption;
-        if(!caption) return;
-        if(activeCard && activeCard !== card){
-          activeCard.removeAttribute('aria-describedby');
-          activeCard.removeAttribute('data-tip-open');
-        }
-        activeCard = card;
-        tooltip.textContent = caption;
-        card.setAttribute('aria-describedby', 'logoTip');
-        tooltip.classList.add('is-visible');
-        positionTooltip(card);
-        requestAnimationFrame(()=>{ if(activeCard === card) positionTooltip(card); });
-      }
-
-      function hide(){
-        cleanupTouch();
-        if(activeCard){
-          activeCard.removeAttribute('aria-describedby');
-          activeCard.removeAttribute('data-tip-open');
-        }
-        activeCard = null;
-        tooltip.classList.remove('is-visible');
-      }
-
-      function armTouchDismiss(card){
-        if(detachTouchListener){
-          detachTouchListener();
-        }
-        const handler = (event)=>{
-          if(event.pointerType && event.pointerType !== 'touch') return;
-          const isSameCard = card.contains(event.target);
-          hide();
-          if(detachTouchListener){
-            detachTouchListener();
-            detachTouchListener = null;
-          }
-          if(isSameCard){
-            event.preventDefault?.();
-          }
-        };
-        const unsubscribe = ()=>{
-          document.removeEventListener('pointerdown', handler, true);
-        };
-        detachTouchListener = unsubscribe;
-        setTimeout(()=> document.addEventListener('pointerdown', handler, true), 0);
-      }
-
-      function refresh(){
-        if(activeCard && tooltip.classList.contains('is-visible')){
-          positionTooltip(activeCard);
-        }
+      function showTooltip(card){
+        const text = card.dataset.caption || card.getAttribute('aria-label') || '';
+        if(!text) return;
+        tooltipTarget = card;
+        tooltip.textContent = text;
+        tooltip.classList.add('show');
+        tooltip.classList.remove('above','below');
+        tooltip.style.transform = 'translate(-9999px,-9999px)';
+        requestAnimationFrame(()=> positionTooltip(card));
       }
 
       track.addEventListener('pointerover', event=>{
         if(event.pointerType === 'touch') return;
         const card = event.target.closest('.logo-card');
-        if(card) show(card);
+        if(card) showTooltip(card);
       });
 
       track.addEventListener('pointerout', event=>{
         if(event.pointerType === 'touch') return;
-        const card = event.target.closest('.logo-card');
-        if(!card || !activeCard) return;
+        if(!tooltipTarget) return;
         const next = event.relatedTarget;
-        if(card.contains(next)) return;
-        if(activeCard === card) hide();
+        if(next && tooltipTarget.contains(next)) return;
+        if(next && track.contains(next) && next.closest('.logo-card')) return;
+        hideTooltip();
       });
 
       track.addEventListener('focusin', event=>{
         const card = event.target.closest('.logo-card');
-        if(card) show(card);
+        if(card) showTooltip(card);
       });
 
       track.addEventListener('focusout', event=>{
-        if(!activeCard) return;
+        if(!tooltipTarget) return;
         const card = event.target.closest('.logo-card');
-        if(!card) return;
-        const next = event.relatedTarget;
-        if(card.contains(next)) return;
-        if(activeCard === card) hide();
+        if(card && card.contains(event.relatedTarget)) return;
+        hideTooltip();
       });
 
-      track.addEventListener('pointerdown', event=>{
-        if(event.pointerType !== 'touch') return;
-        const card = event.target.closest('.logo-card');
-        if(!card) return;
-        if(activeCard === card && card.dataset.tipOpen === '1'){
-          hide();
-          event.preventDefault?.();
+      window.addEventListener('resize', ()=> positionTooltip(tooltipTarget));
+      window.addEventListener('scroll', ()=> positionTooltip(tooltipTarget), {passive:true});
+
+      const root = document.getElementById('modal-root');
+      const templates = document.getElementById('case-templates');
+      if(!root || !templates) return;
+
+      const panel = root.querySelector('.modal-panel');
+      const closeBtn = root.querySelector('.modal-close');
+      const backdrop = root.querySelector('.modal-backdrop');
+      const titleEl = document.getElementById('case-title');
+      const bodyEl = document.getElementById('case-body');
+      const main = document.querySelector('main');
+
+      let activeSlug = null;
+      let lastFocus = null;
+
+      if(!history.state || typeof history.state !== 'object' || !('case' in history.state)){
+        const current = location.hash ? location.hash.slice(1) : null;
+        history.replaceState({case: current, initial:true}, '', window.location.href);
+      }
+
+      function getTemplate(slug){
+        if(!slug) return null;
+        return templates.querySelector(`#tpl-${slug}`);
+      }
+
+      function populateCase(slug){
+        const tpl = getTemplate(slug);
+        if(!tpl) return false;
+        const frag = tpl.content.cloneNode(true);
+        const title = frag.querySelector('h3');
+        const content = frag.querySelector('.case-body');
+        titleEl.textContent = title ? title.textContent : '';
+        bodyEl.innerHTML = content ? content.innerHTML : frag.innerHTML;
+        return true;
+      }
+
+      function findFocus(slug){
+        if(!slug) return null;
+        const original = track.querySelector(`.slide:not([data-clone]) .logo-card[data-slug="${slug}"]`);
+        if(original) return original;
+        if(slug === 'inai'){
+          return document.querySelector('.inai');
+        }
+        return track.querySelector(`.logo-card[data-slug="${slug}"]`);
+      }
+
+      function trapFocus(event){
+        if(event.key !== 'Tab') return;
+        const focusable = panel.querySelectorAll('a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if(!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if(event.shiftKey){
+          if(document.activeElement === first || !panel.contains(document.activeElement)){
+            event.preventDefault();
+            last.focus();
+          }
+        }else{
+          if(document.activeElement === last){
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      }
+
+      function handleKeydown(event){
+        if(event.key === 'Escape'){
+          event.preventDefault();
+          requestClose();
+        }else{
+          trapFocus(event);
+        }
+      }
+
+      function openCase(slug, source){
+        if(activeSlug === slug){
+          if(source) lastFocus = source;
           return;
         }
-        show(card);
-        card.dataset.tipOpen = '1';
-        if(touchTimeout){
-          clearTimeout(touchTimeout);
+        if(!populateCase(slug)) return;
+        hideTooltip();
+        activeSlug = slug;
+        lastFocus = source || findFocus(slug);
+        root.classList.add('open');
+        root.removeAttribute('aria-hidden');
+        document.body.classList.add('modal-open');
+        if(main) main.setAttribute('inert','');
+        panel.scrollTop = 0;
+        window.addEventListener('keydown', handleKeydown);
+        closeBtn.focus();
+      }
+
+      function closeCase({returnFocus = true} = {}){
+        if(!root.classList.contains('open')) return;
+        root.classList.remove('open');
+        root.setAttribute('aria-hidden','true');
+        document.body.classList.remove('modal-open');
+        if(main) main.removeAttribute('inert');
+        window.removeEventListener('keydown', handleKeydown);
+        const focusTarget = returnFocus ? lastFocus : null;
+        activeSlug = null;
+        lastFocus = null;
+        if(focusTarget && typeof focusTarget.focus === 'function'){
+          requestAnimationFrame(()=> focusTarget.focus());
         }
-        touchTimeout = setTimeout(()=>{
-          if(card.dataset.tipOpen === '1'){
-            card.removeAttribute('data-tip-open');
-          }
-          touchTimeout = null;
-        }, 4000);
-        armTouchDismiss(card);
+      }
+
+      function pushCaseState(slug){
+        const state = history.state;
+        if(state && state.case === slug){
+          history.replaceState({case:slug, initial:state.initial ?? false}, '', `#${slug}`);
+        }else{
+          history.pushState({case:slug, initial:false}, '', `#${slug}`);
+        }
+      }
+
+      function requestClose(){
+        if(!root.classList.contains('open')){
+          return;
+        }
+        const state = history.state;
+        const slug = activeSlug;
+        closeCase();
+        if(state && state.case === slug && state.initial === false){
+          navigatingHistory = true;
+          history.back();
+        }else{
+          history.replaceState({case:null, initial:true}, '', window.location.pathname + window.location.search);
+        }
+      }
+
+      closeBtn.addEventListener('click', requestClose);
+      if(backdrop){
+        backdrop.addEventListener('click', requestClose);
+      }
+
+      track.addEventListener('click', event=>{
+        const card = event.target.closest('.logo-card');
+        if(!card) return;
+        const slug = card.dataset.slug;
+        if(!slug) return;
+        pushCaseState(slug);
+        openCase(slug, card);
       });
 
-      document.addEventListener('keydown', event=>{
-        if(event.key === 'Escape' && tooltip.classList.contains('is-visible')){
-          hide();
-        }
+      track.addEventListener('keydown', event=>{
+        if(event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
+        const card = event.target.closest('.logo-card');
+        if(!card) return;
+        event.preventDefault();
+        const slug = card.dataset.slug;
+        if(!slug) return;
+        pushCaseState(slug);
+        openCase(slug, card);
       });
 
-      window.addEventListener('resize', refresh);
-      window.addEventListener('scroll', refresh, {passive:true});
+      function handleHashChange(){
+        const slug = location.hash ? location.hash.slice(1) : '';
+        if(!slug){
+          closeCase();
+          navigatingHistory = false;
+          return;
+        }
+        const tpl = getTemplate(slug);
+        if(!tpl){
+          return;
+        }
+        const state = history.state;
+        if(!state || state.case !== slug){
+          history.replaceState({case:slug, initial:true}, '', `#${slug}`);
+        }else if(state.initial === false){
+          navigatingHistory = false;
+        }
+        if(navigatingHistory){
+          navigatingHistory = false;
+        }
+        openCase(slug);
+      }
+
+      window.addEventListener('hashchange', handleHashChange);
+
+      window.addEventListener('focus', ()=>{
+        if(tooltipTarget){
+          positionTooltip(tooltipTarget);
+        }
+      }, true);
+
+      const initialSlug = location.hash ? location.hash.slice(1) : '';
+      if(initialSlug && getTemplate(initialSlug)){
+        history.replaceState({case:initialSlug, initial:true}, '', `#${initialSlug}`);
+        openCase(initialSlug);
+      }
     })();
   </script>
 </body>
