@@ -731,7 +731,6 @@
       document.body.appendChild(tooltip);
 
       let tooltipTarget = null;
-      let navigatingHistory = false;
 
       function hideTooltip(){
         tooltipTarget = null;
@@ -913,6 +912,8 @@
         }
       }
 
+      const baseUrl = window.location.pathname + window.location.search;
+
       function requestClose(){
         if(!root.classList.contains('open')){
           return;
@@ -920,12 +921,7 @@
         const state = history.state;
         const slug = activeSlug;
         closeCase();
-        if(state && state.case === slug && state.initial === false){
-          navigatingHistory = true;
-          history.back();
-        }else{
-          history.replaceState({case:null, initial:true}, '', window.location.pathname + window.location.search);
-        }
+        history.replaceState({case:null, initial:true}, '', baseUrl);
       }
 
       closeBtn.addEventListener('click', requestClose);
@@ -963,7 +959,6 @@
         const slug = location.hash ? location.hash.slice(1) : '';
         if(!slug){
           closeCase();
-          navigatingHistory = false;
           return;
         }
         const tpl = getTemplate(slug);
@@ -973,11 +968,6 @@
         const state = history.state;
         if(!state || state.case !== slug){
           history.replaceState({case:slug, initial:true}, '', `#${slug}`);
-        }else if(state.initial === false){
-          navigatingHistory = false;
-        }
-        if(navigatingHistory){
-          navigatingHistory = false;
         }
         openCase(slug);
       }
