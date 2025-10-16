@@ -269,15 +269,26 @@
       position:absolute;
       top:14px;
       right:14px;
-      font-size:22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:46px;
+      height:46px;
+      font-size:26px;
       line-height:1;
-      padding:6px 10px;
-      border-radius:10px;
-      background:rgba(0,0,0,.35);
+      padding:0;
+      border-radius:50%;
+      background:rgba(0,0,0,.4);
       color:var(--fg);
       border:1px solid rgba(255,255,255,.18);
       cursor:pointer;
       z-index:1;
+      transition:background 140ms ease, border-color 140ms ease;
+    }
+    #modal-root .modal-close:hover,
+    #modal-root .modal-close:focus{
+      background:rgba(0,0,0,.55);
+      border-color:rgba(255,255,255,.28);
     }
     .case h3{
       font-family:"Cinzel", ui-serif, Georgia, serif;
@@ -924,9 +935,16 @@
         history.replaceState({case:null, initial:true}, '', baseUrl);
       }
 
-      closeBtn.addEventListener('click', requestClose);
-      root.addEventListener('click', event=>{
-        if(event.target.closest('.modal-close')){
+      closeBtn.addEventListener('click', event=>{
+        event.preventDefault();
+        requestClose();
+      });
+      closeBtn.addEventListener('pointerup', event=>{
+        event.preventDefault();
+        requestClose();
+      });
+      closeBtn.addEventListener('keydown', event=>{
+        if(event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar'){
           event.preventDefault();
           requestClose();
         }
