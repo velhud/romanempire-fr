@@ -261,14 +261,14 @@
       border:1px solid rgba(255,255,255,.18);
       border-radius:16px;
       box-shadow:var(--shadow);
-      padding:22px 22px 10px;
+      padding:48px 26px 20px;
       backdrop-filter:blur(14px);
       -webkit-backdrop-filter:blur(14px);
     }
     #modal-root .modal-close{
-      position:sticky;
-      top:0;
-      float:right;
+      position:absolute;
+      top:14px;
+      right:14px;
       font-size:22px;
       line-height:1;
       padding:6px 10px;
@@ -277,6 +277,7 @@
       color:var(--fg);
       border:1px solid rgba(255,255,255,.18);
       cursor:pointer;
+      z-index:1;
     }
     .case h3{
       font-family:"Cinzel", ui-serif, Georgia, serif;
@@ -434,19 +435,19 @@
               <div class="slide">
                 <div class="logo-card"
                      tabindex="0"
-                     data-slug="rgau-mskha"
-                     data-caption="Coach, then sports manager at his home university; ran gym operations campus‑wide."
-                     aria-label="Coach, then sports manager at his home university; ran gym operations campus‑wide.">
-                  <img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA">
+                     data-slug="franco-columbu"
+                     data-caption="Agent in Russia; verified VK page, translations, fan community, access to products, press."
+                     aria-label="Agent in Russia; verified VK page, translations, fan community, access to products, press.">
+                  <img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu">
                 </div>
               </div>
               <div class="slide">
                 <div class="logo-card"
                      tabindex="0"
-                     data-slug="studgorodok-rgau"
-                     data-caption="Unofficial residences page used as a marketing platform that students perceived as official."
-                     aria-label="Unofficial residences page used as a marketing platform that students perceived as official.">
-                  <img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU">
+                     data-slug="everbet"
+                     data-caption="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed."
+                     aria-label="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed.">
+                  <img src="assets/logos/everbet.jpg" alt="EverBet">
                 </div>
               </div>
               <div class="slide">
@@ -470,28 +471,28 @@
               <div class="slide">
                 <div class="logo-card"
                      tabindex="0"
+                     data-slug="rgau-mskha"
+                     data-caption="Coach, then sports manager at his home university; ran gym operations campus‑wide."
+                     aria-label="Coach, then sports manager at his home university; ran gym operations campus‑wide.">
+                  <img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
+                     data-slug="studgorodok-rgau"
+                     data-caption="Unofficial residences page used as a marketing platform that students perceived as official."
+                     aria-label="Unofficial residences page used as a marketing platform that students perceived as official.">
+                  <img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU">
+                </div>
+              </div>
+              <div class="slide">
+                <div class="logo-card"
+                     tabindex="0"
                      data-slug="diplosha"
                      data-caption="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible."
                      aria-label="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible.">
                   <img src="assets/logos/diplosha.jpg" alt="Diplosha">
-                </div>
-              </div>
-              <div class="slide">
-                <div class="logo-card"
-                     tabindex="0"
-                     data-slug="franco-columbu"
-                     data-caption="Agent in Russia; verified VK page, translations, fan community, access to products, press."
-                     aria-label="Agent in Russia; verified VK page, translations, fan community, access to products, press.">
-                  <img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu">
-                </div>
-              </div>
-              <div class="slide">
-                <div class="logo-card"
-                     tabindex="0"
-                     data-slug="everbet"
-                     data-caption="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed."
-                     aria-label="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed.">
-                  <img src="assets/logos/everbet.jpg" alt="EverBet">
                 </div>
               </div>
               <div class="slide">
@@ -928,6 +929,12 @@
       }
 
       closeBtn.addEventListener('click', requestClose);
+      root.addEventListener('click', event=>{
+        if(event.target.closest('.modal-close')){
+          event.preventDefault();
+          requestClose();
+        }
+      });
       if(backdrop){
         backdrop.addEventListener('click', requestClose);
       }
