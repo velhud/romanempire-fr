@@ -282,7 +282,8 @@
       color:var(--fg);
       border:1px solid rgba(255,255,255,.18);
       cursor:pointer;
-      z-index:1;
+      z-index:5;
+      pointer-events:auto;
       transition:background 140ms ease, border-color 140ms ease;
     }
     #modal-root .modal-close:hover,
@@ -618,17 +619,17 @@
     <section class="closing" aria-label="Closing line">
       <div class="line">Happy domination.</div>
     </section>
-    <div id="modal-root" aria-hidden="true">
-      <div class="modal-backdrop"></div>
-      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" aria-describedby="case-body">
-        <button class="modal-close" type="button" aria-label="Close">×</button>
-        <article class="case">
-          <h3 id="case-title"></h3>
-          <div id="case-body" class="case-body"></div>
-        </article>
-      </div>
-    </div>
   </main>
+  <div id="modal-root" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="case-title" aria-describedby="case-body">
+      <button class="modal-close" type="button" aria-label="Close">×</button>
+      <article class="case">
+        <h3 id="case-title"></h3>
+        <div id="case-body" class="case-body"></div>
+      </article>
+    </div>
+  </div>
   <noscript>
     <section id="cases" class="container">
       <article id="iz-drysha-v-atlety">
@@ -935,26 +936,24 @@
         history.replaceState({case:null, initial:true}, '', baseUrl);
       }
 
-      closeBtn.addEventListener('click', event=>{
+      const handleCloseClick = event=>{
         event.preventDefault();
         requestClose();
-      });
-      closeBtn.addEventListener('pointerup', event=>{
-        event.preventDefault();
-        requestClose();
-      });
+      };
+      closeBtn.addEventListener('click', handleCloseClick);
       closeBtn.addEventListener('keydown', event=>{
         if(event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar'){
           event.preventDefault();
           requestClose();
         }
       });
-      root.addEventListener('click', event=>{
+      document.addEventListener('click', event=>{
+        if(!root.classList.contains('open')) return;
         if(event.target.closest('.modal-close')){
           event.preventDefault();
           requestClose();
         }
-      });
+      }, true);
       if(backdrop){
         backdrop.addEventListener('click', requestClose);
       }
