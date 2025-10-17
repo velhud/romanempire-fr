@@ -949,6 +949,12 @@
           requestClose();
         }
       });
+      root.addEventListener('click', event=>{
+        if(event.target.closest('.modal-close')){
+          event.preventDefault();
+          requestClose();
+        }
+      });
       if(backdrop){
         backdrop.addEventListener('click', requestClose);
       }
