@@ -194,6 +194,7 @@
     }
     .brand .A{ font-weight:800; }
     .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px);}
+    .contact a + a::before{content:" · "; opacity:.6;}
     .cta-row{
       display:flex;
       gap:12px;
@@ -517,10 +518,13 @@
             Try <span class="btn-brand">in<span class="btn-A">A</span>i.fr</span>
           </a>
           <button class="btn btn-ghost" type="button" data-open="cv">Cursus Honorum</button>
+          <button class="btn btn-ghost" type="button" data-open="skills" aria-label="Open Skills">Artes</button>
+          <button class="btn btn-ghost" type="button" data-open="education" aria-label="Open Education">Studia</button>
         </div>
 
         <p class="contact">
           Need Roman? <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+          <a href="https://www.linkedin.com/in/romanchuikov" target="_blank" rel="me noopener">LinkedIn</a>
         </p>
       </div>
     </section>
@@ -724,8 +728,140 @@
                 <div>
                   <h4>Contacts</h4>
                   <p><a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a></p>
+                  <p><a href="https://www.linkedin.com/in/romanchuikov" target="_blank" rel="me noopener">LinkedIn</a></p>
                   <p><a href="/assets/cv/roman-chuikov-cv.pdf" download>Download CV (PDF)</a></p>
                 </div>
+              </section>
+            </div>
+          </template>
+
+          <template id="tpl-skills">
+            <h3>Artes</h3>
+            <div class="case-body">
+              <p><strong>Strengths.</strong> Builder across disciplines. Product, go-to-market, and operations.</p>
+              <section class="cols">
+                <div>
+                  <h4>Soft Skills</h4>
+                  <ul>
+                    <li>Systems thinking: map inputs, constraints, and interfaces into clear architectures; anticipate second-order effects; keep feedback loops explicit.</li>
+                    <li>First-principles logic: decompose problems, state assumptions, define invariants, and reason to a single correct plan.</li>
+                    <li>Consequential and scale-aware decisions: weigh near-term impact against system-level trade-offs; protect long-term optionality.</li>
+                    <li>Prioritization discipline: focus on the critical path; cut non-essential scope; timebox exploration; limit work in progress.</li>
+                    <li>Delegation by contract: assign tasks with explicit inputs, outputs, acceptance criteria, and service boundaries; enforce ownership.</li>
+                    <li>Responsibility design: set clear limits of authority; prevent scope creep; maintain stable interfaces between roles.</li>
+                    <li>Direct communication: explain issues at their root; remove ambiguity; state risks, costs, and constraints without euphemism.</li>
+                    <li>Technical storytelling: turn complex designs into simple narratives for stakeholders; run live architecture walkthroughs.</li>
+                    <li>Public speaking: present roadmaps, demos, and Q&A to technical and non-technical audiences with confidence.</li>
+                    <li>Feedback fluency: invite critique, run short iteration loops, compare versions against metrics, and adopt the best idea.</li>
+                    <li>Evidence-led judgment: verify claims, demand numbers, test edge cases, and anchor decisions in data, not flattery.</li>
+                    <li>Deep-work capacity: hold long focus windows; minimize context switching; deliver predictable throughput.</li>
+                    <li>Resilience under constraints: keep momentum with limited time or budget; choose reversible decisions when possible.</li>
+                    <li>Learning velocity: build new mental models fast; generalize patterns; self-correct when evidence changes.</li>
+                    <li>Cross-functional alignment: translate between product, design, and engineering; maintain shared definitions of done.</li>
+                    <li>Outcome orientation: optimize for shipped value, reliability, and cost; separate personal comfort from team results.</li>
+                    <li>Risk management: surface unknowns early; create fallback paths; design graceful degradation.</li>
+                    <li>Written rigor: produce concise specs, ADRs, runbooks, and post-mortems that others can execute without hand-holding.</li>
+                    <li>Ethical clarity: prioritize factual accuracy, user safety, privacy, and honest communication of limitations.</li>
+                    <li>Calm under pressure: maintain signal in high-stakes conversations; decide, document, and move.</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Hard Skills</h4>
+                  <ul>
+                    <li>System design: contract-first APIs with OpenAPI; clean module boundaries; ADRs; sequence and flow diagrams.</li>
+                    <li>Data modeling: normalized schemas, indexing plans, pagination, idempotency keys, transactional boundaries.</li>
+                    <li>Asynchronicity and jobs: background workers, queues, scheduled tasks, backpressure, and retry semantics.</li>
+                    <li>Resilience patterns: rate limiting by RPM and TPM, exponential backoff, circuit breakers, timeouts, bulkheads, graceful degradation.</li>
+                    <li>Backend engineering (Python): FastAPI, Pydantic, async IO, type-hinted services, file and batch processors, streaming endpoints, CLI tooling.</li>
+                    <li>Document pipelines: PDF parsing, text normalization, layout and table extraction, checksums, deduplication, chunking strategies.</li>
+                    <li>OCR and speech: Tesseract with image preprocessing, layout segmentation, table detection, confidence thresholds; Whisper-class ASR via remote providers; fallback routing.</li>
+                    <li>LLM engineering: prompt templates, strict JSON schemas, function and tool calling, structured outputs, diff-based code updates.</li>
+                    <li>Retrieval and RAG: embedding policies, chunk sizing and overlap, hybrid retrieval, reranking hooks, vector stores such as pgvector or FAISS, evaluation loops.</li>
+                    <li>Agent orchestration: multi-step planners, tool routers, guardrails, memory stores, deterministic checkpoints.</li>
+                    <li>Model routing and cost control: choose models by quality, latency, and price; token budgeting; concurrency limits; dynamic fallbacks; caching.</li>
+                    <li>Evaluation and QA for AI systems: golden sets, regression suites, rubric-based scoring, failure taxonomy, bias and robustness checks.</li>
+                    <li>Frontend engineering: Next.js with TypeScript, App Router, SSR and ISR, API routes, middleware, route guards, i18n, accessibility, SEO.</li>
+                    <li>UI systems: MUI component theming, design tokens, responsive layouts, form schemas with validation, optimistic interactions, skeleton states.</li>
+                    <li>State and data on the client: React Query or SWR patterns, cache invalidation, error and loading choreography.</li>
+                    <li>Storage and caching: relational modeling, migration strategy, read and write paths, in-memory caches, content hashing.</li>
+                    <li>Testing: pytest unit and integration tests, property-based tests, contract tests for APIs, golden-file tests for parsers, end-to-end web flows, deterministic fixtures, coverage tracking.</li>
+                    <li>CI/CD: automated pipelines for lint, test, build, and deploy; environment gating; versioned APIs; rollback and recovery plans.</li>
+                    <li>Observability: structured logging, request tracing, metrics, dashboards, SLIs and SLOs, alert rules, post-incident reviews.</li>
+                    <li>Security basics: input validation, output encoding, authentication and authorization layers, secret management, least-privilege access, PII handling.</li>
+                    <li>Documentation: API contracts, ERDs, ADRs, runbooks, onboarding guides, release checklists, decision logs.</li>
+                    <li>Product execution mechanics: impact scoring, critical-path protection, ticket breakdown with acceptance criteria and definitions of done.</li>
+                    <li>Analytics readiness: event schemas, funnel and retention metrics, experiment design, decision thresholds.</li>
+                    <li>Performance hygiene: latency budgets, hot-path profiling, payload and bundle control, CDN and caching strategy.</li>
+                    <li>Collaboration workflows: code review rules, branching and release strategy, monorepo structure, changelogs, and version notes.</li>
+                  </ul>
+                </div>
+              </section>
+              <div>
+                <h4>Contacts</h4>
+                <p><a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a></p>
+                <p><a href="https://www.linkedin.com/in/romanchuikov" target="_blank" rel="me noopener">LinkedIn</a></p>
+              </div>
+            </div>
+          </template>
+
+          <template id="tpl-education">
+            <h3>Studia</h3>
+            <div class="case-body">
+              <section class="timeline">
+                <h4>Formal</h4>
+                <ol>
+                  <li>
+                    <div class="t-head"><span class="t-role">Master of Science, International Economics and Management</span> — Faculté de Gestion, Economie et Sciences (FGES), Université Catholique de Lille</div>
+                    <div class="t-meta">Sep 2022 to Jul 2023 · Lille, France</div>
+                    <div class="t-body">Degree awarded: Master. Focus on international management, managerial economics, corporate strategy, operations, and quantitative decision methods. Produced case analyses, strategy memos, models, and stakeholder presentations using structured problem solving and scenario planning.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Engineer’s program, Business and Marketing (exchange)</span> — ISA Lille (JUNIA)</div>
+                    <div class="t-meta">Sep 2021 to Sep 2022 · Lille, France</div>
+                    <div class="t-body">Explored market research, segmentation, positioning, pricing, and go-to-market design. Delivered survey programs, funnel analysis, channel evaluations, and narratives for technical offerings.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Doctor of Philosophy studies, Biology (not finished)</span> — Russian State Agrarian University, Moscow Timiryazev Agricultural Academy</div>
+                    <div class="t-meta">Sep 2020 to Dec 2023 · Moscow, Russia</div>
+                    <div class="t-body">Completed advanced coursework and research before withdrawing pre-defense. Emphasis on biological systems, climate interactions, genetics, research methodology, and experimental design.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Master’s degree, Agriculture</span> — Russian State Agrarian University, Moscow Timiryazev Agricultural Academy</div>
+                    <div class="t-meta">Sep 2018 to Jul 2020 · Moscow, Russia</div>
+                    <div class="t-body">Focused on animal sciences, aquaculture, agronomy, and environmental systems. Practiced lab and field work, data collection, structured reporting, and safety compliance.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Bachelor’s degree, Agriculture</span> — Russian State Agrarian University, Moscow Timiryazev Agricultural Academy</div>
+                    <div class="t-meta">Sep 2013 to Jul 2017 · Moscow, Russia</div>
+                    <div class="t-body">Built foundations in biology, chemistry, genetics, physiology, and agricultural production systems. Developed quantitative habits and technical literacy.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Professional program, Cinematography and Film or Video Production</span> — Skillbox (remote)</div>
+                    <div class="t-meta">Mar 2020 to Dec 2022 · Remote</div>
+                    <div class="t-body">Learned pre-production planning, shooting fundamentals, editing workflows, and basic motion and sound design to produce clear product demos and marketing assets.</div>
+                  </li>
+                </ol>
+              </section>
+
+              <section class="timeline" style="margin-top:12px">
+                <h4>Continuing</h4>
+                <ol>
+                  <li>
+                    <div class="t-head"><span class="t-role">TOEIC</span> — Score 975 out of 990</div>
+                    <div class="t-meta">Assessment</div>
+                    <div class="t-body">Demonstrates advanced professional English proficiency for reading and listening.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Business English courses</span> — Russian State Agrarian University, MTAA</div>
+                    <div class="t-meta">Continuing</div>
+                    <div class="t-body">Focused on academic and professional communication with emphasis on technical writing and presentations.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Certification in Genetics</span> — Russian State Agrarian University with Lomonosov Moscow State University</div>
+                    <div class="t-meta">Certification</div>
+                    <div class="t-body">Covered Mendelian and molecular genetics, population genetics, lab methods, and data interpretation with written and practical assessments.</div>
+                  </li>
+                </ol>
               </section>
             </div>
           </template>
