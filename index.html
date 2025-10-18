@@ -4,8 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roman Empire</title>
-  <meta name="description" content="You searched Rome and found Roman. A minimal, ironic one‑page empire." />
+  <meta name="description" content="Welcome to Roman and his Empire. A minimal, ironic one-page empire." />
   <meta name="theme-color" content="#0c0d0f" />
+  <link rel="canonical" href="https://romanempire.fr/" />
+  <meta property="og:title" content="Roman Empire" />
+  <meta property="og:description" content="Welcome to Roman and his Empire. A minimal, ironic one-page empire." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://romanempire.fr/" />
+  <meta property="og:image" content="https://romanempire.fr/assets/picture.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Roman Empire" />
+  <meta name="twitter:description" content="Welcome to Roman and his Empire. A minimal, ironic one-page empire." />
+  <meta name="twitter:image" content="https://romanempire.fr/assets/picture.jpg" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -184,6 +194,27 @@
     }
     .brand .A{ font-weight:800; }
     .contact{margin-top:18px; color:var(--muted); font-size:clamp(14px, 1.4vw, 16px);}
+    .cta-row{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+    .cta-row .btn,
+    .cta-row .btn-ghost{margin-top:0;}
+    .btn-ghost{
+      background:transparent;
+      color:var(--fg);
+      border:1px solid rgba(255,255,255,.24);
+      box-shadow:none;
+      filter:none;
+    }
+    .btn-ghost:hover{
+      background:rgba(255,255,255,.06);
+      box-shadow:none;
+      filter:none;
+    }
 
     /* ===== SHOWCASE ===== */
     .showcase{
@@ -226,12 +257,32 @@
     .logo-card.tall{
       aspect-ratio:4/3;                            /* normalize height across mixed logo shapes */
       border-radius:16px;
+      position:relative;
       background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
       border:1px solid rgba(255,255,255,.18);
       box-shadow:var(--shadow);
       overflow:hidden;
       display:flex; align-items:center; justify-content:center;
       padding:clamp(10px, 1.6vw, 18px);
+    }
+    .badge{
+      position:absolute;
+      top:8px;
+      right:8px;
+      z-index:1;
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:12px;
+      line-height:1;
+      border:1px solid rgba(255,255,255,.24);
+      background:rgba(0,0,0,.45);
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+    }
+    .badge-archived{opacity:.85;}
+    .badge-active{
+      border-color:rgba(255,215,130,.5);
+      box-shadow:0 0 0 1px rgba(183,137,45,.35) inset;
     }
 
     /* fit every logo cleanly inside the frame */
@@ -308,6 +359,44 @@
       color:var(--fg);
     }
     .case-body p{margin:0 0 12px;}
+    .case-body h4{margin:16px 0 8px; font-weight:600;}
+    .timeline ol{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:grid;
+      gap:12px;
+    }
+    .timeline li{
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    }
+    .t-head{font-weight:600;}
+    .t-meta{opacity:.7; font-size:.95em;}
+    .cols{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width:720px){
+      .cols{grid-template-columns:1fr;}
+    }
+    .redacted .t-head,
+    .redacted .t-meta,
+    .redacted .t-body{filter:blur(4px);}
+    .redacted .reveal{
+      filter:none;
+      margin-left:8px;
+      border:1px solid rgba(255,255,255,.24);
+      background:transparent;
+      color:var(--fg);
+      border-radius:8px;
+      padding:2px 8px;
+      font-size:.9em;
+      cursor:pointer;
+    }
     @media (max-width: 640px){
       #modal-root .modal-panel{
         left:50%;
@@ -391,6 +480,7 @@
       font-size:clamp(24px, 2.8vw, 32px);
       color:var(--muted);
     }
+    .closing #toggle-numerals{margin-top:12px;}
     @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
   </style>
 </head>
@@ -423,9 +513,12 @@
           <br><strong>Better to try <span class="brand">in<span class="A">A</span>i.fr</span>. They are building the future.</strong>
         </p>
 
-        <a class="btn" href="https://inai.fr" target="_blank" rel="noopener">
-          Try <span class="btn-brand">in<span class="btn-A">A</span>i.fr</span>
-        </a>
+        <div class="cta-row">
+          <a class="btn" href="https://inai.fr/?utm_source=romanempire" target="_blank" rel="noopener">
+            Try <span class="btn-brand">in<span class="btn-A">A</span>i.fr</span>
+          </a>
+          <button class="btn btn-ghost" type="button" data-open="cv">Cursus Honorum</button>
+        </div>
 
         <p class="contact">
           Need Roman? <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
@@ -448,6 +541,7 @@
                      data-slug="iz-drysha-v-atlety"
                      data-caption="Early media experiment to turn a very skinny student into an athlete on a tight program."
                      aria-label="Early media experiment to turn a very skinny student into an athlete on a tight program.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety">
                 </div>
               </div>
@@ -457,6 +551,7 @@
                      data-slug="franco-columbu"
                      data-caption="Agent in Russia; verified VK page, translations, fan community, access to products, press."
                      aria-label="Agent in Russia; verified VK page, translations, fan community, access to products, press.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu">
                 </div>
               </div>
@@ -466,6 +561,7 @@
                      data-slug="everbet"
                      data-caption="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed."
                      aria-label="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/everbet.jpg" alt="EverBet">
                 </div>
               </div>
@@ -475,6 +571,7 @@
                      data-slug="i-pressa"
                      data-caption="Print and copy business grown from zero to three Moscow offices; survived COVID."
                      aria-label="Print and copy business grown from zero to three Moscow offices; survived COVID.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/i-pressa.jpg" alt="i‑Pressa">
                 </div>
               </div>
@@ -484,6 +581,7 @@
                      data-slug="copycat"
                      data-caption="Spun out iPressa’s online services from a physical shop to widen perceived choice."
                      aria-label="Spun out iPressa’s online services from a physical shop to widen perceived choice.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/copycat.jpg" alt="CopyCat">
                 </div>
               </div>
@@ -493,6 +591,7 @@
                      data-slug="rgau-mskha"
                      data-caption="Coach, then sports manager at his home university; ran gym operations campus‑wide."
                      aria-label="Coach, then sports manager at his home university; ran gym operations campus‑wide.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA">
                 </div>
               </div>
@@ -502,6 +601,7 @@
                      data-slug="studgorodok-rgau"
                      data-caption="Unofficial residences page used as a marketing platform that students perceived as official."
                      aria-label="Unofficial residences page used as a marketing platform that students perceived as official.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU">
                 </div>
               </div>
@@ -511,6 +611,7 @@
                      data-slug="diplosha"
                      data-caption="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible."
                      aria-label="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/diplosha.jpg" alt="Diplosha">
                 </div>
               </div>
@@ -520,6 +621,7 @@
                      data-slug="universite-catholique-de-lille"
                      data-caption="First official job in France: taught genetics, then supported international students."
                      aria-label="First official job in France: taught genetics, then supported international students.">
+                  <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille">
                 </div>
               </div>
@@ -529,6 +631,7 @@
                      data-slug="euratechnologies"
                      data-caption="Incubation that accelerates the inAi project."
                      aria-label="Incubation that accelerates the inAi project.">
+                  <span class="badge badge-active" aria-label="Active">Active</span>
                   <img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies">
                 </div>
               </div>
@@ -539,42 +642,86 @@
           </button>
         </div>
         <section id="case-templates" hidden>
-          <template id="tpl-iz-drysha-v-atlety">
+          <template id="tpl-cv">
+            <h3>Cursus Honorum</h3>
+            <div class="case-body">
+              <p><strong>Summary.</strong> Builder across disciplines. Based in France. Focus: inAi.</p>
+
+              <section class="timeline">
+                <h4>Campaigns</h4>
+                <ol>
+                  <li>
+                    <div class="t-head"><span class="t-role">Founder</span> — inAi</div>
+                    <div class="t-meta"><span data-num="2023">2023</span>–present · France</div>
+                    <div class="t-body">Independent general-purpose AI agent. Incubated at EuraTechnologies.</div>
+                  </li>
+                  <li>
+                    <div class="t-head"><span class="t-role">Sports manager & coach</span> — RGAU‑MSKHA</div>
+                    <div class="t-meta">Earlier</div>
+                    <div class="t-body">Ran multi-site gym ops; coached; managed facilities.</div>
+                  </li>
+                  <li class="redacted">
+                    <div class="t-head"><span class="t-role">—</span> — —</div>
+                    <div class="t-meta">—</div>
+                    <div class="t-body">Some victories are better whispered. <button class="reveal" type="button">Reveal</button></div>
+                  </li>
+                </ol>
+              </section>
+
+              <section class="cols">
+                <div>
+                  <h4>Skills</h4>
+                  <ul>
+                    <li>Company building</li>
+                    <li>Product + GTM</li>
+                    <li>Coaching & operations</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>Contacts</h4>
+                  <p><a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a></p>
+                  <p><a href="/assets/cv/roman-chuikov-cv.pdf" download>Download CV (PDF)</a></p>
+                </div>
+              </section>
+            </div>
+          </template>
+
+          <template id="tpl-iz-drysha-v-atlety" lang="ru">
             <h3>Из Дрыща в атлеты (From a Skinny Kid to an Athlete)</h3>
             <div class="case-body">
               <p>Roman’s first attempt at a media show. Together with friends he designed an experiment: take a very thin young man and transform him into an athlete in a short period using a strict plan for training, nutrition, and recovery. The project explored how far disciplined scheduling and coaching could move a beginner toward athletic form within limited time.</p>
             </div>
           </template>
 
-          <template id="tpl-rgau-mskha">
+          <template id="tpl-rgau-mskha" lang="ru">
             <h3>Тренажерный зал РГАУ‑МСХА (RGAU‑MSKHA Gym)</h3>
             <div class="case-body">
               <p>Roman was first hired as a fitness coach at the gym of his home university (RGAU‑MSKHA). He was later promoted to a sports manager role that required working with the university president and coordinating several gym‑related spaces. He combined evening coaching duties (and massage work as a bonus responsibility) with daytime management, organizing facilities and services for students and visitors across campus.</p>
             </div>
           </template>
 
-          <template id="tpl-studgorodok-rgau">
+          <template id="tpl-studgorodok-rgau" lang="ru">
             <h3>Студгородок (Student Residences)</h3>
             <div class="case-body">
               <p>Roman created a page about student residences that looked official and used it as a marketing platform. Because most students living in the university residences were his customers, posts with advertising were perceived as recommendations from the university itself, which increased reach and conversion.</p>
             </div>
           </template>
 
-          <template id="tpl-i-pressa">
+          <template id="tpl-i-pressa" lang="ru">
             <h3>iПресса (iPressa)</h3>
             <div class="case-body">
               <p>Roman’s most successful early venture. He built iPressa from nothing in the copy/printing field. At launch he presented it online as an established service while in reality he personally printed orders at night and delivered them during the day. The company survived COVID and was fully legalized. It expanded to three offices in Moscow. Growth stopped only because Roman remained in France and chose not to return.</p>
             </div>
           </template>
 
-          <template id="tpl-copycat">
+          <template id="tpl-copycat" lang="ru">
             <h3>Центр полиграфии CopyCat (CopyCat Polygraphy Center)</h3>
             <div class="case-body">
               <p>A successful attempt to separate iPressa’s online services from a standalone physical office in northern Moscow. The goal was increased client engagement by presenting multiple solutions in the market while some of them were owned by the same company.</p>
             </div>
           </template>
 
-          <template id="tpl-diplosha">
+          <template id="tpl-diplosha" lang="ru">
             <h3>Диплошa (Diplosha)</h3>
             <div class="case-body">
               <p>Roman’s last business attempt in Russia before leaving. The idea was to build an additional platform, leveraging the existing client base, to help students with theses and other academic papers. The project was not finished because he could not return to Russia.</p>
@@ -625,6 +772,7 @@
     <!-- CLOSING -->
     <section class="closing" aria-label="Closing line">
       <div class="line">Happy domination.</div>
+      <button id="toggle-numerals" class="btn btn-ghost" type="button">Roman numerals: off</button>
     </section>
   </main>
   <div id="modal-root" aria-hidden="true">
@@ -736,6 +884,21 @@
       track.addEventListener('transitionend', ()=>{ normalize(); anim = false; });
       rightBtn.addEventListener('click', ()=>move(1));
       leftBtn.addEventListener('click', ()=>move(-1));
+      let touchStartX = null;
+      track.addEventListener('touchstart', event=>{
+        touchStartX = event.touches[0].clientX;
+      }, {passive:true});
+      track.addEventListener('touchmove', event=>{
+        if(touchStartX === null) return;
+        const dx = event.touches[0].clientX - touchStartX;
+        if(Math.abs(dx) > 28){
+          move(dx < 0 ? 1 : -1);
+          touchStartX = null;
+        }
+      }, {passive:true});
+      const resetTouch = ()=>{ touchStartX = null; };
+      track.addEventListener('touchend', resetTouch, {passive:true});
+      track.addEventListener('touchcancel', resetTouch, {passive:true});
       window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
       window.addEventListener('resize', ()=> setX(false));
       setX(false);
@@ -1004,6 +1167,25 @@
 
       window.addEventListener('hashchange', handleHashChange);
 
+      document.addEventListener('click', event=>{
+        const trigger = event.target.closest('[data-open]');
+        if(!trigger) return;
+        const slug = trigger.getAttribute('data-open');
+        if(!slug || !getTemplate(slug)) return;
+        event.preventDefault();
+        pushCaseState(slug);
+        handleHashChange();
+      });
+
+      document.addEventListener('click', event=>{
+        const revealBtn = event.target.closest('.reveal');
+        if(!revealBtn) return;
+        const secret = revealBtn.closest('.redacted');
+        if(!secret) return;
+        secret.classList.remove('redacted');
+        revealBtn.remove();
+      });
+
       window.addEventListener('focus', ()=>{
         if(tooltipTarget){
           positionTooltip(tooltipTarget);
@@ -1015,6 +1197,49 @@
         history.replaceState({case:initialSlug, initial:true}, '', `#${initialSlug}`);
         openCase(initialSlug);
       }
+    })();
+
+    (function(){
+      const map = [
+        [1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],
+        [100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],
+        [5,'V'],[4,'IV'],[1,'I']
+      ];
+      function toRoman(n){
+        let value = n;
+        let out = '';
+        for(const [num, symbol] of map){
+          while(value >= num){
+            out += symbol;
+            value -= num;
+          }
+        }
+        return out || String(n);
+      }
+      const btn = document.getElementById('toggle-numerals');
+      if(!btn) return;
+      let enabled = false;
+      const originals = new WeakMap();
+      function render(){
+        btn.textContent = `Roman numerals: ${enabled ? 'on' : 'off'}`;
+        btn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        document.querySelectorAll('[data-num]').forEach(el=>{
+          if(enabled){
+            if(!originals.has(el)) originals.set(el, el.textContent);
+            const num = parseInt(el.getAttribute('data-num'), 10);
+            if(Number.isFinite(num) && num > 0){
+              el.textContent = toRoman(num);
+            }
+          }else if(originals.has(el)){
+            el.textContent = originals.get(el);
+          }
+        });
+      }
+      btn.addEventListener('click', ()=>{
+        enabled = !enabled;
+        render();
+      });
+      render();
     })();
   </script>
 </body>
