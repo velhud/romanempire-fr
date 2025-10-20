@@ -362,6 +362,28 @@
     }
     .case-body p{margin:0 0 12px;}
     .case-body h4{margin:16px 0 8px; font-weight:600; text-align:center;}
+    .contact-links{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:12px;
+      margin:12px 0 0;
+    }
+    .contact-links a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.05);
+      color:var(--fg);
+      text-decoration:none;
+    }
+    .contact-links a:hover{
+      border-color:rgba(255,255,255,.32);
+      background:rgba(255,255,255,.12);
+    }
     .timeline ol{
       list-style:none;
       margin:0;
@@ -483,15 +505,6 @@
       text-align:center;
       margin:0 0 28px;
     }
-    .closing{display:grid; place-items:center; padding:80px 22px 96px; text-align:center;}
-    .closing .line{
-      font-family:"Cinzel", ui-serif, Georgia, serif;
-      font-weight:700;
-      font-variant-caps:small-caps;
-      letter-spacing:.08em;
-      font-size:clamp(24px, 2.8vw, 32px);
-      color:var(--muted);
-    }
     @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
   </style>
 </head>
@@ -535,8 +548,8 @@
         </p>
 
         <div class="cta-row">
-          <button class="btn btn-ghost" type="button" data-open="cv" aria-label="Open CV">Cursus Honorum</button>
           <button class="btn btn-ghost" type="button" data-open="skills" aria-label="Open Skills">Artes</button>
+          <button class="btn btn-ghost" type="button" data-open="cv" aria-label="Open CV">Cursus Honorum</button>
           <button class="btn btn-ghost" type="button" data-open="education" aria-label="Open Education">Studia</button>
         </div>
 
@@ -678,11 +691,6 @@
                     <div class="t-body">Independent general-purpose AI agent, building toward sovereign automation.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Incubatee</span> — EuraTechnologies</div>
-                    <div class="t-meta">2023 · Lille</div>
-                    <div class="t-body">Joined the flagship incubator to accelerate the inAi launch plan.</div>
-                  </li>
-                  <li>
                     <div class="t-head"><span class="t-role">Lecturer</span> — Université Catholique de Lille</div>
                     <div class="t-meta">2022 · Lille</div>
                     <div class="t-body">Taught genetics and supported incoming international students to stay rooted in France.</div>
@@ -730,20 +738,12 @@
                 </ol>
               </section>
 
-              <section class="cols">
-                <div>
-                  <h4>Skills</h4>
-                  <ul>
-                    <li>Company building</li>
-                    <li>Product + GTM</li>
-                    <li>Coaching & operations</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>Contacts</h4>
-                  <p><a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a></p>
-                  <p><a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a></p>
-                  <p><a href="assets/cv/roman-chuikov-cv.pdf" download>Download CV (PDF)</a></p>
+              <section>
+                <h4>Contacts</h4>
+                <div class="contact-links">
+                  <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+                  <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
+                  <a href="assets/cv/roman-chuikov-cv.pdf" download>Download CV (PDF)</a>
                 </div>
               </section>
             </div>
@@ -810,11 +810,13 @@
                   </ul>
                 </div>
               </section>
-              <div>
+              <section>
                 <h4>Contacts</h4>
-                <p><a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a></p>
-                <p><a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a></p>
-              </div>
+                <div class="contact-links">
+                  <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+                  <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
+                </div>
+              </section>
             </div>
           </template>
 
@@ -962,10 +964,6 @@
           <img src="assets/logos/inai.webp" alt="inAi">
         </a>
       </div>
-    </section>
-    <!-- CLOSING -->
-    <section class="closing" aria-label="Closing line">
-      <div class="line">Happy domination.</div>
     </section>
   </main>
   <div id="modal-root" aria-hidden="true">
