@@ -4,24 +4,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roman Empire</title>
-  <meta name="description" content="Welcome to Roman and his Empire. A minimal, ironic one-page empire." />
-  <meta name="theme-color" content="#0c0d0f" />
+  <meta name="description" content="A minimal, ironic one-page empire." />
   <link rel="canonical" href="https://romanempire.fr/" />
   <meta property="og:title" content="Roman Empire" />
-  <meta property="og:description" content="Welcome to Roman and his Empire. A minimal, ironic one-page empire." />
+  <meta property="og:description" content="A minimal, ironic one-page empire." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://romanempire.fr/" />
-  <meta property="og:image" content="https://romanempire.fr/assets/picture.jpg" />
+  <meta property="og:image" content="https://romanempire.fr/assets/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Roman Empire" />
-  <meta name="twitter:description" content="Welcome to Roman and his Empire. A minimal, ironic one-page empire." />
-  <meta name="twitter:image" content="https://romanempire.fr/assets/picture.jpg" />
+  <meta name="twitter:description" content="A minimal, ironic one-page empire." />
+  <meta name="twitter:image" content="https://romanempire.fr/assets/og.jpg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" sizes="32x32" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0c0d0f" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Spectral:ital,wght@0,300;0,400;0,600;1,300&family=Newsreader:opsz,wght@6..72,300;6..72,700;6..72,800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Roman Chuikov",
+    "url":"https://romanempire.fr/",
+    "email":"mailto:ave@romanempire.fr",
+    "image":"https://romanempire.fr/assets/picture.jpg",
+    "jobTitle":"Founder",
+    "worksFor":{"@type":"Organization","name":"inAi","url":"https://inai.fr"},
+    "address":{"@type":"PostalAddress","addressCountry":"FR"}
+  }
+  </script>
 
   <style>
     :root{
@@ -68,6 +87,7 @@
       white-space:nowrap;
       border:0;
     }
+    :focus-visible{outline:2px solid rgba(183,137,45,.9); outline-offset:3px;}
 
     /* ===== HERO ===== */
     .hero{
@@ -83,7 +103,7 @@
       content:"";
       position:absolute; inset:0;
       background-image:
-        url('assets/textures/noise-512.png'),
+        url('/assets/textures/noise-512.png'),
         radial-gradient(120% 80% at 50% -10%, rgba(183,137,45,.16), transparent 60%),
         linear-gradient(180deg, rgba(10,8,7,.94) 0%, rgba(12,10,9,.3) 30%, rgba(10,8,7,.92) 100%);
       background-size:512px 512px, cover, cover;
@@ -111,7 +131,7 @@
       margin:0 auto 28px;
       aspect-ratio:2982 / 3913;
       border:48px solid transparent;
-      border-image:url('assets/frame.svg') 48 fill stretch;
+      border-image:url('/assets/frame.svg') 48 fill stretch;
       border-radius:12px;
       overflow:hidden;
       transition:transform 220ms ease;
@@ -491,9 +511,15 @@
     <section class="hero" aria-label="Hero">
       <div class="container hero-inner">
         <figure class="portrait">
-          <span class="portrait-inner">
-            <img src="assets/picture.jpg" alt="Roman Chuikov" decoding="async" width="2982" height="3913">
-          </span>
+          <picture class="portrait-inner">
+            <source srcset="/assets/picture.webp" type="image/webp">
+            <img src="/assets/picture.jpg"
+                 alt="Roman Chuikov"
+                 decoding="async"
+                 fetchpriority="high"
+                 width="2982"
+                 height="3913">
+          </picture>
           <figcaption class="sr-only">Portrait of Roman Chuikov</figcaption>
         </figure>
         <h1>Hi.</h1>
@@ -524,7 +550,7 @@
         </p>
 
         <div class="cta-row">
-          <button class="btn btn-ghost" type="button" data-open="cv">Cursus Honorum</button>
+          <button class="btn btn-ghost" type="button" data-open="cv" aria-label="Open CV">Cursus Honorum</button>
           <button class="btn btn-ghost" type="button" data-open="skills" aria-label="Open Skills">Artes</button>
           <button class="btn btn-ghost" type="button" data-open="education" aria-label="Open Education">Studia</button>
         </div>
@@ -552,7 +578,7 @@
                      data-caption="Early media experiment to turn a very skinny student into an athlete on a tight program."
                      aria-label="Early media experiment to turn a very skinny student into an athlete on a tight program.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety">
+                  <img src="/assets/logos/iz-drysha-v-atlety.jpg" alt="Iz Drysha v Atlety" loading="lazy" width="600" height="948">
                 </div>
               </div>
               <div class="slide">
@@ -562,7 +588,7 @@
                      data-caption="Agent in Russia; verified VK page, translations, fan community, access to products, press."
                      aria-label="Agent in Russia; verified VK page, translations, fan community, access to products, press.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu">
+                  <img src="/assets/logos/franco-columbu.jpg" alt="Franco Columbu" loading="lazy" width="800" height="931">
                 </div>
               </div>
               <div class="slide">
@@ -572,7 +598,7 @@
                      data-caption="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed."
                      aria-label="Team effort to build a math‑driven sports‑bet prediction algorithm; project closed.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/everbet.jpg" alt="EverBet">
+                  <img src="/assets/logos/everbet.jpg" alt="EverBet" loading="lazy" width="1278" height="493">
                 </div>
               </div>
               <div class="slide">
@@ -582,7 +608,7 @@
                      data-caption="Print and copy business grown from zero to three Moscow offices; survived COVID."
                      aria-label="Print and copy business grown from zero to three Moscow offices; survived COVID.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/i-pressa.jpg" alt="i‑Pressa">
+                  <img src="/assets/logos/i-pressa.jpg" alt="i‑Pressa" loading="lazy" width="1280" height="1186">
                 </div>
               </div>
               <div class="slide">
@@ -592,7 +618,7 @@
                      data-caption="Spun out iPressa’s online services from a physical shop to widen perceived choice."
                      aria-label="Spun out iPressa’s online services from a physical shop to widen perceived choice.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/copycat.jpg" alt="CopyCat">
+                  <img src="/assets/logos/copycat.jpg" alt="CopyCat" loading="lazy" width="1280" height="758">
                 </div>
               </div>
               <div class="slide">
@@ -602,7 +628,7 @@
                      data-caption="Coach, then sports manager at his home university; ran gym operations campus‑wide."
                      aria-label="Coach, then sports manager at his home university; ran gym operations campus‑wide.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA">
+                  <img src="/assets/logos/rgau-mskha.jpg" alt="RGAU MSKHA" loading="lazy" width="512" height="512">
                 </div>
               </div>
               <div class="slide">
@@ -612,7 +638,7 @@
                      data-caption="Unofficial residences page used as a marketing platform that students perceived as official."
                      aria-label="Unofficial residences page used as a marketing platform that students perceived as official.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU">
+                  <img src="/assets/logos/studgorodok-rgau.jpg" alt="Studgorodok RGAU" loading="lazy" width="868" height="868">
                 </div>
               </div>
               <div class="slide">
@@ -622,7 +648,7 @@
                      data-caption="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible."
                      aria-label="Student thesis help platform based on prior clients; halted when travel back to Russia became impossible.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/diplosha.jpg" alt="Diplosha">
+                  <img src="/assets/logos/diplosha.jpg" alt="Diplosha" loading="lazy" width="600" height="600">
                 </div>
               </div>
               <div class="slide">
@@ -632,7 +658,7 @@
                      data-caption="First official job in France: taught genetics, then supported international students."
                      aria-label="First official job in France: taught genetics, then supported international students.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
-                  <img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille">
+                  <img src="/assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille" loading="lazy" width="2280" height="1169">
                 </div>
               </div>
               <div class="slide">
@@ -642,7 +668,7 @@
                      data-caption="Incubation that accelerates the inAi project."
                      aria-label="Incubation that accelerates the inAi project.">
                   <span class="badge badge-active" aria-label="Active">Active</span>
-                  <img src="assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies">
+                  <img src="/assets/logos/logo-euratechnologies.jpg" alt="EuraTechnologies" loading="lazy" width="800" height="220">
                 </div>
               </div>
             </div>
@@ -947,7 +973,7 @@
         </section>
         <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" href="https://inai.fr" target="_blank" rel="noopener" aria-label="Open inAi.fr">
-          <img src="assets/logos/inai.webp" alt="inAi">
+          <img src="/assets/logos/inai.webp" alt="inAi" loading="lazy" width="902" height="839">
         </a>
       </div>
     </section>
@@ -1020,6 +1046,7 @@
       const track = document.getElementById('logoTrack');
       const leftBtn = document.querySelector('.arrow.left');
       const rightBtn = document.querySelector('.arrow.right');
+      if(!track || !leftBtn || !rightBtn) return;
       // classify orientation for each logo and set frame ratio
       function classifyFrames(scope=document){
         scope.querySelectorAll('.logo-card img').forEach(img=>{
@@ -1039,13 +1066,33 @@
         const kids = Array.from(track.children);
         const first = kids[0].cloneNode(true); first.dataset.clone='first';
         const last  = kids[kids.length-1].cloneNode(true); last.dataset.clone='last';
+        const firstCard = first.querySelector('.logo-card');
+        const lastCard = last.querySelector('.logo-card');
+        if(firstCard) firstCard.dataset.clone='first';
+        if(lastCard) lastCard.dataset.clone='last';
         track.insertBefore(last, kids[0]);
         track.appendChild(first);
         classifyFrames(track);
       }
+      function a11yForClones(){
+        track.querySelectorAll('.slide[data-clone]')
+          .forEach(slide=>{
+            slide.setAttribute('aria-hidden','true');
+          });
+        document.querySelectorAll('.logo-card[data-clone], .slide[data-clone] .logo-card')
+          .forEach(card=>{
+            card.setAttribute('aria-hidden','true');
+            card.setAttribute('tabindex','-1');
+          });
+      }
+      let slides = [];
+      function syncSlides(){
+        slides = Array.from(track.children);
+        a11yForClones();
+      }
       makeClones();
       classifyFrames();
-      let slides = Array.from(track.children);
+      syncSlides();
       let index = 1;
       let anim = false;
       function slideW(){ return slides[0].getBoundingClientRect().width; }
@@ -1055,8 +1102,19 @@
         if(!animate){ track.offsetHeight; track.style.transition='transform 520ms ease'; }
       }
       function normalize(){
-        if(slides[index]?.dataset.clone === 'first'){ index = 1; setX(false); }
-        else if(slides[index]?.dataset.clone === 'last'){ index = slides.length - 2; setX(false); }
+        let adjusted = false;
+        if(slides[index]?.dataset.clone === 'first'){
+          index = 1;
+          setX(false);
+          adjusted = true;
+        }else if(slides[index]?.dataset.clone === 'last'){
+          index = slides.length - 2;
+          setX(false);
+          adjusted = true;
+        }
+        if(adjusted){
+          syncSlides();
+        }
       }
       function move(dir){
         if(anim) return;
@@ -1081,13 +1139,17 @@
       track.addEventListener('touchend', resetTouch, {passive:true});
       track.addEventListener('touchcancel', resetTouch, {passive:true});
       window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
-      window.addEventListener('resize', ()=> setX(false));
+      window.addEventListener('resize', ()=>{
+        syncSlides();
+        setX(false);
+      });
       setX(false);
     })();
 
     (function(){
       const track = document.getElementById('logoTrack');
       if(!track) return;
+      document.querySelectorAll('.logo-card').forEach(card=> card.setAttribute('role','button'));
 
       const tooltip = document.createElement('div');
       tooltip.className = 'tooltip';
