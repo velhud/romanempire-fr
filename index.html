@@ -353,6 +353,7 @@
       font-weight:700;
       margin:8px 0 10px;
       font-size:clamp(22px,2.4vw,28px);
+      text-align:center;
     }
     .case-body{
       font-family:"PT Serif","Spectral", ui-serif, Georgia, serif;
@@ -360,7 +361,7 @@
       color:var(--fg);
     }
     .case-body p{margin:0 0 12px;}
-    .case-body h4{margin:16px 0 8px; font-weight:600;}
+    .case-body h4{margin:16px 0 8px; font-weight:600; text-align:center;}
     .timeline ol{
       list-style:none;
       margin:0;
@@ -472,6 +473,16 @@
     }
     .inai img{width:100%; height:100%; object-fit:contain; display:block;}
     /* ===== CLOSING ===== */
+    .section-title{
+      font-family:"Cinzel", ui-serif, Georgia, serif;
+      font-weight:700;
+      font-variant-caps:small-caps;
+      letter-spacing:.08em;
+      font-size:clamp(24px, 2.8vw, 32px);
+      color:var(--muted);
+      text-align:center;
+      margin:0 0 28px;
+    }
     .closing{display:grid; place-items:center; padding:80px 22px 96px; text-align:center;}
     .closing .line{
       font-family:"Cinzel", ui-serif, Georgia, serif;
@@ -505,7 +516,7 @@
 
         <p class="block">
           This Roman is building an empire across the world and across disciplines.
-          It is wide and multidimensional.
+          <br>It is wide and multidimensional.
         </p>
 
         <p class="block" style="margin-top:10px">
@@ -530,7 +541,7 @@
         </div>
 
         <p class="contact">
-          Need Roman? <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+          <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
           <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
         </p>
       </div>
@@ -539,6 +550,7 @@
     <!-- SHOWCASE -->
     <section class="showcase" aria-label="Projects">
       <div class="container">
+        <h2 class="section-title">History of Empire</h2>
         <div class="slider" role="region" aria-label="Project logos">
           <button class="arrow left" type="button" aria-label="Previous" data-dir="-1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
