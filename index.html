@@ -226,6 +226,51 @@
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
     }
+    .pillars{
+      margin:0 0 38px;
+      text-align:center;
+    }
+    .pillars-grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      margin-top:18px;
+    }
+    .pillar{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:6px;
+      padding:16px 18px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      color:var(--fg);
+      font-family:"Spectral", ui-serif, Georgia, serif;
+      font-size:clamp(15px, 1.6vw, 17px);
+      text-align:left;
+      cursor:pointer;
+      transition:transform .15s ease, border-color .18s ease, background .18s ease;
+      appearance:none;
+    }
+    .pillar:hover,
+    .pillar:focus-visible{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.3);
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    }
+    .pillar-name{
+      font-family:"Cinzel", ui-serif, Georgia, serif;
+      font-weight:700;
+      letter-spacing:.04em;
+      font-size:clamp(18px, 2vw, 22px);
+    }
+    .pillar-note{
+      color:var(--muted);
+      font-size:clamp(13px, 1.3vw, 15px);
+      line-height:1.4;
+    }
     .slider{position:relative; margin:10px 0 26px;}
     .viewport{
       position:relative;
@@ -279,6 +324,14 @@
       background:rgba(0,0,0,.45);
       backdrop-filter:blur(4px);
       -webkit-backdrop-filter:blur(4px);
+    }
+    .badge-outcome{
+      top:auto;
+      bottom:8px;
+      line-height:1.25;
+      white-space:normal;
+      max-width:70%;
+      text-align:right;
     }
     .badge-archived{opacity:.85;}
     .badge-active{
@@ -483,6 +536,7 @@
 
     /* inAi spotlight remains large and distinct */
     .inai{
+      position:relative;
       display:flex; align-items:center; justify-content:center;
       width:min(530px, 90vw);                       /* scaled down for better balance */
       aspect-ratio:1/1; margin:30px auto 0;
@@ -492,6 +546,12 @@
         radial-gradient(70% 120% at 50% 0%, rgba(200,169,107,.13), transparent 70%);
       box-shadow:var(--shadow);
       padding:clamp(16px,3.5vw,42px);
+    }
+    .inai .badge-outcome{
+      right:12px;
+      bottom:12px;
+      max-width:62%;
+      text-align:right;
     }
     .inai img{width:100%; height:100%; object-fit:contain; display:block;}
     /* ===== CLOSING ===== */
@@ -528,13 +588,11 @@
         </p>
 
         <p class="block">
-          This Roman is building an empire across the world and across disciplines.
-          <br>It is wide and multidimensional.
+          I turn scattered fronts into a single campaign that ships.
         </p>
 
-        <p class="block" style="margin-top:10px">
-          But let’s not dwell on the past. Empires rise and fall.
-          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i.fr</span>. They are building the future.</strong>
+        <p class="block" style="opacity:.8">
+          Built a multi-site business · University lecturer · Agent for Franco Columbu
         </p>
 
         <div class="cta-row">
@@ -554,6 +612,7 @@
         </div>
 
         <p class="contact">
+          Proposals and introductions:
           <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
           <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
         </p>
@@ -563,6 +622,27 @@
     <!-- SHOWCASE -->
     <section class="showcase" aria-label="Projects">
       <div class="container">
+        <section class="pillars" aria-label="Four Pillars of Empire">
+          <h2 class="section-title">Four Pillars of Empire</h2>
+          <div class="pillars-grid">
+            <button type="button" class="pillar" data-pillar="inai" aria-label="Open inAi case">
+              <span class="pillar-name">inAi</span>
+              <span class="pillar-note">Independent build from concept to product.</span>
+            </button>
+            <button type="button" class="pillar" data-pillar="i-pressa" aria-label="Focus iPressa in carousel">
+              <span class="pillar-name">iPressa</span>
+              <span class="pillar-note">Zero-to-one to three sites; continuity under stress.</span>
+            </button>
+            <button type="button" class="pillar" data-pillar="universite-catholique-de-lille" aria-label="Focus Université Catholique de Lille in carousel">
+              <span class="pillar-name">Université Catholique de Lille</span>
+              <span class="pillar-note">Taught and ran a program at a French university.</span>
+            </button>
+            <button type="button" class="pillar" data-pillar="franco-columbu" aria-label="Focus Franco Columbu in carousel">
+              <span class="pillar-name">Franco Columbu</span>
+              <span class="pillar-note">Verified presence, translations, and press operations.</span>
+            </button>
+          </div>
+        </section>
         <h2 class="section-title">History of Empire</h2>
         <div class="slider" role="region" aria-label="Project logos">
           <button class="arrow left" type="button" aria-label="Previous" data-dir="-1">
@@ -587,6 +667,7 @@
                      data-caption="Agent in Russia; verified VK page, translations, fan community, access to products, press."
                      aria-label="Agent in Russia; verified VK page, translations, fan community, access to products, press.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
+                  <span class="badge badge-outcome">Verified presence &amp; press</span>
                   <img src="assets/logos/franco-columbu.jpg" alt="Franco Columbu">
                 </div>
               </div>
@@ -607,6 +688,7 @@
                      data-caption="Print and copy business grown from zero to three Moscow offices; survived COVID."
                      aria-label="Print and copy business grown from zero to three Moscow offices; survived COVID.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
+                  <span class="badge badge-outcome">3 offices; survived COVID</span>
                   <img src="assets/logos/i-pressa.jpg" alt="i‑Pressa">
                 </div>
               </div>
@@ -657,6 +739,7 @@
                      data-caption="First official job in France: taught genetics, then supported international students."
                      aria-label="First official job in France: taught genetics, then supported international students.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
+                  <span class="badge badge-outcome">Course delivered</span>
                   <img src="assets/logos/universite-catholique-de-lille.jpg" alt="Université Catholique de Lille">
                 </div>
               </div>
@@ -743,7 +826,6 @@
                 <div class="contact-links">
                   <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
                   <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
-                  <a href="assets/cv/roman-chuikov-cv.pdf" download>Download CV (PDF)</a>
                 </div>
               </section>
             </div>
@@ -752,70 +834,32 @@
           <template id="tpl-skills">
             <h3>Artes</h3>
             <div class="case-body">
-              <p><strong>Strengths.</strong> Builder across disciplines. Product, go-to-market, and operations.</p>
-              <section class="cols">
-                <div>
-                  <h4>Soft Skills</h4>
-                  <ul>
-                    <li>Systems thinking: map inputs, constraints, and interfaces into clear architectures; anticipate second-order effects; keep feedback loops explicit.</li>
-                    <li>First-principles logic: decompose problems, state assumptions, define invariants, and reason to a single correct plan.</li>
-                    <li>Consequential and scale-aware decisions: weigh near-term impact against system-level trade-offs; protect long-term optionality.</li>
-                    <li>Prioritization discipline: focus on the critical path; cut non-essential scope; timebox exploration; limit work in progress.</li>
-                    <li>Delegation by contract: assign tasks with explicit inputs, outputs, acceptance criteria, and service boundaries; enforce ownership.</li>
-                    <li>Responsibility design: set clear limits of authority; prevent scope creep; maintain stable interfaces between roles.</li>
-                    <li>Direct communication: explain issues at their root; remove ambiguity; state risks, costs, and constraints without euphemism.</li>
-                    <li>Technical storytelling: turn complex designs into simple narratives for stakeholders; run live architecture walkthroughs.</li>
-                    <li>Public speaking: present roadmaps, demos, and Q&A to technical and non-technical audiences with confidence.</li>
-                    <li>Feedback fluency: invite critique, run short iteration loops, compare versions against metrics, and adopt the best idea.</li>
-                    <li>Evidence-led judgment: verify claims, demand numbers, test edge cases, and anchor decisions in data, not flattery.</li>
-                    <li>Deep-work capacity: hold long focus windows; minimize context switching; deliver predictable throughput.</li>
-                    <li>Resilience under constraints: keep momentum with limited time or budget; choose reversible decisions when possible.</li>
-                    <li>Learning velocity: build new mental models fast; generalize patterns; self-correct when evidence changes.</li>
-                    <li>Cross-functional alignment: translate between product, design, and engineering; maintain shared definitions of done.</li>
-                    <li>Outcome orientation: optimize for shipped value, reliability, and cost; separate personal comfort from team results.</li>
-                    <li>Risk management: surface unknowns early; create fallback paths; design graceful degradation.</li>
-                    <li>Written rigor: produce concise specs, ADRs, runbooks, and post-mortems that others can execute without hand-holding.</li>
-                    <li>Ethical clarity: prioritize factual accuracy, user safety, privacy, and honest communication of limitations.</li>
-                    <li>Calm under pressure: maintain signal in high-stakes conversations; decide, document, and move.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>Hard Skills</h4>
-                  <ul>
-                    <li>System design: contract-first APIs with OpenAPI; clean module boundaries; ADRs; sequence and flow diagrams.</li>
-                    <li>Data modeling: normalized schemas, indexing plans, pagination, idempotency keys, transactional boundaries.</li>
-                    <li>Asynchronicity and jobs: background workers, queues, scheduled tasks, backpressure, and retry semantics.</li>
-                    <li>Resilience patterns: rate limiting by RPM and TPM, exponential backoff, circuit breakers, timeouts, bulkheads, graceful degradation.</li>
-                    <li>Backend engineering (Python): FastAPI, Pydantic, async IO, type-hinted services, file and batch processors, streaming endpoints, CLI tooling.</li>
-                    <li>Document pipelines: PDF parsing, text normalization, layout and table extraction, checksums, deduplication, chunking strategies.</li>
-                    <li>OCR and speech: Tesseract with image preprocessing, layout segmentation, table detection, confidence thresholds; Whisper-class ASR via remote providers; fallback routing.</li>
-                    <li>LLM engineering: prompt templates, strict JSON schemas, function and tool calling, structured outputs, diff-based code updates.</li>
-                    <li>Retrieval and RAG: embedding policies, chunk sizing and overlap, hybrid retrieval, reranking hooks, vector stores such as pgvector or FAISS, evaluation loops.</li>
-                    <li>Agent orchestration: multi-step planners, tool routers, guardrails, memory stores, deterministic checkpoints.</li>
-                    <li>Model routing and cost control: choose models by quality, latency, and price; token budgeting; concurrency limits; dynamic fallbacks; caching.</li>
-                    <li>Evaluation and QA for AI systems: golden sets, regression suites, rubric-based scoring, failure taxonomy, bias and robustness checks.</li>
-                    <li>Frontend engineering: Next.js with TypeScript, App Router, SSR and ISR, API routes, middleware, route guards, i18n, accessibility, SEO.</li>
-                    <li>UI systems: MUI component theming, design tokens, responsive layouts, form schemas with validation, optimistic interactions, skeleton states.</li>
-                    <li>State and data on the client: React Query or SWR patterns, cache invalidation, error and loading choreography.</li>
-                    <li>Storage and caching: relational modeling, migration strategy, read and write paths, in-memory caches, content hashing.</li>
-                    <li>Testing: pytest unit and integration tests, property-based tests, contract tests for APIs, golden-file tests for parsers, end-to-end web flows, deterministic fixtures, coverage tracking.</li>
-                    <li>CI/CD: automated pipelines for lint, test, build, and deploy; environment gating; versioned APIs; rollback and recovery plans.</li>
-                    <li>Observability: structured logging, request tracing, metrics, dashboards, SLIs and SLOs, alert rules, post-incident reviews.</li>
-                    <li>Security basics: input validation, output encoding, authentication and authorization layers, secret management, least-privilege access, PII handling.</li>
-                    <li>Documentation: API contracts, ERDs, ADRs, runbooks, onboarding guides, release checklists, decision logs.</li>
-                    <li>Product execution mechanics: impact scoring, critical-path protection, ticket breakdown with acceptance criteria and definitions of done.</li>
-                    <li>Analytics readiness: event schemas, funnel and retention metrics, experiment design, decision thresholds.</li>
-                    <li>Performance hygiene: latency budgets, hot-path profiling, payload and bundle control, CDN and caching strategy.</li>
-                    <li>Collaboration workflows: code review rules, branching and release strategy, monorepo structure, changelogs, and version notes.</li>
-                  </ul>
-                </div>
-              </section>
               <section>
-                <h4>Contacts</h4>
-                <div class="contact-links">
-                  <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
-                  <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
-                </div>
+                <h4>How I operate</h4>
+                <ul>
+                  <li><strong>Systems first.</strong> Map interfaces, constraints, and feedback loops before tasks so decisions line up and rework drops.</li>
+                  <li><strong>Prioritize hard.</strong> Protect the critical path and keep WIP low; time-box discovery to force learning over drift.</li>
+                  <li><strong>Orchestrate.</strong> Assign clear owners with contracts and acceptance criteria; remove ambiguity fast.</li>
+                  <li><strong>Write it down.</strong> Specs, ADRs, runbooks, and post-mortems others can execute without me in the room.</li>
+                  <li><strong>Ship with guardrails.</strong> Retries, timeouts, limits, and graceful degradation by default so releases are boring.</li>
+                  <li><strong>Deterministic handover.</strong> Leave diagrams, metrics, and ownership transfer that stick.</li>
+                </ul>
+              </section>
+
+              <section>
+                <h4>Domains I work across</h4>
+                <ul>
+                  <li><strong>Software systems &amp; agents.</strong> Orchestrate agents and services with explicit contracts; evaluate on cost, latency, and accuracy.</li>
+                  <li><strong>Web product.</strong> Structure content and UX for clarity; keep payloads thin and releases predictable.</li>
+                  <li><strong>Research &amp; evidence.</strong> Design studies, read data sanely, and cite correctly; separate signal from noise.</li>
+                  <li><strong>Media &amp; visuals.</strong> Turn ideas into storyboards and assets; edit in DaVinci; shape images in Photoshop.</li>
+                  <li><strong>Life sciences.</strong> Translate biology context into product and communication that non-specialists can follow.</li>
+                </ul>
+              </section>
+
+              <section>
+                <h4>Web builds &amp; small apps</h4>
+                <p>End-to-end delivery from brief to deploy. Clear content, fast performance, predictable releases. Sample artifacts available by email.</p>
               </section>
             </div>
           </template>
@@ -882,52 +926,74 @@
             </div>
           </template>
 
-          <template id="tpl-iz-drysha-v-atlety" lang="ru">
+          <template id="tpl-iz-drysha-v-atlety">
             <h3>Из Дрыща в атлеты (From a Skinny Kid to an Athlete)</h3>
             <div class="case-body">
-              <p>Roman’s first attempt at a media show. Together with friends he designed an experiment: take a very thin young man and transform him into an athlete in a short period using a strict plan for training, nutrition, and recovery. The project explored how far disciplined scheduling and coaching could move a beginner toward athletic form within limited time.</p>
+              <p>Early media experiment documenting how a strict training, nutrition, and recovery plan could transform a beginner. Roman designed the program, coaching, and production cadence to test what disciplined execution could deliver on a short timeline.</p>
             </div>
           </template>
 
-          <template id="tpl-rgau-mskha" lang="ru">
+          <template id="tpl-rgau-mskha">
             <h3>Тренажерный зал РГАУ‑МСХА (RGAU‑MSKHA Gym)</h3>
             <div class="case-body">
-              <p>Roman was first hired as a fitness coach at the gym of his home university (RGAU‑MSKHA). He was later promoted to a sports manager role that required working with the university president and coordinating several gym‑related spaces. He combined evening coaching duties (and massage work as a bonus responsibility) with daytime management, organizing facilities and services for students and visitors across campus.</p>
+              <p>Started as a fitness coach and grew into managing the university gym network. Coordinated facilities, staff, and services with the rector’s office while keeping evening coaching appointments and service add-ons running smoothly.</p>
             </div>
           </template>
 
-          <template id="tpl-studgorodok-rgau" lang="ru">
+          <template id="tpl-studgorodok-rgau">
             <h3>Студгородок (Student Residences)</h3>
             <div class="case-body">
-              <p>Roman created a page about student residences that looked official and used it as a marketing platform. Because most students living in the university residences were his customers, posts with advertising were perceived as recommendations from the university itself, which increased reach and conversion.</p>
+              <p>Built an unofficial student residences page that looked official and used it as a trusted marketing channel. Most residents were existing customers, so recommendations converted like endorsements from the university.</p>
             </div>
           </template>
 
-          <template id="tpl-i-pressa" lang="ru">
+          <template id="tpl-i-pressa">
             <h3>iПресса (iPressa)</h3>
             <div class="case-body">
-              <p>Roman’s most successful early venture. He built iPressa from nothing in the copy/printing field. At launch he presented it online as an established service while in reality he personally printed orders at night and delivered them during the day. The company survived COVID and was fully legalized. It expanded to three offices in Moscow. Growth stopped only because Roman remained in France and chose not to return.</p>
+              <p><strong>Situation.</strong> Copy/print service from zero; goal was stable demand and expansion.</p>
+              <p><strong>Role.</strong> Founder and operator.</p>
+              <h4>Decisions</h4>
+              <ul>
+                <li>Online-first funnel with early personal fulfillment.</li>
+                <li>Disciplined reinvestment.</li>
+                <li>Scaled to three offices.</li>
+                <li>COVID continuity plan.</li>
+                <li>Brand separation where useful (CopyCat) with unified back-office.</li>
+                <li>Formalized entity, pricing, and SLAs.</li>
+              </ul>
+              <p><strong>Outcome.</strong> Three locations; continuity through COVID; standardized service and pricing.</p>
+              <p><strong>Proof.</strong> Photos, documents, and collateral available by email.</p>
             </div>
           </template>
 
-          <template id="tpl-copycat" lang="ru">
+          <template id="tpl-copycat">
             <h3>Центр полиграфии CopyCat (CopyCat Polygraphy Center)</h3>
             <div class="case-body">
-              <p>A successful attempt to separate iPressa’s online services from a standalone physical office in northern Moscow. The goal was increased client engagement by presenting multiple solutions in the market while some of them were owned by the same company.</p>
+              <p>Spun iPressa’s online services into the CopyCat brand so customers saw more choice while operations stayed centralized. The separation lifted engagement in northern Moscow without duplicating back-office work.</p>
             </div>
           </template>
 
-          <template id="tpl-diplosha" lang="ru">
+          <template id="tpl-diplosha">
             <h3>Диплошa (Diplosha)</h3>
             <div class="case-body">
-              <p>Roman’s last business attempt in Russia before leaving. The idea was to build an additional platform, leveraging the existing client base, to help students with theses and other academic papers. The project was not finished because he could not return to Russia.</p>
+              <p>Planned an academic support service that extended existing client work into thesis assistance. Progress stopped once Roman relocated to France and could no longer return to Russia.</p>
             </div>
           </template>
 
           <template id="tpl-franco-columbu">
             <h3>Franco Columbu</h3>
             <div class="case-body">
-              <p>Roman worked with Franco Columbu for almost two years as his personal agent in Russia. He verified Franco’s official page on VK, handled translations of books and interviews into Russian, managed the fan community, ensured access to Franco’s products, and communicated with the press.</p>
+              <p><strong>Situation.</strong> Representation in Russia for a high-profile athlete and author.</p>
+              <p><strong>Role.</strong> Personal agent for the region.</p>
+              <h4>Decisions</h4>
+              <ul>
+                <li>Verified official VK presence with content standards.</li>
+                <li>Managed book and interview translations with approvals.</li>
+                <li>Ran fan community.</li>
+                <li>Coordinated press access and product availability.</li>
+              </ul>
+              <p><strong>Outcome.</strong> Verified presence, consistent communications, and media placements in the region.</p>
+              <p><strong>Proof.</strong> Public pages and press mentions available by email.</p>
             </div>
           </template>
 
@@ -941,7 +1007,16 @@
           <template id="tpl-universite-catholique-de-lille">
             <h3>Université Catholique de Lille</h3>
             <div class="case-body">
-              <p>Roman’s first official job in France. Seeking a way to stay without returning to Russia, and drawing on his background in biology and strong communication skills, he convinced the management of FGES (the economics faculty) to hire him to teach genetics to final-year bachelor students. After successfully completing the semester, he moved to work with international students until the end of the contract.</p>
+              <p><strong>Situation.</strong> University teaching and international student support.</p>
+              <p><strong>Role.</strong> Lecturer and program support.</p>
+              <h4>Decisions</h4>
+              <ul>
+                <li>Syllabus and assessment design.</li>
+                <li>Clear communication cadence and office hours.</li>
+                <li>Coordination with administration for exams, grading, and documentation.</li>
+              </ul>
+              <p><strong>Outcome.</strong> Semester delivered; students assessed; contract completed.</p>
+              <p><strong>Proof.</strong> Syllabus excerpt and materials available by email.</p>
             </div>
           </template>
 
@@ -955,12 +1030,24 @@
           <template id="tpl-inai">
             <h3>inAi</h3>
             <div class="case-body">
-              <p>Roman’s current work and the result of two years of planning. When ChatGPT arrived he conceived a fully independent, general-purpose AI agent. That led to months of brainstorming followed by months of solo development while supporting himself in France. Despite constraints, he created the product and registered it through his personally owned enterprise inAi. The company is incubated with EuraTechnologies and partners with Mistral and Bpifrance.</p>
+              <p><strong>Situation.</strong> Independent general-purpose AI agent; solo-built from concept to product under tight constraints.</p>
+              <p><strong>Role.</strong> Founder. Product, architecture, delivery, and early GTM.</p>
+              <h4>Decisions</h4>
+              <ul>
+                <li>Milestone plan with evaluation gates.</li>
+                <li>Provider routing and cost controls.</li>
+                <li>Reliability guardrails (timeouts, retries, degradation).</li>
+                <li>Deterministic handover (docs, runbooks, acceptance criteria, metrics).</li>
+                <li>Partner lanes for integrations.</li>
+              </ul>
+              <p><strong>Outcome.</strong> Product built and incubated; partnerships active; operating cadence in place.</p>
+              <p><strong>Proof.</strong> Screenshots and planning artifacts available by email.</p>
             </div>
           </template>
         </section>
         <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" href="https://inai.fr" target="_blank" rel="noopener" aria-label="Open inAi.fr">
+          <span class="badge badge-outcome">Built + incubated</span>
           <img src="assets/logos/inai.webp" alt="inAi">
         </a>
       </div>
@@ -980,31 +1067,39 @@
     <section id="cases" class="container">
       <article id="iz-drysha-v-atlety">
         <h3>Из Дрыща в атлеты (From a Skinny Kid to an Athlete)</h3>
-        <p>Roman’s first attempt at a media show. Together with friends he designed an experiment: take a very thin young man and transform him into an athlete in a short period using a strict plan for training, nutrition, and recovery. The project explored how far disciplined scheduling and coaching could move a beginner toward athletic form within limited time.</p>
+        <p>Early media experiment documenting how a strict training, nutrition, and recovery plan could transform a beginner. Roman designed the program, coaching, and production cadence to test what disciplined execution could deliver on a short timeline.</p>
       </article>
       <article id="rgau-mskha">
         <h3>Тренажерный зал РГАУ‑МСХА (RGAU‑MSKHA Gym)</h3>
-        <p>Roman was first hired as a fitness coach at the gym of his home university (RGAU‑MSKHA). He was later promoted to a sports manager role that required working with the university president and coordinating several gym‑related spaces. He combined evening coaching duties (and massage work as a bonus responsibility) with daytime management, organizing facilities and services for students and visitors across campus.</p>
+        <p>Started as a fitness coach and grew into managing the university gym network. Coordinated facilities, staff, and services with the rector’s office while keeping evening coaching appointments and service add-ons running smoothly.</p>
       </article>
       <article id="studgorodok-rgau">
         <h3>Студгородок (Student Residences)</h3>
-        <p>Roman created a page about student residences that looked official and used it as a marketing platform. Because most students living in the university residences were his customers, posts with advertising were perceived as recommendations from the university itself, which increased reach and conversion.</p>
+        <p>Built an unofficial student residences page that looked official and used it as a trusted marketing channel. Most residents were existing customers, so recommendations converted like endorsements from the university.</p>
       </article>
       <article id="i-pressa">
         <h3>iПресса (iPressa)</h3>
-        <p>Roman’s most successful early venture. He built iPressa from nothing in the copy/printing field. At launch he presented it online as an established service while in reality he personally printed orders at night and delivered them during the day. The company survived COVID and was fully legalized. It expanded to three offices in Moscow. Growth stopped only because Roman remained in France and chose not to return.</p>
+        <p><strong>Situation.</strong> Copy/print service from zero; goal was stable demand and expansion.</p>
+        <p><strong>Role.</strong> Founder and operator.</p>
+        <p><strong>Decisions.</strong> Online-first funnel with early personal fulfillment; disciplined reinvestment; scaled to three offices; COVID continuity plan; brand separation where useful (CopyCat) with unified back-office; formalized entity, pricing, and SLAs.</p>
+        <p><strong>Outcome.</strong> Three locations; continuity through COVID; standardized service and pricing.</p>
+        <p><strong>Proof.</strong> Photos, documents, and collateral available by email.</p>
       </article>
       <article id="copycat">
         <h3>Центр полиграфии CopyCat (CopyCat Polygraphy Center)</h3>
-        <p>A successful attempt to separate iPressa’s online services from a standalone physical office in northern Moscow. The goal was increased client engagement by presenting multiple solutions in the market while some of them were owned by the same company.</p>
+        <p>Spun iPressa’s online services into the CopyCat brand so customers saw more choice while operations stayed centralized. The separation lifted engagement in northern Moscow without duplicating back-office work.</p>
       </article>
       <article id="diplosha">
         <h3>Диплошa (Diplosha)</h3>
-        <p>Roman’s last business attempt in Russia before leaving. The idea was to build an additional platform, leveraging the existing client base, to help students with theses and other academic papers. The project was not finished because he could not return to Russia.</p>
+        <p>Planned an academic support service that extended existing client work into thesis assistance. Progress stopped once Roman relocated to France and could no longer return to Russia.</p>
       </article>
       <article id="franco-columbu">
         <h3>Franco Columbu</h3>
-        <p>Roman worked with Franco Columbu for almost two years as his personal agent in Russia. He verified Franco’s official page on VK, handled translations of books and interviews into Russian, managed the fan community, ensured access to Franco’s products, and communicated with the press.</p>
+        <p><strong>Situation.</strong> Representation in Russia for a high-profile athlete and author.</p>
+        <p><strong>Role.</strong> Personal agent for the region.</p>
+        <p><strong>Decisions.</strong> Verified official VK presence with content standards; managed book and interview translations with approvals; ran fan community; coordinated press access and product availability.</p>
+        <p><strong>Outcome.</strong> Verified presence, consistent communications, and media placements in the region.</p>
+        <p><strong>Proof.</strong> Public pages and press mentions available by email.</p>
       </article>
       <article id="everbet">
         <h3>EverBet</h3>
@@ -1012,7 +1107,11 @@
       </article>
       <article id="universite-catholique-de-lille">
         <h3>Université Catholique de Lille</h3>
-        <p>Roman’s first official job in France. Seeking a way to stay without returning to Russia, and drawing on his background in biology and strong communication skills, he convinced the management of FGES (the economics faculty) to hire him to teach genetics to final-year bachelor students. After successfully completing the semester, he moved to work with international students until the end of the contract.</p>
+        <p><strong>Situation.</strong> University teaching and international student support.</p>
+        <p><strong>Role.</strong> Lecturer and program support.</p>
+        <p><strong>Decisions.</strong> Syllabus and assessment design; clear communication cadence and office hours; coordination with administration for exams, grading, and documentation.</p>
+        <p><strong>Outcome.</strong> Semester delivered; students assessed; contract completed.</p>
+        <p><strong>Proof.</strong> Syllabus excerpt and materials available by email.</p>
       </article>
       <article id="euratechnologies">
         <h3>EuraTechnologies</h3>
@@ -1020,7 +1119,11 @@
       </article>
       <article id="inai">
         <h3>inAi</h3>
-        <p>Roman’s current work and the result of two years of planning. When ChatGPT arrived he conceived a fully independent, general-purpose AI agent. That led to months of brainstorming followed by months of solo development while supporting himself in France. Despite constraints, he created the product and registered it through his personally owned enterprise inAi. The company is incubated with EuraTechnologies and partners with Mistral and Bpifrance.</p>
+        <p><strong>Situation.</strong> Independent general-purpose AI agent; solo-built from concept to product under tight constraints.</p>
+        <p><strong>Role.</strong> Founder. Product, architecture, delivery, and early GTM.</p>
+        <p><strong>Decisions.</strong> Milestone plan with evaluation gates; provider routing and cost controls; reliability guardrails (timeouts, retries, degradation); deterministic handover (docs, runbooks, acceptance criteria, metrics); partner lanes for integrations.</p>
+        <p><strong>Outcome.</strong> Product built and incubated; partnerships active; operating cadence in place.</p>
+        <p><strong>Proof.</strong> Screenshots and planning artifacts available by email.</p>
       </article>
     </section>
   </noscript>
@@ -1079,7 +1182,7 @@
       syncSlides();
       let index = 1;
       let anim = false;
-      function slideW(){ return slides[0].getBoundingClientRect().width; }
+      function slideW(){ return slides[0]?.getBoundingClientRect().width || 0; }
       function setX(animate=true){
         if(!animate) track.style.transition='none';
         track.style.transform = `translateX(${-index*slideW()}px)`;
@@ -1104,9 +1207,37 @@
         if(anim) return;
         anim = true; index += dir; setX(true);
       }
+      function scrollToSlug(slug){
+        if(!slug || anim) return;
+        const targetCard = track.querySelector(`.slide:not([data-clone]) .logo-card[data-slug="${slug}"]`);
+        if(!targetCard) return;
+        const targetSlide = targetCard.closest('.slide');
+        if(!targetSlide) return;
+        const realSlides = Array.from(track.querySelectorAll('.slide:not([data-clone])'));
+        const realIndex = realSlides.indexOf(targetSlide);
+        if(realIndex === -1) return;
+        const width = slideW();
+        if(!width) return;
+        const viewport = track.closest('.viewport');
+        const viewportWidth = viewport ? viewport.getBoundingClientRect().width : window.innerWidth;
+        const visible = Math.max(1, Math.round(viewportWidth / width));
+        let nextIndex = realIndex - Math.floor(visible / 2) + 1;
+        if(nextIndex < 1) nextIndex = 1;
+        const maxIndex = Math.max(1, slides.length - 2);
+        if(nextIndex > maxIndex) nextIndex = maxIndex;
+        if(nextIndex === index) return;
+        index = nextIndex;
+        anim = true;
+        setX(true);
+      }
       track.addEventListener('transitionend', ()=>{ normalize(); anim = false; });
       rightBtn.addEventListener('click', ()=>move(1));
       leftBtn.addEventListener('click', ()=>move(-1));
+      window.addEventListener('romanempire:pillar', event=>{
+        const slug = event?.detail?.slug;
+        if(!slug) return;
+        scrollToSlug(slug);
+      });
       let touchStartX = null;
       track.addEventListener('touchstart', event=>{
         touchStartX = event.touches[0].clientX;
@@ -1402,6 +1533,21 @@
         event.preventDefault();
         pushCaseState(slug);
         handleHashChange();
+      });
+      document.querySelectorAll('[data-pillar]').forEach(button=>{
+        button.addEventListener('click', event=>{
+          const slug = button.dataset.pillar;
+          if(!slug) return;
+          event.preventDefault();
+          if(slug === 'inai'){
+            if(getTemplate(slug)){
+              pushCaseState(slug);
+              openCase(slug, button);
+            }
+            return;
+          }
+          window.dispatchEvent(new CustomEvent('romanempire:pillar', {detail:{slug}}));
+        });
       });
 
       document.addEventListener('click', event=>{
