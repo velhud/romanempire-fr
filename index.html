@@ -482,6 +482,44 @@
       position: relative;
       z-index: 1;
     }
+
+    /* ===== SECTION DIVIDERS ===== */
+    .section-divider{
+      position: relative;
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin: 64px 0;
+      overflow: visible;
+    }
+
+    .section-divider::before{
+      content: "◆";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10px;
+      color: var(--gold);
+      background: var(--bg);
+      padding: 0 16px;
+      opacity: 0.6;
+    }
+
+    .section-divider-simple{
+      position: relative;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--gold-dim) 50%,
+        transparent 100%
+      );
+      margin: 64px auto;
+      opacity: 0.3;
+      max-width: 600px;
+    }
     /* ===== FOUR PILLARS (Temple Portico Layout) ===== */
     .pillars{
       margin: 0 0 40px;
@@ -617,6 +655,14 @@
     .pillar:focus-visible::before,
     .pillar:focus-visible::after{
       opacity: 0.8;                             /* accent lines glow */
+    }
+
+    .pillar:active{
+      transform: translateY(-1px);
+    }
+
+    .pillar.pillar-center:active{
+      transform: translateY(-1px);
     }
 
     /* Center pillars get extra gold glow on hover */
@@ -863,6 +909,28 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
+    #modal-root .modal-panel::before,
+    #modal-root .modal-panel::after{
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--gold-dim);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    #modal-root .modal-panel::before{
+      top: 8px;
+      left: 8px;
+      border-right: none;
+      border-bottom: none;
+    }
+    #modal-root .modal-panel::after{
+      bottom: 8px;
+      right: 8px;
+      border-left: none;
+      border-top: none;
+    }
     #modal-root .modal-close{
       position: absolute;
       top: 16px;
@@ -925,7 +993,7 @@
     .case h3{
       font-family: "Cinzel", ui-serif, Georgia, serif;
       font-weight: 700;
-      margin: 0 0 24px;
+      margin: 8px 0 8px;
       font-size: clamp(24px, 2.6vw, 32px);
       text-align: center;
       letter-spacing: 0.02em;
