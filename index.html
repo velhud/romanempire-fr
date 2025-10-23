@@ -248,50 +248,176 @@
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
     }
+    /* ===== FOUR PILLARS (Temple Portico Layout) ===== */
     .pillars{
-      margin:0 0 40px;
-      text-align:center;
+      margin: 0 0 40px;
+      text-align: center;
     }
+
     .pillars-grid{
-      display:grid;
-      gap:16px;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-      margin-top:16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+      max-width: 1040px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    /* Tablet: 2x2 grid */
+    @media (max-width: 920px){
+      .pillars-grid{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+    }
+
+    /* Mobile: single column */
+    @media (max-width: 560px){
+      .pillars-grid{
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
     .pillar{
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:8px;
-      padding:16px 16px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.18);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      color:var(--fg);
-      font-family:"Spectral", ui-serif, Georgia, serif;
-      font-size:clamp(15px, 1.6vw, 17px);
-      text-align:left;
-      cursor:pointer;
-      transition:transform .15s ease, border-color .18s ease, background .18s ease;
-      appearance:none;
+      position: relative;
+      width: 100%;
+      min-height: 280px;                    /* tall column proportions */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 24px 16px 20px;
+      border-radius: 8px;                   /* softer than before, more classical */
+
+      /* Base border */
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--gold-dim);  /* THE CAPITAL */
+      border-bottom: 2px solid var(--border); /* THE BASE */
+
+      /* Background: lighter at top (sunlight), darker at bottom */
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,.08) 0%,
+          rgba(255,255,255,.04) 40%,
+          rgba(255,255,255,.02) 100%
+        ),
+        var(--bg-elevated);
+
+      /* Subtle texture overlay suggestion */
+      background-blend-mode: normal;
+
+      color: var(--fg);
+      font-family: "Spectral", ui-serif, Georgia, serif;
+      font-size: clamp(15px, 1.6vw, 17px);
+      text-align: left;
+      cursor: pointer;
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+      appearance: none;
+      box-shadow:
+        inset 0 1px 0 rgba(183,137,45,.15),     /* gold highlight at top */
+        0 8px 24px rgba(0,0,0,.3);              /* base shadow */
     }
+
+    /* Vertical accent lines (side columns) */
+    .pillar::before,
+    .pillar::after{
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(
+        180deg,
+        var(--gold-dim) 0%,
+        transparent 50%,
+        var(--gold-dim) 100%
+      );
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .pillar::before{ left: 4px; }
+    .pillar::after{ right: 4px; }
+
+    /* Center emphasis for inAi and iPressa */
+    .pillar.pillar-center{
+      border-top-color: var(--gold);          /* brighter gold capital */
+      border-top-width: 4px;
+    }
+
+    .pillar.pillar-center::before,
+    .pillar.pillar-center::after{
+      opacity: 0.6;                           /* stronger accent lines */
+    }
+
+    /* Hover state: pillar "lifts" and gold brightens */
     .pillar:hover,
     .pillar:focus-visible{
-      transform:translateY(-2px);
-      border-color:rgba(255,255,255,.3);
-      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+      transform: translateY(-3px);
+      border-top-color: var(--gold-light);
+      border-left-color: var(--border-light);
+      border-right-color: var(--border-light);
+      background:
+        linear-gradient(180deg,
+          rgba(255,255,255,.12) 0%,
+          rgba(255,255,255,.06) 40%,
+          rgba(255,255,255,.03) 100%
+        ),
+        var(--bg-elevated);
+      box-shadow:
+        inset 0 1px 0 rgba(183,137,45,.3),      /* brighter gold highlight */
+        0 12px 32px rgba(0,0,0,.4);             /* stronger shadow */
     }
+
+    .pillar:hover::before,
+    .pillar:hover::after,
+    .pillar:focus-visible::before,
+    .pillar:focus-visible::after{
+      opacity: 0.8;                             /* accent lines glow */
+    }
+
+    /* Center pillars get extra gold glow on hover */
+    .pillar.pillar-center:hover,
+    .pillar.pillar-center:focus-visible{
+      box-shadow:
+        inset 0 1px 0 rgba(183,137,45,.4),
+        0 0 24px rgba(183,137,45,.15),          /* gold outer glow */
+        0 12px 32px rgba(0,0,0,.4);
+    }
+
     .pillar-name{
-      font-family:"Cinzel", ui-serif, Georgia, serif;
-      font-weight:700;
-      letter-spacing:.04em;
-      font-size:clamp(18px, 2vw, 22px);
+      font-family: "Cinzel", ui-serif, Georgia, serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;                   /* wider tracking - inscriptional */
+      text-transform: uppercase;                /* ALL CAPS - Roman style */
+      font-size: clamp(16px, 1.8vw, 20px);      /* slightly smaller for caps */
+      line-height: 1.2;
+      color: var(--fg);
+      margin-bottom: 4px;
     }
+
     .pillar-note{
-      color:var(--muted);
-      font-size:clamp(13px, 1.3vw, 15px);
-      line-height:1.4;
+      color: var(--muted);
+      font-size: clamp(13px, 1.3vw, 15px);
+      line-height: 1.45;
+      opacity: 0.9;
+    }
+
+    /* Mobile: reduce height, keep proportions */
+    @media (max-width: 560px){
+      .pillar{
+        min-height: 200px;
+        padding: 20px 16px 16px;
+      }
     }
     .slider{position:relative; margin:8px 0 24px;}
     .viewport{
@@ -656,21 +782,21 @@
         <section class="pillars" aria-label="Four Pillars of Empire">
           <h2 class="section-title">Four Pillars of Empire</h2>
           <div class="pillars-grid">
-            <button type="button" class="pillar" data-pillar="inai" aria-label="Open inAi case">
+            <button type="button" class="pillar" data-pillar="franco-columbu" aria-label="Focus Franco Columbu in carousel">
+              <span class="pillar-name">Franco Columbu</span>
+              <span class="pillar-note">Verified presence, translations, and press operations.</span>
+            </button>
+            <button type="button" class="pillar pillar-center" data-pillar="inai" aria-label="Open inAi case">
               <span class="pillar-name">inAi</span>
               <span class="pillar-note">Independent build from concept to product.</span>
             </button>
-            <button type="button" class="pillar" data-pillar="i-pressa" aria-label="Focus iPressa in carousel">
+            <button type="button" class="pillar pillar-center" data-pillar="i-pressa" aria-label="Focus iPressa in carousel">
               <span class="pillar-name">iPressa</span>
               <span class="pillar-note">Zero-to-one to three sites; continuity under stress.</span>
             </button>
             <button type="button" class="pillar" data-pillar="universite-catholique-de-lille" aria-label="Focus Université Catholique de Lille in carousel">
               <span class="pillar-name">Université Catholique de Lille</span>
               <span class="pillar-note">Taught and ran a program at a French university.</span>
-            </button>
-            <button type="button" class="pillar" data-pillar="franco-columbu" aria-label="Focus Franco Columbu in carousel">
-              <span class="pillar-name">Franco Columbu</span>
-              <span class="pillar-note">Verified presence, translations, and press operations.</span>
             </button>
           </div>
         </section>
