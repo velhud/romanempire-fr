@@ -1221,12 +1221,12 @@
     .case-body{
       font-family: "PT Serif", "Spectral", ui-serif, Georgia, serif;
       font-size: clamp(15px, 1.7vw, 17px);
-      line-height: 1.6;
+      line-height: 1.7;                                /* increased */
       color: var(--fg);
     }
 
     .case-body p{
-      margin: 0 0 16px;
+      margin: 0 0 20px;                                /* more space */
     }
 
     .case-body p:last-child{
@@ -1346,6 +1346,68 @@
       outline: 2px solid var(--gold);
       outline-offset: 3px;
     }
+    /* ===== PROOF LINKS (styled as buttons) ===== */
+    .proof-links{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 0;
+    }
+
+    .proof-btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 2px solid var(--border-light);
+      background:
+        linear-gradient(180deg,
+          rgba(183,137,45,.08) 0%,
+          rgba(183,137,45,.04) 100%
+        );
+      color: var(--gold-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: 
+        border-color .2s ease,
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    }
+
+    .proof-btn:hover{
+      border-color: var(--gold-dim);
+      background:
+        linear-gradient(180deg,
+          rgba(183,137,45,.16) 0%,
+          rgba(183,137,45,.08) 100%
+        );
+      color: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(183,137,45,.2);
+    }
+
+    .proof-btn:focus-visible{
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* For "available by email" text before buttons */
+    .proof-note{
+      display: block;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95em;
+      margin: 16px 0 8px;
+      opacity: 0.8;
+    }
     .timeline{
       margin-top: 24px;
     }
@@ -1420,10 +1482,13 @@
     }
 
     .t-body{
-      margin-top: 8px;
-      line-height: 1.5;
-      opacity: 0.9;
-      text-align: left;
+      margin-top: 12px;
+      line-height: 1.7;                                /* more breathing room */
+      opacity: 0.92;
+      text-align: center;                              /* CENTERED */
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
     }
     .cols{
       display: grid;
@@ -2028,7 +2093,11 @@
             <h3>Cursus Honorum</h3>
             <div class="case-body">
               <div class="modal-summary">
-                <p>Builder‑operator across disciplines. Based in France. Focus: inAi. When to hire: audit, launch, rescue.</p>
+                <p>
+                  Builder‑operator across disciplines.<br>
+                  Based in France. Focus: inAi.<br>
+                  When to hire: audit, launch, rescue.
+                </p>
               </div>
 
               <section class="timeline">
@@ -2176,7 +2245,7 @@
 
               <section>
                 <h4>Web builds &amp; small apps</h4>
-                <p style="text-align: center;">End-to-end delivery from brief to deploy. Clear content, fast performance, predictable releases. Sample artifacts available by email.</p>
+                <p style="text-align: center; margin-top: 24px;">End-to-end delivery from brief to deploy. Clear content, fast performance, predictable releases. Sample artifacts available by email.</p>
               </section>
             </div>
           </template>
@@ -2281,7 +2350,7 @@
                 <li>Planned recurring content to track progress.</li>
               </ul>
               <p><strong>Outcome.</strong> Ended early; lesson in scope, pacing, and team pressure.</p>
-              <p><strong>Proof.</strong> Materials available by email.</p>
+              <div class="proof-note">Proof available by email</div>
             </div>
           </template>
 
@@ -2297,7 +2366,7 @@
                 <li>Supported campus events and newcomer tours.</li>
               </ul>
               <p><strong>Outcome.</strong> Multi‑site operations stabilized across up to 8 facilities.</p>
-              <p><strong>Proof.</strong> Photos and internal memos available by email.</p>
+              <div class="proof-note">Photos and internal memos available by email</div>
             </div>
           </template>
 
@@ -2312,7 +2381,10 @@
                 <li>Coordinated with management and handed operations when adoption grew.</li>
               </ul>
               <p><strong>Outcome.</strong> ~4.5k members; page remains active under management.</p>
-              <p><strong>Proof.</strong> <a href="https://vk.com/campusrgau" target="_blank" rel="noopener">vk.com/campusrgau</a>.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://vk.com/campusrgau" target="_blank" rel="noopener" class="proof-btn">vk.com/campusrgau</a>
+              </div>
             </div>
           </template>
 
@@ -2330,7 +2402,11 @@
                 <li>Brand separation where useful (CopyCat) with unified back office.</li>
               </ul>
               <p><strong>Outcome.</strong> Three locations; daily 30–50 orders (100+ in peaks); ₽500k–700k top‑line months; continuity through COVID.</p>
-              <p><strong>Proof.</strong> <a href="https://vk.com/i.pressa" target="_blank" rel="noopener">vk.com/i.pressa</a>. Additional documents available by email.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://vk.com/i.pressa" target="_blank" rel="noopener" class="proof-btn">vk.com/i.pressa</a>
+              </div>
+              <div class="proof-note">Additional documents available by email</div>
             </div>
           </template>
 
@@ -2346,7 +2422,10 @@
                 <li>Kept standardized pricing and service levels.</li>
               </ul>
               <p><strong>Outcome.</strong> Daily tens of orders; lifted engagement in northern Moscow; network effects across brands.</p>
-              <p><strong>Proof.</strong> <a href="https://vk.com/copycatprint" target="_blank" rel="noopener">vk.com/copycatprint</a>.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://vk.com/copycatprint" target="_blank" rel="noopener" class="proof-btn">vk.com/copycatprint</a>
+              </div>
             </div>
           </template>
 
@@ -2362,7 +2441,10 @@
                 <li>Coordinated packaging and last‑mile delivery.</li>
               </ul>
               <p><strong>Outcome.</strong> Sustained sales; initial investment recovered; account remains visible.</p>
-              <p><strong>Proof.</strong> <a href="https://instagram.com/air_rods" target="_blank" rel="noopener">instagram.com/air_rods</a>.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://instagram.com/air_rods" target="_blank" rel="noopener" class="proof-btn">instagram.com/air_rods</a>
+              </div>
             </div>
           </template>
 
@@ -2377,7 +2459,10 @@
                 <li>Defined scope, timelines, and acceptance criteria.</li>
               </ul>
               <p><strong>Outcome.</strong> 3–4 deliveries; paused due to relocation.</p>
-              <p><strong>Proof.</strong> <a href="https://vk.com/diplosha" target="_blank" rel="noopener">vk.com/diplosha</a>.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://vk.com/diplosha" target="_blank" rel="noopener" class="proof-btn">vk.com/diplosha</a>
+              </div>
             </div>
           </template>
 
@@ -2393,7 +2478,12 @@
                 <li>Ran community and coordinated press/product access.</li>
               </ul>
               <p><strong>Outcome.</strong> Verified presence, consistent communications, and regional media placements.</p>
-              <p><strong>Proof.</strong> <a href="https://vk.com/fcolumbu" target="_blank" rel="noopener">vk.com/fcolumbu</a> · <a href="https://vk.com/francocolumbu" target="_blank" rel="noopener">vk.com/francocolumbu</a>. Additional press on request.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://vk.com/fcolumbu" target="_blank" rel="noopener" class="proof-btn">vk.com/fcolumbu</a>
+                <a href="https://vk.com/francocolumbu" target="_blank" rel="noopener" class="proof-btn">vk.com/francocolumbu</a>
+              </div>
+              <div class="proof-note">Additional press on request</div>
             </div>
           </template>
 
@@ -2408,7 +2498,10 @@
                 <li>Set early kill criteria when signal and resources misaligned.</li>
               </ul>
               <p><strong>Outcome.</strong> Experiment discontinued after initial trials.</p>
-              <p><strong>Proof.</strong> <a href="https://vk.com/everbetmath" target="_blank" rel="noopener">vk.com/everbetmath</a>.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://vk.com/everbetmath" target="_blank" rel="noopener" class="proof-btn">vk.com/everbetmath</a>
+              </div>
             </div>
           </template>
 
@@ -2424,7 +2517,7 @@
                 <li>Coordinated exams, grading, and documentation with administration.</li>
               </ul>
               <p><strong>Outcome.</strong> Semester delivered. Students assessed. Contract completed.</p>
-              <p><strong>Proof.</strong> Syllabus excerpt, screenshots, and photos available by email.</p>
+              <div class="proof-note">Syllabus excerpt, screenshots, and photos available by email</div>
             </div>
           </template>
 
@@ -2440,7 +2533,7 @@
                 <li>Use incubator network for pilots and expert reviews.</li>
               </ul>
               <p><strong>Outcome.</strong> Accepted and active since Sep 2025; program artefacts tracked; next stage planned.</p>
-              <p><strong>Proof.</strong> Program details available by email.</p>
+              <div class="proof-note">Program details available by email</div>
             </div>
           </template>
 
@@ -2458,7 +2551,11 @@
                 <li>Partner lanes for integrations.</li>
               </ul>
               <p><strong>Outcome.</strong> Product live; incubation at EuraTechnologies (Sep 2025–present); operating cadence in place.</p>
-              <p><strong>Proof.</strong> <a href="https://inai.fr" target="_blank" rel="noopener">inai.fr</a>. EuraTechnologies acceptance available by email.</p>
+              <p><strong>Proof</strong></p>
+              <div class="proof-links">
+                <a href="https://inai.fr" target="_blank" rel="noopener" class="proof-btn">inai.fr</a>
+              </div>
+              <div class="proof-note">EuraTechnologies acceptance available by email</div>
             </div>
           </template>
         </section>
