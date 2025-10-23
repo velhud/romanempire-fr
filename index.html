@@ -39,6 +39,7 @@
       --border-light: #3a3028;    /* lighter borders for layering */
 
       --wood-accent: #8b6f47;     /* muted bronze for texture */
+      --bg-warm: #17120d;         /* warmer mid-tone for elevated surfaces */
 
       --shadow: 0 14px 40px rgba(0,0,0,.35);
       --shadow-strong: 0 20px 60px rgba(0,0,0,.5);
@@ -274,6 +275,11 @@
       line-height:1.5;
       opacity:.96;
     }
+    .block.block-emphasis{
+      font-size:clamp(18px, 2vw, 24px);
+      opacity:1;
+      font-weight:400;
+    }
     .btn{
       display: inline-flex;
       align-items: center;
@@ -359,6 +365,14 @@
       font-size: clamp(14px, 1.4vw, 16px);
       letter-spacing: 0.02em;
     }
+    .contact-label{
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold-dim);
+      font-size: 0.9em;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
     .contact a{
       color: var(--muted);
       text-decoration-color: rgba(183,137,45,.35);
@@ -382,6 +396,19 @@
     }
     .cta-row .btn,
     .cta-row .btn-ghost{margin-top:0;}
+    .cta-row .btn-ghost + .btn-ghost{
+      position: relative;
+    }
+    .cta-row .btn-ghost + .btn-ghost::before{
+      content: "·";
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-dim);
+      opacity: 0.4;
+      font-size: 20px;
+    }
     .btn-ghost{
       background: transparent;
       color: var(--fg);
@@ -467,15 +494,23 @@
       inset: 0;
       background-image:
         repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 40px,
+          rgba(183,137,45,.015) 40px,
+          rgba(183,137,45,.015) 41px
+        ),
+        repeating-linear-gradient(
           0deg,
           transparent,
-          transparent 2px,
-          rgba(183,137,45,.015) 2px,
-          rgba(183,137,45,.015) 4px
+          transparent 4px,
+          rgba(183,137,45,.012) 4px,
+          rgba(183,137,45,.012) 5px
         );
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.7;
       z-index: 0;
+      mix-blend-mode: overlay;
     }
 
     .showcase > .container{
@@ -519,6 +554,34 @@
       margin: 64px auto;
       opacity: 0.3;
       max-width: 600px;
+    }
+
+    /* Imperial section divider */
+    .empire-divider{
+      position: relative;
+      max-width: 600px;
+      height: 1px;
+      margin: 32px auto 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--gold-dim) 50%,
+        transparent 100%
+      );
+      opacity: 0.4;
+    }
+
+    .empire-divider::before{
+      content: "◆";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8px;
+      color: var(--gold);
+      background: var(--bg);
+      padding: 0 20px;
+      opacity: 0.7;
     }
     /* ===== FOUR PILLARS (Architectural Columns) ===== */
     .pillars{
@@ -780,7 +843,10 @@
         min-height: 260px;
       }
     }
-    .slider{position:relative; margin:8px 0 24px;}
+    .slider{
+      position: relative;
+      margin: 40px 0 24px;
+    }
     .viewport{
       position:relative;
       overflow:hidden;
@@ -840,7 +906,7 @@
           rgba(255,255,255,.10) 0%,
           rgba(255,255,255,.04) 100%
         ),
-        var(--bg-elevated);
+        var(--bg-warm);
       border: 2px solid var(--border);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.08),
@@ -913,7 +979,7 @@
       letter-spacing: 0.02em;
       line-height: 1;
       border: 1px solid var(--border-light);
-      background: rgba(0,0,0,.65);
+      background: rgba(0,0,0,.75);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       box-shadow: 0 2px 8px rgba(0,0,0,.3);
@@ -976,6 +1042,13 @@
       max-height: 86vh;
       overflow: auto;
       background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(183,137,45,.008) 10px,
+          rgba(183,137,45,.008) 11px
+        ),
         linear-gradient(180deg,
           rgba(26,21,17,.96) 0%,
           rgba(24,18,15,.92) 100%
@@ -1482,6 +1555,8 @@
       margin: 32px auto 0;
       border-radius: 16px;
       border: 3px solid var(--border);
+      outline: 1px solid var(--gold-dim);
+      outline-offset: -8px;
       background:
         linear-gradient(180deg,
           rgba(255,255,255,.14) 0%,
@@ -1674,7 +1749,7 @@
           <br>Congratulations. You found one.
         </p>
 
-        <p class="block">
+        <p class="block block-emphasis">
           This Roman is building an empire across the world and across disciplines.
           <br>It is wide and multidimensional. He can build one for you too.
         </p>
@@ -1708,12 +1783,15 @@
         </p>
 
         <p class="contact">
-          Proposals and introductions:
+          <span class="contact-label">⟨ Proposals and introductions ⟩</span>
           <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
           <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
         </p>
       </div>
     </section>
+
+    <!-- Decorative divider -->
+    <div class="empire-divider"></div>
 
     <!-- SHOWCASE -->
     <section class="showcase" aria-label="Projects">
@@ -1739,6 +1817,10 @@
             </button>
           </div>
         </section>
+
+        <!-- Add visual break -->
+        <div style="height: 32px;"></div>
+
         <h2 class="section-title">History of Empire</h2>
         <div class="slider" role="region" aria-label="Project logos">
           <button class="arrow left" type="button" aria-label="Previous" data-dir="-1">
