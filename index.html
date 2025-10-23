@@ -164,45 +164,56 @@
       width: clamp(224px, 28vw, 360px);
       margin: 0 auto 32px;
       aspect-ratio: 2982 / 3913;
-      padding: 20px;
-      border-radius: 16px;
+      padding: 24px;
+      border-radius: 12px;
       overflow: visible;
       transition: transform 220ms ease;
       transform-origin: center;
       background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 2px,
+          rgba(183,137,45,.02) 2px,
+          rgba(183,137,45,.02) 3px
+        ),
         linear-gradient(135deg,
-          rgba(183,137,45,.12) 0%,
-          rgba(42,34,24,.8) 50%,
-          rgba(183,137,45,.12) 100%
+          rgba(183,137,45,.18) 0%,
+          rgba(42,34,24,.85) 50%,
+          rgba(183,137,45,.18) 100%
         );
-      border: 3px solid var(--border);
+      border: 4px solid var(--border);
+      outline: 2px solid var(--gold-dim);
+      outline-offset: -12px;
       box-shadow:
+        inset 0 2px 0 rgba(183,137,45,.3),
         inset 0 0 40px rgba(0,0,0,.3),
-        0 20px 60px rgba(0,0,0,.5);
+        0 24px 80px rgba(0,0,0,.6);
     }
 
     .portrait::before,
     .portrait::after{
       content: "";
       position: absolute;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--gold);
-      opacity: 0.7;
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--gold);
+      opacity: 0.85;
       pointer-events: none;
       z-index: 2;
+      transition: all .3s ease;
     }
 
     .portrait::before{
-      top: 8px;
-      left: 8px;
+      top: 6px;
+      left: 6px;
       border-right: none;
       border-bottom: none;
     }
 
     .portrait::after{
-      bottom: 8px;
-      right: 8px;
+      bottom: 6px;
+      right: 6px;
       border-left: none;
       border-top: none;
     }
@@ -239,6 +250,7 @@
       .portrait:hover::after{
         opacity: 1;
         border-color: var(--gold-light);
+        filter: drop-shadow(0 0 8px rgba(183,137,45,.4));
       }
     }
     .hero-inner{
@@ -899,17 +911,27 @@
     .logo-card.square,
     .logo-card.tall{
       aspect-ratio: 4/3;
-      border-radius: 12px;
+      border-radius: 10px;
       position: relative;
       background:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 3px,
+          rgba(255,255,255,.008) 3px,
+          rgba(255,255,255,.008) 4px
+        ),
         linear-gradient(180deg,
-          rgba(255,255,255,.10) 0%,
-          rgba(255,255,255,.04) 100%
+          rgba(255,255,255,.12) 0%,
+          rgba(255,255,255,.05) 100%
         ),
         var(--bg-warm);
-      border: 2px solid var(--border);
+      border: 3px solid var(--border);
+      outline: 1px solid var(--gold-dim);
+      outline-offset: -8px;
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 1px 0 rgba(255,255,255,.1),
+        inset 0 -1px 0 rgba(183,137,45,.15),
         var(--shadow);
       overflow: visible;
       display: flex;
@@ -926,45 +948,49 @@
     .logo-card::after{
       content: "";
       position: absolute;
-      width: 12px;
-      height: 12px;
-      border: 1px solid var(--gold-dim);
-      opacity: 0.5;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--gold-dim);
+      opacity: 0.6;
       pointer-events: none;
       transition: opacity .2s ease, border-color .2s ease;
+      z-index: 1;
     }
 
     .logo-card::before{
-      top: -1px;
-      left: -1px;
+      top: -2px;
+      left: -2px;
       border-right: none;
       border-bottom: none;
-      border-top-left-radius: 2px;
+      border-top-left-radius: 3px;
     }
 
     .logo-card::after{
-      bottom: -1px;
-      right: -1px;
+      bottom: -2px;
+      right: -2px;
       border-left: none;
       border-top: none;
-      border-bottom-right-radius: 2px;
+      border-bottom-right-radius: 3px;
     }
 
     .logo-card:hover,
     .logo-card:focus-within{
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       border-color: var(--border-light);
+      outline-color: var(--gold);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.12),
-        0 16px 40px rgba(0,0,0,.45);
+        inset 0 1px 0 rgba(255,255,255,.15),
+        inset 0 -1px 0 rgba(183,137,45,.25),
+        0 0 24px rgba(183,137,45,.2),
+        0 20px 50px rgba(0,0,0,.5);
     }
 
     .logo-card:hover::before,
     .logo-card:hover::after,
     .logo-card:focus-within::before,
     .logo-card:focus-within::after{
-      opacity: 0.8;
-      border-color: var(--gold);
+      opacity: 1;
+      border-color: var(--gold-light);
     }
 
     .badge{
@@ -1017,7 +1043,7 @@
       height: 100%;
       object-fit: contain;
       display: block;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
     }
 
@@ -1175,6 +1201,23 @@
       opacity: 0.6;
     }
 
+    .modal-summary{
+      text-align: center;
+      margin: 0 0 32px;
+      padding: 24px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(183,137,45,.03);
+    }
+
+    .modal-summary p{
+      font-size: clamp(16px, 1.8vw, 18px);
+      line-height: 1.6;
+      color: var(--gold-light);
+      font-weight: 500;
+      margin: 0;
+    }
+
     .case-body{
       font-family: "PT Serif", "Spectral", ui-serif, Georgia, serif;
       font-size: clamp(15px, 1.7vw, 17px);
@@ -1191,29 +1234,29 @@
     }
 
     .case-body h4{
-      margin: 32px 0 16px;
+      margin: 40px 0 24px;
       font-family: "Cinzel", ui-serif, Georgia, serif;
       font-weight: 700;
-      font-size: clamp(17px, 1.9vw, 20px);
+      font-size: clamp(19px, 2.1vw, 23px);
       text-align: center;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--gold-light);
       position: relative;
-      padding-bottom: 8px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(183,137,45,.2);
+      border-bottom: 1px solid rgba(183,137,45,.2);
     }
 
-    .case-body h4::after{
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40px;
-      height: 1px;
-      background: var(--gold-dim);
+    .case-body h4::before{
+      content: "◆";
+      display: block;
+      font-size: 10px;
+      margin-bottom: 8px;
       opacity: 0.5;
     }
+
+    .case-body h4::after{display:none;}
 
     .case-body h4:first-child{
       margin-top: 8px;
@@ -1244,6 +1287,17 @@
     .case-body strong{
       color: var(--gold-light);
       font-weight: 600;
+    }
+
+    .modal-declaration p{
+      text-align: center;
+      font-size: clamp(17px, 1.9vw, 20px);
+      line-height: 1.6;
+      color: var(--gold-light);
+      font-weight: 500;
+      font-style: italic;
+      opacity: 1;
+      margin: 0;
     }
     .contact-links{
       display: flex;
@@ -1334,27 +1388,42 @@
 
     .t-head{
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       line-height: 1.4;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     .t-role{
       color: var(--gold-light);
       font-weight: 700;
+      font-size: 1.05em;
+      display: block;
+    }
+
+    .t-company{
+      color: var(--fg);
+      font-weight: 600;
+      opacity: 0.95;
+      display: block;
     }
 
     .t-meta{
       opacity: 0.65;
-      font-size: 0.9em;
-      margin-bottom: 8px;
+      font-size: 0.88em;
+      margin-bottom: 12px;
       color: var(--muted);
       font-style: italic;
+      text-align: center;
     }
 
     .t-body{
       margin-top: 8px;
       line-height: 1.5;
       opacity: 0.9;
+      text-align: left;
     }
     .cols{
       display: grid;
@@ -1958,77 +2027,115 @@
           <template id="tpl-cv">
             <h3>Cursus Honorum</h3>
             <div class="case-body">
-              <p><strong>Summary.</strong> Builder‑operator across disciplines. Based in France. Focus: inAi. When to hire: audit, launch, rescue.</p>
+              <div class="modal-summary">
+                <p>Builder‑operator across disciplines. Based in France. Focus: inAi. When to hire: audit, launch, rescue.</p>
+              </div>
 
               <section class="timeline">
                 <h4>Campaigns</h4>
                 <ol>
                   <li>
-                    <div class="t-head"><span class="t-role">Founder</span> — inAi</div>
+                    <div class="t-head">
+                      <span class="t-role">Founder</span>
+                      <span class="t-company">inAi</span>
+                    </div>
                     <div class="t-meta">Jun 2025–present · Lille, France · Venture · Primary</div>
                     <div class="t-body">General‑purpose AI agent. Team of 3. Reliability, cost control, and handover discipline.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Participant</span> — EuraTechnologies (incubation)</div>
+                    <div class="t-head">
+                      <span class="t-role">Participant</span>
+                      <span class="t-company">EuraTechnologies (incubation)</span>
+                    </div>
                     <div class="t-meta">Sep 2025–present · Lille, France · Retail &amp; E‑commerce track</div>
                     <div class="t-body">Incubation supporting inAi milestones, discovery, and partner lanes. Proof available by email.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Lecturer</span> — Université Catholique de Lille</div>
+                    <div class="t-head">
+                      <span class="t-role">Lecturer</span>
+                      <span class="t-company">Université Catholique de Lille</span>
+                    </div>
                     <div class="t-meta">Aug 2022–Sep 2023 · Lille, France · Employment</div>
                     <div class="t-body">Delivered genetics course and supported international programs. Materials on request.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Co‑creator</span> — AirRods (AirPods store)</div>
+                    <div class="t-head">
+                      <span class="t-role">Co‑creator</span>
+                      <span class="t-company">AirRods (AirPods store)</span>
+                    </div>
                     <div class="t-meta">Nov 2019–Mar 2021 · Moscow, Russia · Venture · Side</div>
                     <div class="t-body">Instagram‑based storefront. Roman ran media, content, and fulfillment ops.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Initiator</span> — Диплошa (Diplosha)</div>
+                    <div class="t-head">
+                      <span class="t-role">Initiator</span>
+                      <span class="t-company">Диплошa (Diplosha)</span>
+                    </div>
                     <div class="t-meta">May 2020–Jul 2021 · Moscow, Russia · Venture · Side</div>
                     <div class="t-body">Thesis support spin‑out from existing student clients; paused on relocation.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Founder</span> — Студгородок (Student Residences)</div>
+                    <div class="t-head">
+                      <span class="t-role">Founder</span>
+                      <span class="t-company">Студгородок (Student Residences)</span>
+                    </div>
                     <div class="t-meta">Nov 2019–Apr 2020 (handover) · Moscow, Russia · Venture · Side</div>
                     <div class="t-body">Unofficial residences hub widely perceived as official; later partnered and handed over.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Operator</span> — CopyCat</div>
+                    <div class="t-head">
+                      <span class="t-role">Operator</span>
+                      <span class="t-company">CopyCat</span>
+                    </div>
                     <div class="t-meta">Jun 2019–Nov 2022 · Khimki/Moscow, Russia · Venture · Primary</div>
                     <div class="t-body">Brand split from iPressa to widen perceived choice with a centralized back office.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Founder</span> — iПресса (iPressa)</div>
+                    <div class="t-head">
+                      <span class="t-role">Founder</span>
+                      <span class="t-company">iПресса (iPressa)</span>
+                    </div>
                     <div class="t-meta">Nov 2017–Nov 2022 · Moscow, Russia · Venture · Primary</div>
                     <div class="t-body">Zero‑to‑three offices. Online‑first funnel. COVID continuity. Social‑commerce ops.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Coach &amp; manager</span> — RGAU‑MSKHA (gym ops)</div>
+                    <div class="t-head">
+                      <span class="t-role">Coach &amp; manager</span>
+                      <span class="t-company">RGAU‑MSKHA (gym ops)</span>
+                    </div>
                     <div class="t-meta">Feb 2017–Nov 2018 · Moscow, Russia · Employment</div>
                     <div class="t-body">From coaching to running multi‑site facilities; renovation and events.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Co‑founder</span> — EverBet</div>
+                    <div class="t-head">
+                      <span class="t-role">Co‑founder</span>
+                      <span class="t-company">EverBet</span>
+                    </div>
                     <div class="t-meta">2018 · Moscow, Russia · Experiment</div>
                     <div class="t-body">Math‑first predictions prototype; shuttered after trials and resourcing review.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Agent</span> — Franco Columbu</div>
+                    <div class="t-head">
+                      <span class="t-role">Agent</span>
+                      <span class="t-company">Franco Columbu</span>
+                    </div>
                     <div class="t-meta">Dec 2015–Apr 2017 · Russia/Eastern Europe · Representation</div>
                     <div class="t-body">Verified VK presence, translations, community, and press coordination.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Experiment lead</span> — Из Дрыща в атлеты</div>
+                    <div class="t-head">
+                      <span class="t-role">Experiment lead</span>
+                      <span class="t-company">Из Дрыща в атлеты</span>
+                    </div>
                     <div class="t-meta">Jun 2015–Aug 2015 · Moscow, Russia · Experiment</div>
                     <div class="t-body">Early media test on transformation under a strict program; ended early.</div>
                   </li>
                 </ol>
               </section>
 
-              <section>
+              <section class="modal-declaration">
                 <h4>Through‑line</h4>
-                <p style="text-align: center; font-size: 1.1em; opacity: 1;">Orchestrate, ship, hand over. Evidence over adjectives.</p>
+                <p>Orchestrate, ship, hand over. Evidence over adjectives.</p>
               </section>
 
               <section>
@@ -2081,32 +2188,50 @@
                 <h4>Formal</h4>
                 <ol>
                   <li>
-                    <div class="t-head"><span class="t-role">Doctor of Philosophy studies, Biology (withdrew pre‑defense)</span> — Russian State Agrarian University – Moscow Timiryazev Agricultural Academy (RGAU‑MSKHA)</div>
+                    <div class="t-head">
+                      <span class="t-role">Doctor of Philosophy studies, Biology (withdrew pre‑defense)</span>
+                      <span class="t-company">Russian State Agrarian University – Moscow Timiryazev Agricultural Academy (RGAU‑MSKHA)</span>
+                    </div>
                     <div class="t-meta">Sep 2020–Dec 2023 · Moscow, Russia</div>
                     <div class="t-body">What this added: research‑ops literacy—study design, lab methods, analysis, and collaboration with senior faculty. Six publications; citations available by email.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Master of Science, International Economics and Management</span> — Faculté de Gestion, Economie et Sciences (FGES), Université Catholique de Lille</div>
+                    <div class="t-head">
+                      <span class="t-role">Master of Science, International Economics and Management</span>
+                      <span class="t-company">Faculté de Gestion, Economie et Sciences (FGES), Université Catholique de Lille</span>
+                    </div>
                     <div class="t-meta">Sep 2022–Jul 2023 · Lille, France</div>
                     <div class="t-body">Degree awarded. General‑management spine and managerial economics. Capstone on managerial adaptation during COVID.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Engineer’s program (exchange), Business &amp; Marketing</span> — ISA Lille (JUNIA)</div>
+                    <div class="t-head">
+                      <span class="t-role">Engineer’s program (exchange), Business &amp; Marketing</span>
+                      <span class="t-company">ISA Lille (JUNIA)</span>
+                    </div>
                     <div class="t-meta">Sep 2021–Sep 2022 · Lille, France</div>
                     <div class="t-body">What this added: engineering‑school precision applied to market research, positioning, and agri‑food supply chains; French‑language practice.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Professional program, Cinematography and Film/Video Production</span> — Skillbox (remote)</div>
+                    <div class="t-head">
+                      <span class="t-role">Professional program, Cinematography and Film/Video Production</span>
+                      <span class="t-company">Skillbox (remote)</span>
+                    </div>
                     <div class="t-meta">Feb 2020–Dec 2022 · Remote</div>
                     <div class="t-body">What this added: product imaging and narrative. Storyboards, camera basics, editing workflows in DaVinci Resolve. Applied to ads and product demos.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Master’s degree, Agriculture (Genetics)</span> — RGAU‑MSKHA</div>
+                    <div class="t-head">
+                      <span class="t-role">Master’s degree, Agriculture (Genetics)</span>
+                      <span class="t-company">RGAU‑MSKHA</span>
+                    </div>
                     <div class="t-meta">Sep 2018–Jul 2020 · Moscow, Russia</div>
                     <div class="t-body">Animal sciences, aquaculture, agronomy, and environmental systems; quantitative reporting and lab safety.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Bachelor’s degree, Agriculture</span> — RGAU‑MSKHA</div>
+                    <div class="t-head">
+                      <span class="t-role">Bachelor’s degree, Agriculture</span>
+                      <span class="t-company">RGAU‑MSKHA</span>
+                    </div>
                     <div class="t-meta">Sep 2013–Jul 2017 · Moscow, Russia</div>
                     <div class="t-body">Foundations in biology, chemistry, genetics, physiology, and production systems.</div>
                   </li>
@@ -2117,17 +2242,26 @@
                 <h4>Certifications &amp; Proficiency</h4>
                 <ol>
                   <li>
-                    <div class="t-head"><span class="t-role">TOEIC</span> — 975 / 990</div>
+                    <div class="t-head">
+                      <span class="t-role">TOEIC</span>
+                      <span class="t-company">975 / 990</span>
+                    </div>
                     <div class="t-meta">Mar 2023 · Assessment</div>
                     <div class="t-body">Advanced professional English proficiency (reading and listening).</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Business English courses</span> — RGAU‑MSKHA</div>
+                    <div class="t-head">
+                      <span class="t-role">Business English courses</span>
+                      <span class="t-company">RGAU‑MSKHA</span>
+                    </div>
                     <div class="t-meta">2018–2019 · Completed</div>
                     <div class="t-body">Academic and professional communication with technical writing and presentations.</div>
                   </li>
                   <li>
-                    <div class="t-head"><span class="t-role">Certification in Genetics</span> — RGAU with Lomonosov Moscow State University</div>
+                    <div class="t-head">
+                      <span class="t-role">Certification in Genetics</span>
+                      <span class="t-company">RGAU with Lomonosov Moscow State University</span>
+                    </div>
                     <div class="t-meta">2019 · Certificate</div>
                     <div class="t-body">Mendelian and molecular genetics, population genetics, lab methods, and data interpretation.</div>
                   </li>
