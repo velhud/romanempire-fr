@@ -25,33 +25,37 @@
   <style>
     :root{
       /* warm brown palette */
-      --bg: #0f0b08;              /* ink-brown base */
-      --bg-elevated: #14100c;     /* slightly lighter for cards */
-      --fg: #f4efe4;              /* cream text */
-      --muted: #c8c0b0;           /* muted text */
+      --bg: #0f0b08;
+      --bg-elevated: #14100c;
+      --fg: #f4efe4;
+      --muted: #c8c0b0;
 
-      --gold: #b7892d;            /* primary gold */
-      --gold-light: #d4ad66;      /* highlights, hovers */
-      --gold-dim: #8b6914;        /* subtle accents */
+      --gold: #b7892d;
+      --gold-light: #d4ad66;
+      --gold-dim: #8b6914;
 
-      --line: #1a1410;            /* FIXED: warm brown (was blue-ish) */
-      --border: #2a2218;          /* visible borders */
-      --border-light: #3a3028;    /* lighter borders for layering */
+      --line: #1a1410;
+      --border: #2a2218;
+      --border-light: #3a3028;
 
-      --wood-accent: #8b6f47;     /* muted bronze for texture */
-      --bg-warm: #17120d;         /* warmer mid-tone for elevated surfaces */
+      --wood-accent: #8b6f47;
+      --bg-warm: #17120d;
 
       --shadow: 0 14px 40px rgba(0,0,0,.35);
       --shadow-strong: 0 20px 60px rgba(0,0,0,.5);
 
       --maxw: 1160px;
-      --peek: clamp(16px, 3.5vw, 48px);  /* standardized to 8px grid */
-      --card-min: 224px;  /* adjusted to 8px grid (was 220) */
-      --card-max: 416px;  /* adjusted to 8px grid (was 420) */
+      --peek: clamp(16px, 3.5vw, 48px);
+      --card-min: 224px;
+      --card-max: 416px;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{
+      scroll-behavior: smooth;
+      /* REMOVED: -webkit-overflow-scrolling */
+    }
     body{
       margin:0;
       background:var(--bg);
@@ -60,7 +64,7 @@
       line-height:1.5;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      overscroll-behavior-y: none;
+      /* REMOVED: overscroll-behavior-y */
     }
     a{
       color: var(--fg);
@@ -298,7 +302,7 @@
 
     @media (max-width: 640px){
       .lead, .block{
-        padding: 0 8px; /* More padding on very small screens */
+        padding: 0 8px;
       }
     }
 
@@ -455,7 +459,6 @@
       font-size: 20px;
     }
 
-    /* Mobile button layout fix */
     @media (max-width: 640px){
       .cta-row{
         flex-direction: column;
@@ -471,7 +474,7 @@
       }
 
       .cta-row .btn-ghost + .btn-ghost::before{
-        display: none; /* Remove dots on mobile */
+        display: none;
       }
     }
 
@@ -584,7 +587,6 @@
       z-index: 1;
     }
 
-    /* ===== SECTION DIVIDERS ===== */
     .section-divider{
       position: relative;
       width: 100%;
@@ -679,13 +681,13 @@
     @media (max-width: 920px){
       .pillars-grid{
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px; /* More spacing */
+        gap: 20px;
       }
     }
 
     @media (max-width: 640px){
       .pillars-grid{
-        grid-template-columns: repeat(2, 1fr); /* Keep 2x2 grid on mobile */
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
         padding: 0 8px;
       }
@@ -911,17 +913,20 @@
       }
     }
 
+    /* ===== CAROUSEL - CRITICAL SCROLL FIX ===== */
     .slider{
       position: relative;
       margin: 40px 0 24px;
-      contain: layout style;
+      /* REMOVED: contain property that was causing issues */
     }
+    
     .viewport{
-      position:relative;
-      overflow:hidden;
-      padding-inline:var(--peek);
-      isolation: isolate;
+      position: relative;
+      overflow: hidden;
+      padding-inline: var(--peek);
+      /* REMOVED: isolation and contain */
     }
+    
     .viewport::before,
     .viewport::after{
       content: "";
@@ -933,6 +938,7 @@
       z-index: 2;
       opacity: 1;
     }
+    
     .viewport::before{
       left: 0;
       background: linear-gradient(
@@ -943,6 +949,7 @@
         rgba(15,11,8,0) 100%
       );
     }
+    
     .viewport::after{
       right: 0;
       background: linear-gradient(
@@ -955,36 +962,27 @@
     }
 
     .track{
-      display:flex;
-      will-change:transform;
-      transition:transform 520ms ease;
-      touch-action:pan-y pinch-zoom; /* Allow vertical scroll, prevent horizontal interference */
-      -webkit-overflow-scrolling: touch;
+      display: flex;
+      transition: transform 520ms ease;
+      /* REMOVED: will-change, touch-action that interfered with scroll */
     }
 
-    /* Mobile carousel improvements */
     @media (max-width: 640px){
       .track{
         transition: transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        touch-action: pan-y pinch-zoom; /* Critical for smooth swipe */
-      }
-
-      .viewport{
-        contain: layout; /* Optimize repaints */
       }
     }
 
     .slide{
-      flex:0 0 auto;
-      width:clamp(var(--card-min), 28vw, var(--card-max));
-      padding:8px;
+      flex: 0 0 auto;
+      width: clamp(var(--card-min), 28vw, var(--card-max));
+      padding: 8px;
     }
 
-    /* Improve carousel card sizing on mobile */
     @media (max-width: 640px){
       .slide{
-        width: clamp(280px, 82vw, 360px); /* Slightly larger, better centering */
-        padding: 6px; /* Tighter spacing */
+        width: clamp(280px, 82vw, 360px);
+        padding: 6px;
       }
 
       .logo-card{
@@ -1171,12 +1169,17 @@
       box-shadow:
         inset 0 1px 0 rgba(183,137,45,.15),
         var(--shadow-strong);
-      padding: 48px 32px 32px; /* More side padding */
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      padding: 48px 32px 32px;
+      /* REMOVED: backdrop-filter on mobile */
     }
 
-    /* Mobile modal adjustments */
+    @media (min-width: 641px){
+      #modal-root .modal-panel{
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+    }
+
     @media (max-width: 640px){
       #modal-root .modal-panel{
         width: calc(100vw - 16px);
@@ -1200,8 +1203,7 @@
         font-size: 32px;
         border: 3px solid var(--border-light);
         background: rgba(0,0,0,.85);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        /* NO backdrop-filter on mobile */
         z-index: 10;
       }
 
@@ -1290,7 +1292,7 @@
     }
 
     #modal-root .modal-panel::before,
-    #modal-root .modal-panel::after{
+    #modal-root ..modal-panel::after{
       content: "";
       position: absolute;
       width: 16px;
@@ -1335,8 +1337,6 @@
       cursor: pointer;
       z-index: 5;
       pointer-events: auto;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.08),
         0 4px 12px rgba(0,0,0,.3);
@@ -1347,6 +1347,14 @@
         transform .2s ease,
         box-shadow .2s ease;
     }
+
+    @media (min-width: 641px){
+      #modal-root .modal-close{
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+    }
+
     #modal-root .modal-close:hover,
     #modal-root .modal-close:focus{
       background:
@@ -1374,11 +1382,11 @@
     .case h3{
       font-family: "Cinzel", ui-serif, Georgia, serif;
       font-weight: 700;
-      margin: 8px 0 16px; /* Adjusted margin */
-      font-size: clamp(22px, 2.6vw, 32px); /* Adjusted for mobile */
+      margin: 8px 0 16px;
+      font-size: clamp(22px, 2.6vw, 32px);
       text-align: center;
       letter-spacing: 0.02em;
-      line-height: 1.3; /* Better line wrapping */
+      line-height: 1.3;
       color: var(--fg);
       padding-bottom: 16px;
       border-bottom: 1px solid var(--line);
@@ -1402,7 +1410,6 @@
       opacity: 0.6;
     }
 
-    /* Handle Russian + English translation line breaks */
     .case h3 br{
       display: block;
       content: "";
@@ -1412,14 +1419,14 @@
     .modal-summary{
       text-align: center;
       margin: 0 0 32px;
-      padding: 24px 20px; /* Better mobile padding */
+      padding: 24px 20px;
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
       background: rgba(183,137,45,.03);
     }
 
     .modal-summary p{
-      font-size: clamp(15px, 1.8vw, 18px); /* Adjusted for mobile */
+      font-size: clamp(15px, 1.8vw, 18px);
       line-height: 1.6;
       color: var(--gold-light);
       font-weight: 500;
@@ -1429,23 +1436,22 @@
     .case-body{
       font-family: "PT Serif", "Spectral", ui-serif, Georgia, serif;
       font-size: clamp(15px, 1.7vw, 17px);
-      line-height: 1.8; /* More breathing room */
+      line-height: 1.8;
       color: var(--fg);
-      max-width: 720px; /* Constrain width for readability */
+      max-width: 720px;
       margin: 0 auto;
-      padding: 0 8px; /* Small inner padding */
+      padding: 0 8px;
     }
 
     .case-body p{
-      margin: 0 0 24px; /* More space between paragraphs */
-      text-align: center; /* Centered by default */
+      margin: 0 0 24px;
+      text-align: center;
     }
 
     .case-body p:last-child{
       margin-bottom: 0;
     }
 
-    /* Situation and Role should be on separate centered lines */
     .case-body > p:first-of-type{
       display: flex;
       flex-direction: column;
@@ -1454,7 +1460,7 @@
     }
 
     .case-body h4{
-      margin: 48px 0 28px; /* More spacing */
+      margin: 48px 0 28px;
       font-family: "Cinzel", ui-serif, Georgia, serif;
       font-weight: 700;
       font-size: clamp(18px, 2.1vw, 23px);
@@ -1481,10 +1487,10 @@
     }
 
     .case-body ul{
-      margin: 20px 0; /* More spacing */
-      padding-left: 32px; /* More indent */
+      margin: 20px 0;
+      padding-left: 32px;
       list-style: none;
-      text-align: left; /* Bullets stay left */
+      text-align: left;
       max-width: 640px;
       margin-left: auto;
       margin-right: auto;
@@ -1492,8 +1498,8 @@
 
     .case-body ul li{
       position: relative;
-      margin-bottom: 16px; /* More space between items */
-      padding-left: 20px; /* More room for bullet */
+      margin-bottom: 16px;
+      padding-left: 20px;
       line-height: 1.7;
     }
 
@@ -1503,7 +1509,7 @@
       left: 0;
       color: var(--gold-dim);
       font-size: 8px;
-      line-height: 2.0; /* Better alignment */
+      line-height: 2.0;
       opacity: 0.7;
     }
 
@@ -1571,7 +1577,6 @@
       outline-offset: 3px;
     }
 
-    /* ===== ENHANCED PROOF LINKS (Roman-themed buttons) ===== */
     .proof-links{
       display: flex;
       flex-wrap: wrap;
@@ -1623,7 +1628,6 @@
       overflow: hidden;
     }
 
-    /* Roman corner decorations */
     .proof-btn::before,
     .proof-btn::after{
       content: "";
@@ -1694,7 +1698,6 @@
       outline-offset: 4px;
     }
 
-    /* Centered proof note */
     .proof-note{
       display: block;
       text-align: center;
@@ -1719,7 +1722,7 @@
     }
 
     .timeline li{
-      padding: 20px 24px; /* Better padding */
+      padding: 20px 24px;
       border: 1px solid var(--border);
       border-left: 3px solid var(--gold-dim);
       border-radius: 8px;
@@ -1832,11 +1835,10 @@
       transform:scale(1.05);
     }
 
+    /* IMPROVED MODAL SCROLL LOCK */
     body.modal-open{
-      overflow:hidden;
-      position: fixed;
-      width: 100%;
-      height: 100%;
+      overflow: hidden;
+      /* NO position:fixed that causes jump */
     }
 
     .tooltip{
@@ -1859,13 +1861,19 @@
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.06),
         0 8px 24px rgba(0,0,0,.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       pointer-events: none;
       z-index: 40;
       opacity: 0;
       transition: opacity .15s ease, transform .15s ease;
     }
+
+    @media (min-width: 641px){
+      .tooltip{
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+    }
+
     .tooltip.show{
       opacity: 1;
     }
@@ -1907,8 +1915,6 @@
         );
       color: var(--fg);
       cursor: pointer;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.1),
         0 0 0 1px rgba(183,137,45,.2),
@@ -1920,6 +1926,14 @@
         box-shadow .2s ease,
         background .2s ease;
     }
+
+    @media (min-width: 641px){
+      .arrow{
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+    }
+
     .arrow.left{ left: 8px; }
     .arrow.right{ right: 8px; }
     .arrow:hover{
@@ -2102,7 +2116,7 @@
     noscript #cases article p,
     noscript #cases article ul{
       margin-bottom: 16px;
-      line-height: 1.6;
+      line-length: 1.6;
     }
 
     noscript #cases article ul{
@@ -2142,11 +2156,6 @@
       }
     }
 
-    html{
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-
     @media (prefers-reduced-motion: reduce){
       html{
         scroll-behavior: auto;
@@ -2157,14 +2166,12 @@
       }
     }
 
-    /* ===== LANGUAGE SWITCHER ===== */
+    /* ===== LANGUAGE SWITCHER - OPTIMIZED ===== */
     .lang-switcher{
       position: fixed;
       top: 24px;
       right: 24px;
       z-index: 50;
-      will-change: transform;
-      transform: translateZ(0);
       display: flex;
       gap: 8px;
       background:
@@ -2178,8 +2185,14 @@
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,.06),
         0 8px 24px rgba(0,0,0,.45);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      /* NO will-change, NO transform, NO backdrop-filter on mobile */
+    }
+
+    @media (min-width: 641px){
+      .lang-switcher{
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
     }
 
     .lang-switcher::before,
@@ -2317,6 +2330,7 @@
       -webkit-hyphens: auto;
     }
   </style>
+
 
 
 </head>
@@ -4151,17 +4165,19 @@
         if(!slug) return;
         scrollToSlug(slug);
       });
-      // Enhanced mobile touch handling
+      // Enhanced mobile touch - PREVENT SCROLL INTERFERENCE
       let touchStartX = null;
+      let touchStartY = null;
       let touchStartTime = null;
       let touchCurrentX = null;
       let isDragging = false;
       let hasTriggeredMove = false;
-      const SWIPE_THRESHOLD = 50;
-      const VELOCITY_THRESHOLD = 0.3;
+      const SWIPE_THRESHOLD = 60;
+      const VELOCITY_THRESHOLD = 0.4;
 
       track.addEventListener('touchstart', event=>{
         touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
         touchCurrentX = touchStartX;
         touchStartTime = Date.now();
         isDragging = false;
@@ -4171,15 +4187,19 @@
       track.addEventListener('touchmove', event=>{
         if(touchStartX === null) return;
         touchCurrentX = event.touches[0].clientX;
+        const touchCurrentY = event.touches[0].clientY;
         const dx = touchCurrentX - touchStartX;
-        
-        if(Math.abs(dx) > 10 && !isDragging){
-          isDragging = true;
+        const dy = touchCurrentY - touchStartY;
+
+        if(Math.abs(dx) > Math.abs(dy) * 1.5 && Math.abs(dx) > 15){
+          if(!isDragging){
+            isDragging = true;
+          }
         }
       }, {passive: true});
 
       track.addEventListener('touchend', event=>{
-        if(touchStartX === null || hasTriggeredMove){
+        if(touchStartX === null || hasTriggeredMove || !isDragging){
           resetTouch();
           return;
         }
@@ -4198,6 +4218,7 @@
 
       const resetTouch = ()=>{
         touchStartX = null;
+        touchStartY = null;
         touchCurrentX = null;
         touchStartTime = null;
         isDragging = false;
