@@ -154,6 +154,7 @@
       box-shadow: inset 0 0 200px rgba(0,0,0,.52);
       z-index: -1;
     }
+
     @media (prefers-reduced-motion:no-preference){
       .hero::before{transition:transform 850ms ease;}
       .hero:hover::before{transform:scale(1.05);}
@@ -264,6 +265,7 @@
         padding: 12vh 0 10vh;
       }
     }
+
     h1{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:800;
@@ -292,6 +294,13 @@
       opacity:1;
       font-weight:400;
     }
+
+    @media (max-width: 640px){
+      .lead, .block{
+        padding: 0 8px; /* More padding on very small screens */
+      }
+    }
+
     .btn{
       display: inline-flex;
       align-items: center;
@@ -343,7 +352,6 @@
       outline: 2px solid var(--gold-light);
       outline-offset: 4px;
     }
-    /* brand styling scoped to the button only */
     .btn .btn-brand{
       font-family: "Newsreader", ui-serif, Georgia, serif;
       font-weight: 600;
@@ -421,6 +429,27 @@
       opacity: 0.4;
       font-size: 20px;
     }
+
+    /* Mobile button layout fix */
+    @media (max-width: 640px){
+      .cta-row{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 0 12px;
+      }
+
+      .cta-row .btn,
+      .cta-row .btn-ghost{
+        width: 100%;
+        margin-top: 0;
+      }
+
+      .cta-row .btn-ghost + .btn-ghost::before{
+        display: none; /* Remove dots on mobile */
+      }
+    }
+
     .btn-ghost{
       background: transparent;
       color: var(--fg);
@@ -568,7 +597,6 @@
       max-width: 600px;
     }
 
-    /* Imperial section divider */
     .empire-divider{
       position: relative;
       max-width: 600px;
@@ -595,7 +623,8 @@
       padding: 0 20px;
       opacity: 0.7;
     }
-    /* ===== FOUR PILLARS (Architectural Columns) ===== */
+
+    /* ===== FOUR PILLARS ===== */
     .pillars{
       margin: 0 0 72px;
       padding-bottom: 56px;
@@ -625,14 +654,15 @@
     @media (max-width: 920px){
       .pillars-grid{
         grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+        gap: 20px; /* More spacing */
       }
     }
 
-    @media (max-width: 560px){
+    @media (max-width: 640px){
       .pillars-grid{
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr); /* Keep 2x2 grid on mobile */
         gap: 16px;
+        padding: 0 8px;
       }
     }
 
@@ -846,15 +876,16 @@
       max-width: 90%;
     }
 
-    @media (max-width: 560px){
+    @media (max-width: 640px){
       .pillar{
-        min-height: 240px;
-        padding: 32px 20px 24px;
+        min-height: 280px;
+        padding: 32px 16px 24px;
       }
       .pillar.pillar-center{
-        min-height: 260px;
+        min-height: 300px;
       }
     }
+
     .slider{
       position: relative;
       margin: 40px 0 24px;
@@ -864,7 +895,6 @@
       overflow:hidden;
       padding-inline:var(--peek);
     }
-    /* subtle feather on edges */
     .viewport::before,
     .viewport::after{
       content: "";
@@ -897,15 +927,33 @@
       );
     }
 
-    .track{display:flex; will-change:transform; transition:transform 520ms ease; touch-action:pan-x;}
-    /* show multiple cards per view on wide screens; one on small screens */
+    .track{
+      display:flex;
+      will-change:transform;
+      transition:transform 520ms ease;
+      touch-action:pan-x;
+    }
+
+    /* Mobile carousel improvements */
+    @media (max-width: 640px){
+      .track{
+        transition: transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother on mobile */
+      }
+    }
+
     .slide{
       flex:0 0 auto;
       width:clamp(var(--card-min), 28vw, var(--card-max));
-      padding:8px;                                /* spacing without flex gap (keeps JS math exact) */
+      padding:8px;
     }
 
-    /* one consistent frame for all logos */
+    /* Mobile slide sizing */
+    @media (max-width: 640px){
+      .slide{
+        width: clamp(260px, 75vw, 340px); /* Larger cards on mobile */
+      }
+    }
+
     .logo-card,
     .logo-card.wide,
     .logo-card.square,
@@ -1085,10 +1133,26 @@
       box-shadow:
         inset 0 1px 0 rgba(183,137,45,.15),
         var(--shadow-strong);
-      padding: 48px 24px 24px;
+      padding: 48px 32px 32px; /* More side padding */
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
+
+    /* Mobile modal adjustments */
+    @media (max-width: 640px){
+      #modal-root .modal-panel{
+        width: 100vw;
+        max-height: 92vh;
+        border-radius: 16px 16px 0 0;
+        border-bottom: none;
+        padding: 40px 24px 32px; /* Better mobile padding */
+        left: 50%;
+        top: auto;
+        bottom: 0;
+        transform: translateX(-50%);
+      }
+    }
+
     #modal-root .modal-panel::before,
     #modal-root .modal-panel::after{
       content: "";
@@ -1170,14 +1234,15 @@
       outline: 2px solid var(--gold-dim);
       outline-offset: 3px;
     }
+
     .case h3{
       font-family: "Cinzel", ui-serif, Georgia, serif;
       font-weight: 700;
-      margin: 8px 0 8px;
-      font-size: clamp(24px, 2.6vw, 32px);
+      margin: 8px 0 16px; /* Adjusted margin */
+      font-size: clamp(22px, 2.6vw, 32px); /* Adjusted for mobile */
       text-align: center;
       letter-spacing: 0.02em;
-      line-height: 1.2;
+      line-height: 1.3; /* Better line wrapping */
       color: var(--fg);
       padding-bottom: 16px;
       border-bottom: 1px solid var(--line);
@@ -1201,17 +1266,24 @@
       opacity: 0.6;
     }
 
+    /* Handle Russian + English translation line breaks */
+    .case h3 br{
+      display: block;
+      content: "";
+      margin-top: 8px;
+    }
+
     .modal-summary{
       text-align: center;
       margin: 0 0 32px;
-      padding: 24px;
+      padding: 24px 20px; /* Better mobile padding */
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
       background: rgba(183,137,45,.03);
     }
 
     .modal-summary p{
-      font-size: clamp(16px, 1.8vw, 18px);
+      font-size: clamp(15px, 1.8vw, 18px); /* Adjusted for mobile */
       line-height: 1.6;
       color: var(--gold-light);
       font-weight: 500;
@@ -1221,23 +1293,35 @@
     .case-body{
       font-family: "PT Serif", "Spectral", ui-serif, Georgia, serif;
       font-size: clamp(15px, 1.7vw, 17px);
-      line-height: 1.7;                                /* increased */
+      line-height: 1.8; /* More breathing room */
       color: var(--fg);
+      max-width: 720px; /* Constrain width for readability */
+      margin: 0 auto;
+      padding: 0 8px; /* Small inner padding */
     }
 
     .case-body p{
-      margin: 0 0 20px;                                /* more space */
+      margin: 0 0 24px; /* More space between paragraphs */
+      text-align: center; /* Centered by default */
     }
 
     .case-body p:last-child{
       margin-bottom: 0;
     }
 
+    /* Situation and Role should be on separate centered lines */
+    .case-body > p:first-of-type{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
     .case-body h4{
-      margin: 40px 0 24px;
+      margin: 48px 0 28px; /* More spacing */
       font-family: "Cinzel", ui-serif, Georgia, serif;
       font-weight: 700;
-      font-size: clamp(19px, 2.1vw, 23px);
+      font-size: clamp(18px, 2.1vw, 23px);
       text-align: center;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1256,22 +1340,25 @@
       opacity: 0.5;
     }
 
-    .case-body h4::after{display:none;}
-
     .case-body h4:first-child{
       margin-top: 8px;
     }
 
     .case-body ul{
-      margin: 16px 0;
-      padding-left: 24px;
+      margin: 20px 0; /* More spacing */
+      padding-left: 32px; /* More indent */
       list-style: none;
+      text-align: left; /* Bullets stay left */
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .case-body ul li{
       position: relative;
-      margin-bottom: 12px;
-      padding-left: 16px;
+      margin-bottom: 16px; /* More space between items */
+      padding-left: 20px; /* More room for bullet */
+      line-height: 1.7;
     }
 
     .case-body ul li::before{
@@ -1280,7 +1367,7 @@
       left: 0;
       color: var(--gold-dim);
       font-size: 8px;
-      line-height: 1.8;
+      line-height: 2.0; /* Better alignment */
       opacity: 0.7;
     }
 
@@ -1291,7 +1378,7 @@
 
     .modal-declaration p{
       text-align: center;
-      font-size: clamp(17px, 1.9vw, 20px);
+      font-size: clamp(16px, 1.9vw, 20px);
       line-height: 1.6;
       color: var(--gold-light);
       font-weight: 500;
@@ -1299,6 +1386,7 @@
       opacity: 1;
       margin: 0;
     }
+
     .contact-links{
       display: flex;
       flex-wrap: wrap;
@@ -1346,68 +1434,142 @@
       outline: 2px solid var(--gold);
       outline-offset: 3px;
     }
-    /* ===== PROOF LINKS (styled as buttons) ===== */
+
+    /* ===== ENHANCED PROOF LINKS (Roman-themed buttons) ===== */
     .proof-links{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 12px;
-      margin: 24px 0 0;
+      gap: 16px;
+      margin: 32px 0 0;
+      padding: 0 12px;
     }
 
     .proof-btn{
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 20px;
-      border-radius: 8px;
-      border: 2px solid var(--border-light);
+      padding: 14px 28px;
+      border-radius: 6px;
+      border: 2px solid var(--gold-dim);
       background:
-        linear-gradient(180deg,
-          rgba(183,137,45,.08) 0%,
-          rgba(183,137,45,.04) 100%
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 3px,
+          rgba(183,137,45,.02) 3px,
+          rgba(183,137,45,.02) 4px
+        ),
+        linear-gradient(135deg,
+          rgba(183,137,45,.16) 0%,
+          rgba(183,137,45,.08) 100%
         );
       color: var(--gold-light);
       text-decoration: none;
-      font-size: 14px;
+      font-size: clamp(13px, 1.3vw, 15px);
       font-weight: 600;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.04em;
+      font-family: "Cinzel", ui-serif, Georgia, serif;
+      text-transform: uppercase;
       transition: 
         border-color .2s ease,
         background .2s ease,
         color .2s ease,
         transform .2s ease,
         box-shadow .2s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 -1px 0 rgba(0,0,0,.15),
+        0 0 0 1px rgba(183,137,45,.2),
+        0 4px 12px rgba(0,0,0,.25);
+      overflow: hidden;
+    }
+
+    /* Roman corner decorations */
+    .proof-btn::before,
+    .proof-btn::after{
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border: 1px solid var(--gold);
+      opacity: 0.5;
+      pointer-events: none;
+      transition: opacity .2s ease, border-color .2s ease;
+    }
+
+    .proof-btn::before{
+      top: 4px;
+      left: 4px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .proof-btn::after{
+      bottom: 4px;
+      right: 4px;
+      border-left: none;
+      border-top: none;
     }
 
     .proof-btn:hover{
-      border-color: var(--gold-dim);
+      border-color: var(--gold);
       background:
-        linear-gradient(180deg,
-          rgba(183,137,45,.16) 0%,
-          rgba(183,137,45,.08) 100%
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 3px,
+          rgba(183,137,45,.03) 3px,
+          rgba(183,137,45,.03) 4px
+        ),
+        linear-gradient(135deg,
+          rgba(183,137,45,.28) 0%,
+          rgba(183,137,45,.16) 100%
         );
       color: var(--gold-light);
       transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(183,137,45,.2);
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,.15),
+        inset 0 -1px 0 rgba(0,0,0,.2),
+        0 0 0 1px var(--gold),
+        0 0 16px rgba(183,137,45,.3),
+        0 6px 20px rgba(0,0,0,.35);
+    }
+
+    .proof-btn:hover::before,
+    .proof-btn:hover::after{
+      opacity: 1;
+      border-color: var(--gold-light);
+    }
+
+    .proof-btn:active{
+      transform: translateY(0);
+      box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,.2),
+        inset 0 -1px 0 rgba(255,255,255,.05),
+        0 0 0 1px var(--gold-dim),
+        0 2px 8px rgba(0,0,0,.3);
     }
 
     .proof-btn:focus-visible{
       outline: 2px solid var(--gold);
-      outline-offset: 3px;
+      outline-offset: 4px;
     }
 
-    /* For "available by email" text before buttons */
+    /* Centered proof note */
     .proof-note{
       display: block;
       text-align: center;
       color: var(--muted);
-      font-size: 0.95em;
-      margin: 16px 0 8px;
-      opacity: 0.8;
+      font-size: clamp(13px, 1.2vw, 15px);
+      margin: 24px 0 12px;
+      opacity: 0.75;
+      font-style: italic;
+      letter-spacing: 0.02em;
     }
+
     .timeline{
       margin-top: 24px;
     }
@@ -1421,7 +1583,7 @@
     }
 
     .timeline li{
-      padding: 16px 20px;
+      padding: 20px 24px; /* Better padding */
       border: 1px solid var(--border);
       border-left: 3px solid var(--gold-dim);
       border-radius: 8px;
@@ -1483,13 +1645,14 @@
 
     .t-body{
       margin-top: 12px;
-      line-height: 1.7;                                /* more breathing room */
+      line-height: 1.7;
       opacity: 0.92;
-      text-align: center;                              /* CENTERED */
+      text-align: center;
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
     }
+
     .cols{
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1532,32 +1695,7 @@
       border-color:var(--gold);
       transform:scale(1.05);
     }
-    @media (max-width: 640px){
-      #modal-root .modal-panel{
-        left: 50%;
-        top: auto;
-        bottom: 0;
-        transform: translateX(-50%);
-        max-height: 90vh;
-        width: 100vw;
-        border-radius: 16px 16px 0 0;
-        border-bottom: none;
-        padding: 40px 20px 24px;
-      }
 
-      #modal-root .modal-close{
-        top: 12px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-      }
-
-      .case h3{
-        font-size: 22px;
-        margin-bottom: 20px;
-      }
-    }
     body.modal-open{overflow:hidden;}
 
     .tooltip{
@@ -1610,7 +1748,6 @@
       left: calc(50% - 4px);
     }
 
-    /* controls */
     .arrow{
       position: absolute;
       top: 50%;
@@ -1678,7 +1815,6 @@
       .arrow{ display: none; }
     }
 
-    /* inAi spotlight remains large and distinct */
     .inai{
       position: relative;
       display: flex;
@@ -1768,7 +1904,7 @@
       display: block;
       filter: drop-shadow(0 4px 12px rgba(0,0,0,.2));
     }
-    /* ===== CLOSING ===== */
+
     .section-title{
       font-family:"Cinzel", ui-serif, Georgia, serif;
       font-weight:700;
@@ -1780,7 +1916,6 @@
       margin:0 0 32px;
     }
 
-    /* ===== NOSCRIPT FALLBACK STYLING ===== */
     noscript #cases{
       padding: 64px 0;
     }
@@ -1818,7 +1953,6 @@
       color: var(--gold-light);
     }
 
-    /* ===== PAGE LOAD ANIMATION ===== */
     @keyframes fadeInUp{
       from{
         opacity: 0;
@@ -1848,7 +1982,6 @@
       }
     }
 
-    /* ===== SMOOTH BEHAVIORS ===== */
     html{
       scroll-behavior: smooth;
     }
@@ -1862,9 +1995,174 @@
         transition: none !important;
       }
     }
+
+    /* ===== LANGUAGE SWITCHER ===== */
+    .lang-switcher{
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 50;
+      display: flex;
+      gap: 8px;
+      background:
+        linear-gradient(135deg,
+          rgba(26,21,17,.92) 0%,
+          rgba(20,16,12,.88) 100%
+        );
+      padding: 6px;
+      border-radius: 10px;
+      border: 2px solid var(--border-light);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 8px 24px rgba(0,0,0,.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .lang-switcher::before,
+    .lang-switcher::after{
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border: 1px solid var(--gold-dim);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .lang-switcher::before{
+      top: 3px;
+      left: 3px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .lang-switcher::after{
+      bottom: 3px;
+      right: 3px;
+      border-left: none;
+      border-top: none;
+    }
+
+    .lang-btn{
+      position: relative;
+      padding: 8px 14px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      font-family: "Cinzel", ui-serif, Georgia, serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+    }
+
+    .lang-btn:hover{
+      color: var(--gold-light);
+      background: rgba(183,137,45,.08);
+      border-color: var(--gold-dim);
+    }
+
+    .lang-btn.active{
+      color: var(--gold-light);
+      background: linear-gradient(135deg,
+        rgba(183,137,45,.2) 0%,
+        rgba(183,137,45,.12) 100%
+      );
+      border-color: var(--gold);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.1),
+        0 0 0 1px rgba(183,137,45,.3);
+    }
+
+    .lang-btn.active::after{
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      opacity: 0.8;
+    }
+
+    .lang-btn:focus-visible{
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 640px){
+      .lang-switcher{
+        top: 16px;
+        right: 16px;
+        padding: 4px;
+        gap: 6px;
+      }
+
+      .lang-btn{
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+    }
+
+    /* ===== LANGUAGE-SAFE LAYOUT ===== */
+    h1{
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lead,
+    .block{
+      min-height: 2.5em;
+    }
+
+    .pillar-name{
+      min-height: 2.6em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      hyphens: auto;
+      word-break: break-word;
+    }
+
+    .pillar-note{
+      min-height: 4em;
+    }
+
+    html[lang="ru"] .pillar-note{
+      font-size: clamp(12px, 1.2vw, 14px);
+      line-height: 1.6;
+    }
+
+    html[lang="ru"] .lead{
+      font-size: clamp(17px, 2.1vw, 25px);
+    }
+
+    html[lang="fr"] .pillar-note,
+    html[lang="ru"] .pillar-note{
+      hyphens: auto;
+      -webkit-hyphens: auto;
+    }
   </style>
+
+
 </head>
 <body>
+  <div class="lang-switcher" aria-label="Language selector">
+    <button class="lang-btn active" type="button" data-lang="en" aria-label="English">EN</button>
+    <button class="lang-btn" type="button" data-lang="fr" aria-label="Français">FR</button>
+    <button class="lang-btn" type="button" data-lang="ru" aria-label="Русский">RU</button>
+  </div>
 
   <main>
     <!-- HERO -->
@@ -1937,7 +2235,7 @@
               <span class="pillar-name">Franco Columbu</span>
               <span class="pillar-note">Verified presence, translations, and press operations.</span>
             </button>
-            <button type="button" class="pillar pillar-center" data-pillar="inai" aria-label="Open inAi case">
+            <button type="button" class="pillar pillar-center" data-pillar="inai" data-open="inai" aria-label="Open inAi case">
               <span class="pillar-name">inAi</span>
               <span class="pillar-note">Independent build from concept to product.</span>
             </button>
@@ -2087,478 +2385,6 @@
           <button class="arrow right" type="button" aria-label="Next" data-dir="1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 19l7-7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-        </div>
-        <section id="case-templates" hidden>
-          <template id="tpl-cv">
-            <h3>Cursus Honorum</h3>
-            <div class="case-body">
-              <div class="modal-summary">
-                <p>
-                  Builder‑operator across disciplines.<br>
-                  Based in France. Focus: inAi.<br>
-                  When to hire: audit, launch, rescue.
-                </p>
-              </div>
-
-              <section class="timeline">
-                <h4>Campaigns</h4>
-                <ol>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Founder</span>
-                      <span class="t-company">inAi</span>
-                    </div>
-                    <div class="t-meta">Jun 2025–present · Lille, France · Venture · Primary</div>
-                    <div class="t-body">General‑purpose AI agent. Team of 3. Reliability, cost control, and handover discipline.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Participant</span>
-                      <span class="t-company">EuraTechnologies (incubation)</span>
-                    </div>
-                    <div class="t-meta">Sep 2025–present · Lille, France · Retail &amp; E‑commerce track</div>
-                    <div class="t-body">Incubation supporting inAi milestones, discovery, and partner lanes. Proof available by email.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Lecturer</span>
-                      <span class="t-company">Université Catholique de Lille</span>
-                    </div>
-                    <div class="t-meta">Aug 2022–Sep 2023 · Lille, France · Employment</div>
-                    <div class="t-body">Delivered genetics course and supported international programs. Materials on request.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Co‑creator</span>
-                      <span class="t-company">AirRods (AirPods store)</span>
-                    </div>
-                    <div class="t-meta">Nov 2019–Mar 2021 · Moscow, Russia · Venture · Side</div>
-                    <div class="t-body">Instagram‑based storefront. Roman ran media, content, and fulfillment ops.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Initiator</span>
-                      <span class="t-company">Диплошa (Diplosha)</span>
-                    </div>
-                    <div class="t-meta">May 2020–Jul 2021 · Moscow, Russia · Venture · Side</div>
-                    <div class="t-body">Thesis support spin‑out from existing student clients; paused on relocation.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Founder</span>
-                      <span class="t-company">Студгородок (Student Residences)</span>
-                    </div>
-                    <div class="t-meta">Nov 2019–Apr 2020 (handover) · Moscow, Russia · Venture · Side</div>
-                    <div class="t-body">Unofficial residences hub widely perceived as official; later partnered and handed over.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Operator</span>
-                      <span class="t-company">CopyCat</span>
-                    </div>
-                    <div class="t-meta">Jun 2019–Nov 2022 · Khimki/Moscow, Russia · Venture · Primary</div>
-                    <div class="t-body">Brand split from iPressa to widen perceived choice with a centralized back office.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Founder</span>
-                      <span class="t-company">iПресса (iPressa)</span>
-                    </div>
-                    <div class="t-meta">Nov 2017–Nov 2022 · Moscow, Russia · Venture · Primary</div>
-                    <div class="t-body">Zero‑to‑three offices. Online‑first funnel. COVID continuity. Social‑commerce ops.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Coach &amp; manager</span>
-                      <span class="t-company">RGAU‑MSKHA (gym ops)</span>
-                    </div>
-                    <div class="t-meta">Feb 2017–Nov 2018 · Moscow, Russia · Employment</div>
-                    <div class="t-body">From coaching to running multi‑site facilities; renovation and events.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Co‑founder</span>
-                      <span class="t-company">EverBet</span>
-                    </div>
-                    <div class="t-meta">2018 · Moscow, Russia · Experiment</div>
-                    <div class="t-body">Math‑first predictions prototype; shuttered after trials and resourcing review.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Agent</span>
-                      <span class="t-company">Franco Columbu</span>
-                    </div>
-                    <div class="t-meta">Dec 2015–Apr 2017 · Russia/Eastern Europe · Representation</div>
-                    <div class="t-body">Verified VK presence, translations, community, and press coordination.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Experiment lead</span>
-                      <span class="t-company">Из Дрыща в атлеты</span>
-                    </div>
-                    <div class="t-meta">Jun 2015–Aug 2015 · Moscow, Russia · Experiment</div>
-                    <div class="t-body">Early media test on transformation under a strict program; ended early.</div>
-                  </li>
-                </ol>
-              </section>
-
-              <section class="modal-declaration">
-                <h4>Through‑line</h4>
-                <p>Orchestrate, ship, hand over. Evidence over adjectives.</p>
-              </section>
-
-              <section>
-                <h4>Contacts</h4>
-                <div class="contact-links">
-                  <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
-                  <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
-                </div>
-              </section>
-            </div>
-          </template>
-
-          <template id="tpl-skills">
-            <h3>Artes</h3>
-            <div class="case-body">
-              <section>
-                <h4>How I operate</h4>
-                <ul>
-                  <li><strong>Systems first.</strong> Map interfaces, constraints, and feedback loops before tasks so decisions line up and rework drops.</li>
-                  <li><strong>Prioritize hard.</strong> Protect the critical path and keep WIP low; time-box discovery to force learning over drift.</li>
-                  <li><strong>Orchestrate.</strong> Assign clear owners with contracts and acceptance criteria; remove ambiguity fast.</li>
-                  <li><strong>Write it down.</strong> Specs, ADRs, runbooks, and post-mortems others can execute without me in the room.</li>
-                  <li><strong>Ship with guardrails.</strong> Retries, timeouts, limits, and graceful degradation by default so releases are boring.</li>
-                  <li><strong>Deterministic handover.</strong> Leave diagrams, metrics, and ownership transfer that stick.</li>
-                </ul>
-              </section>
-
-              <section>
-                <h4>Domains I work across</h4>
-                <ul>
-                  <li><strong>Software systems &amp; agents.</strong> Orchestrate agents and services with explicit contracts; evaluate on cost, latency, and accuracy.</li>
-                  <li><strong>Web product.</strong> Structure content and UX for clarity; keep payloads thin and releases predictable.</li>
-                  <li><strong>Research &amp; evidence.</strong> Design studies, read data sanely, and cite correctly; separate signal from noise.</li>
-                  <li><strong>Media &amp; visuals.</strong> Turn ideas into storyboards and assets; edit in DaVinci; shape images in Photoshop.</li>
-                  <li><strong>Life sciences.</strong> Translate biology context into product and communication that non-specialists can follow.</li>
-                </ul>
-              </section>
-
-              <section>
-                <h4>Web builds &amp; small apps</h4>
-                <p style="text-align: center; margin-top: 24px;">End-to-end delivery from brief to deploy. Clear content, fast performance, predictable releases. Sample artifacts available by email.</p>
-              </section>
-            </div>
-          </template>
-
-          <template id="tpl-education">
-            <h3>Studia</h3>
-            <div class="case-body">
-              <section class="timeline">
-                <h4>Formal</h4>
-                <ol>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Doctor of Philosophy studies, Biology (withdrew pre‑defense)</span>
-                      <span class="t-company">Russian State Agrarian University – Moscow Timiryazev Agricultural Academy (RGAU‑MSKHA)</span>
-                    </div>
-                    <div class="t-meta">Sep 2020–Dec 2023 · Moscow, Russia</div>
-                    <div class="t-body">What this added: research‑ops literacy—study design, lab methods, analysis, and collaboration with senior faculty. Six publications; citations available by email.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Master of Science, International Economics and Management</span>
-                      <span class="t-company">Faculté de Gestion, Economie et Sciences (FGES), Université Catholique de Lille</span>
-                    </div>
-                    <div class="t-meta">Sep 2022–Jul 2023 · Lille, France</div>
-                    <div class="t-body">Degree awarded. General‑management spine and managerial economics. Capstone on managerial adaptation during COVID.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Engineer’s program (exchange), Business &amp; Marketing</span>
-                      <span class="t-company">ISA Lille (JUNIA)</span>
-                    </div>
-                    <div class="t-meta">Sep 2021–Sep 2022 · Lille, France</div>
-                    <div class="t-body">What this added: engineering‑school precision applied to market research, positioning, and agri‑food supply chains; French‑language practice.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Professional program, Cinematography and Film/Video Production</span>
-                      <span class="t-company">Skillbox (remote)</span>
-                    </div>
-                    <div class="t-meta">Feb 2020–Dec 2022 · Remote</div>
-                    <div class="t-body">What this added: product imaging and narrative. Storyboards, camera basics, editing workflows in DaVinci Resolve. Applied to ads and product demos.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Master’s degree, Agriculture (Genetics)</span>
-                      <span class="t-company">RGAU‑MSKHA</span>
-                    </div>
-                    <div class="t-meta">Sep 2018–Jul 2020 · Moscow, Russia</div>
-                    <div class="t-body">Animal sciences, aquaculture, agronomy, and environmental systems; quantitative reporting and lab safety.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Bachelor’s degree, Agriculture</span>
-                      <span class="t-company">RGAU‑MSKHA</span>
-                    </div>
-                    <div class="t-meta">Sep 2013–Jul 2017 · Moscow, Russia</div>
-                    <div class="t-body">Foundations in biology, chemistry, genetics, physiology, and production systems.</div>
-                  </li>
-                </ol>
-              </section>
-
-              <section class="timeline" style="margin-top:12px">
-                <h4>Certifications &amp; Proficiency</h4>
-                <ol>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">TOEIC</span>
-                      <span class="t-company">975 / 990</span>
-                    </div>
-                    <div class="t-meta">Mar 2023 · Assessment</div>
-                    <div class="t-body">Advanced professional English proficiency (reading and listening).</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Business English courses</span>
-                      <span class="t-company">RGAU‑MSKHA</span>
-                    </div>
-                    <div class="t-meta">2018–2019 · Completed</div>
-                    <div class="t-body">Academic and professional communication with technical writing and presentations.</div>
-                  </li>
-                  <li>
-                    <div class="t-head">
-                      <span class="t-role">Certification in Genetics</span>
-                      <span class="t-company">RGAU with Lomonosov Moscow State University</span>
-                    </div>
-                    <div class="t-meta">2019 · Certificate</div>
-                    <div class="t-body">Mendelian and molecular genetics, population genetics, lab methods, and data interpretation.</div>
-                  </li>
-                </ol>
-              </section>
-            </div>
-          </template>
-
-          <template id="tpl-iz-drysha-v-atlety">
-            <h3>Из Дрыща в атлеты (From a Skinny Kid to an Athlete)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Early media experiment documenting a fast transformation under strict training.</p>
-              <p><strong>Role.</strong> Program design, coaching, and production cadence.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Defined weekly plan for training, nutrition, and recovery.</li>
-                <li>Planned recurring content to track progress.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Ended early; lesson in scope, pacing, and team pressure.</p>
-              <div class="proof-note">Proof available by email</div>
-            </div>
-          </template>
-
-          <template id="tpl-rgau-mskha">
-            <h3>Тренажерные залы РГАУ‑МСХА (RGAU‑MSKHA Gyms)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> From coaching to managing a distributed university gym network.</p>
-              <p><strong>Role.</strong> Coach → manager of gym operations (reporting to a vice‑president).</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Planned and executed one full renovation; prepared a second; reopened a third.</li>
-                <li>Set safety instruction cadence and service add‑ons.</li>
-                <li>Supported campus events and newcomer tours.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Multi‑site operations stabilized across up to 8 facilities.</p>
-              <div class="proof-note">Photos and internal memos available by email</div>
-            </div>
-          </template>
-
-          <template id="tpl-studgorodok-rgau">
-            <h3>Студгородок (Student Residences)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> No official residences channel existed; students needed a trusted hub.</p>
-              <p><strong>Role.</strong> Founder/operator; later partner to management.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Launched an unofficial page with clear tone and useful updates.</li>
-                <li>Coordinated with management and handed operations when adoption grew.</li>
-              </ul>
-              <p><strong>Outcome.</strong> ~4.5k members; page remains active under management.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://vk.com/campusrgau" target="_blank" rel="noopener" class="proof-btn">vk.com/campusrgau</a>
-              </div>
-            </div>
-          </template>
-
-          <template id="tpl-i-pressa">
-            <h3>iПресса (iPressa)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Copy/print service from zero with a goal of stable demand and expansion.</p>
-              <p><strong>Role.</strong> Founder and operator.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Online‑first funnel via VK; early personal fulfillment.</li>
-                <li>Disciplined reinvestment into capacity.</li>
-                <li>Scaled to three offices (Jun 2019; Sep/Oct 2019; third site initiated 2020).</li>
-                <li>COVID continuity plan and standardized SLAs.</li>
-                <li>Brand separation where useful (CopyCat) with unified back office.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Three locations; daily 30–50 orders (100+ in peaks); ₽500k–700k top‑line months; continuity through COVID.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://vk.com/i.pressa" target="_blank" rel="noopener" class="proof-btn">vk.com/i.pressa</a>
-              </div>
-              <div class="proof-note">Additional documents available by email</div>
-            </div>
-          </template>
-
-          <template id="tpl-copycat">
-            <h3>Центр полиграфии CopyCat (CopyCat)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Widen perceived market choice without duplicating operations.</p>
-              <p><strong>Role.</strong> Founder/operator.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Split brand from iPressa while keeping a single back office.</li>
-                <li>Opened a physical site in Khimki to localize acquisition.</li>
-                <li>Kept standardized pricing and service levels.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Daily tens of orders; lifted engagement in northern Moscow; network effects across brands.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://vk.com/copycatprint" target="_blank" rel="noopener" class="proof-btn">vk.com/copycatprint</a>
-              </div>
-            </div>
-          </template>
-
-          <template id="tpl-airrods">
-            <h3>AirRods (AirPods Store)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Instagram‑based AirPods storefront serving Moscow with local delivery.</p>
-              <p><strong>Role.</strong> Co‑creator focused on media, content, and storefront operations.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Shot product photography and short video spots.</li>
-                <li>Ran Instagram campaigns and DMs for conversion.</li>
-                <li>Coordinated packaging and last‑mile delivery.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Sustained sales; initial investment recovered; account remains visible.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://instagram.com/air_rods" target="_blank" rel="noopener" class="proof-btn">instagram.com/air_rods</a>
-              </div>
-            </div>
-          </template>
-
-          <template id="tpl-diplosha">
-            <h3>Диплошa (Diplosha)</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Extend existing student work into thesis support.</p>
-              <p><strong>Role.</strong> Initiator; recruited domain experts; standardized delivery.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Used VK for intake and communication.</li>
-                <li>Defined scope, timelines, and acceptance criteria.</li>
-              </ul>
-              <p><strong>Outcome.</strong> 3–4 deliveries; paused due to relocation.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://vk.com/diplosha" target="_blank" rel="noopener" class="proof-btn">vk.com/diplosha</a>
-              </div>
-            </div>
-          </template>
-
-          <template id="tpl-franco-columbu">
-            <h3>Franco Columbu</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Representation in Russia/Eastern Europe for a high‑profile athlete and author.</p>
-              <p><strong>Role.</strong> Personal agent for the region.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Verified official VK presence with content standards.</li>
-                <li>Managed translations of books and interviews with approvals.</li>
-                <li>Ran community and coordinated press/product access.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Verified presence, consistent communications, and regional media placements.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://vk.com/fcolumbu" target="_blank" rel="noopener" class="proof-btn">vk.com/fcolumbu</a>
-                <a href="https://vk.com/francocolumbu" target="_blank" rel="noopener" class="proof-btn">vk.com/francocolumbu</a>
-              </div>
-              <div class="proof-note">Additional press on request</div>
-            </div>
-          </template>
-
-          <template id="tpl-everbet">
-            <h3>EverBet</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Short‑run experiment in math‑driven sports predictions.</p>
-              <p><strong>Role.</strong> Co‑founder in a 3‑person team.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Prototyped models on historical stats.</li>
-                <li>Set early kill criteria when signal and resources misaligned.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Experiment discontinued after initial trials.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://vk.com/everbetmath" target="_blank" rel="noopener" class="proof-btn">vk.com/everbetmath</a>
-              </div>
-            </div>
-          </template>
-
-          <template id="tpl-universite-catholique-de-lille">
-            <h3>Université Catholique de Lille</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> University teaching and international student support.</p>
-              <p><strong>Role.</strong> Lecturer (maître assistant) and program support.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Designed syllabus and assessments for genetics.</li>
-                <li>Set office‑hours cadence and clear communication.</li>
-                <li>Coordinated exams, grading, and documentation with administration.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Semester delivered. Students assessed. Contract completed.</p>
-              <div class="proof-note">Syllabus excerpt, screenshots, and photos available by email</div>
-            </div>
-          </template>
-
-          <template id="tpl-euratechnologies">
-            <h3>EuraTechnologies</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Incubation to accelerate inAi. Retail &amp; E‑commerce track in Lille.</p>
-              <p><strong>Role.</strong> Founder as participant. Aligned venture milestones and customer discovery.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Set a cadence for user interviews and partner outreach.</li>
-                <li>Define MVP boundaries and “kill criteria.”</li>
-                <li>Use incubator network for pilots and expert reviews.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Accepted and active since Sep 2025; program artefacts tracked; next stage planned.</p>
-              <div class="proof-note">Program details available by email</div>
-            </div>
-          </template>
-
-          <template id="tpl-inai">
-            <h3>inAi</h3>
-            <div class="case-body">
-              <p><strong>Situation.</strong> Independent general‑purpose AI agent. Built under tight constraints to deliver practical automation.</p>
-              <p><strong>Role.</strong> Founder. Product, architecture, delivery, and early GTM. Team of 3. Lille, France.</p>
-              <h4>Decisions</h4>
-              <ul>
-                <li>Milestone gates with “go/no‑go” reviews.</li>
-                <li>Provider routing and hard cost controls.</li>
-                <li>Reliability guardrails: timeouts, retries, sane defaults.</li>
-                <li>Deterministic handover: docs, runbooks, acceptance criteria, and metrics.</li>
-                <li>Partner lanes for integrations.</li>
-              </ul>
-              <p><strong>Outcome.</strong> Product live; incubation at EuraTechnologies (Sep 2025–present); operating cadence in place.</p>
-              <p><strong>Proof</strong></p>
-              <div class="proof-links">
-                <a href="https://inai.fr" target="_blank" rel="noopener" class="proof-btn">inai.fr</a>
-              </div>
-              <div class="proof-note">EuraTechnologies acceptance available by email</div>
-            </div>
-          </template>
-        </section>
         <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" data-open="inai" aria-label="Open the inAi case" role="button" tabindex="0">
           <span class="badge badge-outcome">Built + incubated</span>
@@ -2737,6 +2563,830 @@
       </article>
     </section>
   </noscript>
+<script id="translations" type="application/json">
+{
+  "en": {
+    "meta": {
+      "title": "Roman Empire",
+      "description": "Welcome to Roman and his Empire. A minimal, ironic one-page empire."
+    },
+    "hero": {
+      "greeting": "Hi.",
+      "lead": "You've probably been thinking about the Roman Empire.<br>Congratulations. You found one.",
+      "block1": "This Roman is building an empire across the world and across disciplines.<br>It is wide and multidimensional. He can build one for you too.",
+      "block2": "But let's not dwell on the past. Empires rise and fall.<br><strong>Better to try {brand}. They are building the future.</strong>",
+      "block3": "Yet, if you still wish to find what Roman offers, here is what you get:",
+      "block4": "I turn scattered fronts into a single campaign that ships.",
+      "block5": "Built a multi-site business · University lecturer · Personal agent and representation",
+      "btn_try": "Try",
+      "btn_skills": "Artes",
+      "btn_cv": "Cursus Honorum",
+      "btn_education": "Studia",
+      "contact_label": "⟨ Proposals and introductions ⟩"
+    },
+    "pillars": {
+      "title": "Four Pillars of Empire",
+      "franco_name": "Franco Columbu",
+      "franco_note": "Verified presence, translations, and press operations.",
+      "inai_name": "inAi",
+      "inai_note": "Independent build from concept to product.",
+      "ipressa_name": "iPressa",
+      "ipressa_note": "Zero-to-one to three sites; continuity under stress.",
+      "ucl_name": "Université Catholique de Lille",
+      "ucl_note": "Taught and ran a program at a French university."
+    },
+    "showcase": {
+      "title": "History of Empire",
+      "prev": "Previous",
+      "next": "Next"
+    },
+    "badges": {
+      "archived": "Archived",
+      "active": "Active",
+      "outcome": "Built + incubated"
+    },
+    "captions": {
+      "drysh": "Early media experiment on disciplined transformation; ended after initial sprint.",
+      "franco": "Agent in Russia/E. Europe; verified VK, translations, fan community, press.",
+      "everbet": "Short‑run math‑driven predictions prototype; closed after trials.",
+      "ipressa": "Print/copy business from zero to three offices; COVID continuity; social‑commerce ops.",
+      "copycat": "Brand split to widen choice with a single back office; physical site in Khimki.",
+      "airrods": "Instagram‑based AirPods store; media‑led acquisition and local delivery.",
+      "rgau": "Coach → gym operations manager; eight sites; renovation and reopen plan.",
+      "studgorodok": "Unofficial residences hub adopted by management; ~4.5k members.",
+      "diplosha": "Thesis‑support spin‑out; 3–4 deliveries; paused on relocation.",
+      "ucl": "Genetics lecturer; course delivered; international student support.",
+      "euratechnologies": "Incubation accelerating inAi; Retail & E‑commerce track."
+    },
+    "modals": {
+      "cv": {
+        "title": "Cursus Honorum",
+        "summary": "Builder‑operator across disciplines.<br>Based in France. Focus: inAi.<br>When to hire: audit, launch, rescue.",
+        "campaigns_title": "Campaigns",
+        "throughline_title": "Through‑line",
+        "throughline_text": "Orchestrate, ship, hand over. Evidence over adjectives.",
+        "contacts_title": "Contacts",
+        "timeline": [
+          {
+            "role": "Founder",
+            "company": "inAi",
+            "meta": "Jun 2025–present · Lille, France · Venture · Primary",
+            "body": "General‑purpose AI agent. Team of 3. Reliability, cost control, and handover discipline."
+          },
+          {
+            "role": "Participant",
+            "company": "EuraTechnologies (incubation)",
+            "meta": "Sep 2025–present · Lille, France · Retail & E‑commerce track",
+            "body": "Incubation supporting inAi milestones, discovery, and partner lanes. Proof available by email."
+          },
+          {
+            "role": "Lecturer",
+            "company": "Université Catholique de Lille",
+            "meta": "Aug 2022–Sep 2023 · Lille, France · Employment",
+            "body": "Delivered genetics course and supported international programs. Materials on request."
+          },
+          {
+            "role": "Co‑creator",
+            "company": "AirRods (AirPods store)",
+            "meta": "Nov 2019–Mar 2021 · Moscow, Russia · Venture · Side",
+            "body": "Instagram‑based storefront. Roman ran media, content, and fulfillment ops."
+          },
+          {
+            "role": "Initiator",
+            "company": "Диплошa (Diplosha)",
+            "meta": "May 2020–Jul 2021 · Moscow, Russia · Venture · Side",
+            "body": "Thesis support spin‑out from existing student clients; paused on relocation."
+          },
+          {
+            "role": "Founder",
+            "company": "Студгородок (Student Residences)",
+            "meta": "Nov 2019–Apr 2020 (handover) · Moscow, Russia · Venture · Side",
+            "body": "Unofficial residences hub widely perceived as official; later partnered and handed over."
+          },
+          {
+            "role": "Operator",
+            "company": "CopyCat",
+            "meta": "Jun 2019–Nov 2022 · Khimki/Moscow, Russia · Venture · Primary",
+            "body": "Brand split from iPressa to widen perceived choice with a centralized back office."
+          },
+          {
+            "role": "Founder",
+            "company": "iПресса (iPressa)",
+            "meta": "Nov 2017–Nov 2022 · Moscow, Russia · Venture · Primary",
+            "body": "Zero‑to‑three offices. Online‑first funnel. COVID continuity. Social‑commerce ops."
+          },
+          {
+            "role": "Coach & manager",
+            "company": "RGAU‑MSKHA (gym ops)",
+            "meta": "Feb 2017–Nov 2018 · Moscow, Russia · Employment",
+            "body": "From coaching to running multi‑site facilities; renovation and events."
+          },
+          {
+            "role": "Co‑founder",
+            "company": "EverBet",
+            "meta": "2018 · Moscow, Russia · Experiment",
+            "body": "Math‑first predictions prototype; shuttered after trials and resourcing review."
+          },
+          {
+            "role": "Agent",
+            "company": "Franco Columbu",
+            "meta": "Dec 2015–Apr 2017 · Russia/Eastern Europe · Representation",
+            "body": "Verified VK presence, translations, community, and press coordination."
+          },
+          {
+            "role": "Experiment lead",
+            "company": "Из Дрыща в атлеты",
+            "meta": "Jun 2015–Aug 2015 · Moscow, Russia · Experiment",
+            "body": "Early media test on transformation under a strict program; ended early."
+          }
+        ]
+      },
+      "skills": {
+        "title": "Artes",
+        "operate_title": "How I operate",
+        "operate_items": [
+          "<strong>Systems first.</strong> Map interfaces, constraints, and feedback loops before tasks so decisions line up and rework drops.",
+          "<strong>Prioritize hard.</strong> Protect the critical path and keep WIP low; time-box discovery to force learning over drift.",
+          "<strong>Orchestrate.</strong> Assign clear owners with contracts and acceptance criteria; remove ambiguity fast.",
+          "<strong>Write it down.</strong> Specs, ADRs, runbooks, and post-mortems others can execute without me in the room.",
+          "<strong>Ship with guardrails.</strong> Retries, timeouts, limits, and graceful degradation by default so releases are boring.",
+          "<strong>Deterministic handover.</strong> Leave diagrams, metrics, and ownership transfer that stick."
+        ],
+        "domains_title": "Domains I work across",
+        "domains_items": [
+          "<strong>Software systems & agents.</strong> Orchestrate agents and services with explicit contracts; evaluate on cost, latency, and accuracy.",
+          "<strong>Web product.</strong> Structure content and UX for clarity; keep payloads thin and releases predictable.",
+          "<strong>Research & evidence.</strong> Design studies, read data sanely, and cite correctly; separate signal from noise.",
+          "<strong>Media & visuals.</strong> Turn ideas into storyboards and assets; edit in DaVinci; shape images in Photoshop.",
+          "<strong>Life sciences.</strong> Translate biology context into product and communication that non-specialists can follow."
+        ],
+        "web_title": "Web builds & small apps",
+        "web_text": "End-to-end delivery from brief to deploy. Clear content, fast performance, predictable releases. Sample artifacts available by email."
+      },
+      "education": {
+        "title": "Studia",
+        "formal_title": "Formal",
+        "certifications_title": "Certifications & Proficiency",
+        "formal_items": [
+          {
+            "degree": "Doctor of Philosophy studies, Biology (withdrew pre-defense)",
+            "school": "Russian State Agrarian University – Moscow Timiryazev Agricultural Academy (RGAU-MSKHA)",
+            "meta": "Sep 2020–Dec 2023 · Moscow, Russia",
+            "body": "What this added: research-ops literacy—study design, lab methods, analysis, and collaboration with senior faculty. Six publications; citations available by email."
+          },
+          {
+            "degree": "Master of Science, International Economics and Management",
+            "school": "Faculté de Gestion, Economie et Sciences (FGES), Université Catholique de Lille",
+            "meta": "Sep 2022–Jul 2023 · Lille, France",
+            "body": "Degree awarded. General-management spine and managerial economics. Capstone on managerial adaptation during COVID."
+          },
+          {
+            "degree": "Engineer's program (exchange), Business & Marketing",
+            "school": "ISA Lille (JUNIA)",
+            "meta": "Sep 2021–Sep 2022 · Lille, France",
+            "body": "What this added: engineering-school precision applied to market research, positioning, and agri-food supply chains; French-language practice."
+          },
+          {
+            "degree": "Professional program, Cinematography and Film/Video Production",
+            "school": "Skillbox (remote)",
+            "meta": "Feb 2020–Dec 2022 · Remote",
+            "body": "What this added: product imaging and narrative. Storyboards, camera basics, editing workflows in DaVinci Resolve. Applied to ads and product demos."
+          },
+          {
+            "degree": "Master's degree, Agriculture (Genetics)",
+            "school": "RGAU-MSKHA",
+            "meta": "Sep 2018–Jul 2020 · Moscow, Russia",
+            "body": "Animal sciences, aquaculture, agronomy, and environmental systems; quantitative reporting and lab safety."
+          },
+          {
+            "degree": "Bachelor's degree, Agriculture",
+            "school": "RGAU-MSKHA",
+            "meta": "Sep 2013–Jul 2017 · Moscow, Russia",
+            "body": "Foundations in biology, chemistry, genetics, physiology, and production systems."
+          }
+        ],
+        "certifications_items": [
+          {
+            "cert": "TOEIC",
+            "school": "975 / 990",
+            "meta": "Mar 2023 · Assessment",
+            "body": "Advanced professional English proficiency (reading and listening)."
+          },
+          {
+            "cert": "Business English courses",
+            "school": "RGAU-MSKHA",
+            "meta": "2018–2019 · Completed",
+            "body": "Academic and professional communication with technical writing and presentations."
+          },
+          {
+            "cert": "Certification in Genetics",
+            "school": "RGAU with Lomonosov Moscow State University",
+            "meta": "2019 · Certificate",
+            "body": "Mendelian and molecular genetics, population genetics, lab methods, and data interpretation."
+          }
+        ]
+      },
+      "cases": {
+        "iz-drysha-v-atlety": {
+          "title": "Из Дрыща в атлеты (From a Skinny Kid to an Athlete)",
+          "situation": "<strong>Situation.</strong> Early media experiment documenting a fast transformation under strict training.",
+          "role": "<strong>Role.</strong> Program design, coaching, and production cadence.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Defined weekly plan for training, nutrition, and recovery.",
+            "Planned recurring content to track progress."
+          ],
+          "outcome": "<strong>Outcome.</strong> Ended early; lesson in scope, pacing, and team pressure.",
+          "proof_note": "Proof available by email"
+        },
+        "rgau-mskha": {
+          "title": "Тренажерные залы РГАУ‑МСХА (RGAU-MSKHA Gyms)",
+          "situation": "<strong>Situation.</strong> From coaching to managing a distributed university gym network.",
+          "role": "<strong>Role.</strong> Coach → manager of gym operations (reporting to a vice-president).",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Planned and executed one full renovation; prepared a second; reopened a third.",
+            "Set safety instruction cadence and service add-ons.",
+            "Supported campus events and newcomer tours."
+          ],
+          "outcome": "<strong>Outcome.</strong> Multi-site operations stabilized across up to 8 facilities.",
+          "proof_note": "Photos and internal memos available by email"
+        },
+        "studgorodok-rgau": {
+          "title": "Студгородок (Student Residences)",
+          "situation": "<strong>Situation.</strong> No official residences channel existed; students needed a trusted hub.",
+          "role": "<strong>Role.</strong> Founder/operator; later partner to management.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Launched an unofficial page with clear tone and useful updates.",
+            "Coordinated with management and handed operations when adoption grew."
+          ],
+          "outcome": "<strong>Outcome.</strong> ~4.5k members; page remains active under management.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://vk.com/campusrgau", "label": "vk.com/campusrgau"}
+          ]
+        },
+        "i-pressa": {
+          "title": "iПресса (iPressa)",
+          "situation": "<strong>Situation.</strong> Copy/print service from zero with a goal of stable demand and expansion.",
+          "role": "<strong>Role.</strong> Founder and operator.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Online-first funnel via VK; early personal fulfillment.",
+            "Disciplined reinvestment into capacity.",
+            "Scaled to three offices (Jun 2019; Sep/Oct 2019; third site initiated 2020).",
+            "COVID continuity plan and standardized SLAs.",
+            "Brand separation where useful (CopyCat) with unified back office."
+          ],
+          "outcome": "<strong>Outcome.</strong> Three locations; daily 30–50 orders (100+ in peaks); ₽500k–700k top-line months; continuity through COVID.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://vk.com/i.pressa", "label": "vk.com/i.pressa"}
+          ],
+          "proof_note": "Additional documents available by email"
+        },
+        "copycat": {
+          "title": "Центр полиграфии CopyCat (CopyCat)",
+          "situation": "<strong>Situation.</strong> Widen perceived market choice without duplicating operations.",
+          "role": "<strong>Role.</strong> Founder/operator.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Split brand from iPressa while keeping a single back office.",
+            "Opened a physical site in Khimki to localize acquisition.",
+            "Kept standardized pricing and service levels."
+          ],
+          "outcome": "<strong>Outcome.</strong> Daily tens of orders; lifted engagement in northern Moscow; network effects across brands.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://vk.com/copycatprint", "label": "vk.com/copycatprint"}
+          ]
+        },
+        "airrods": {
+          "title": "AirRods (AirPods Store)",
+          "situation": "<strong>Situation.</strong> Instagram-based AirPods storefront serving Moscow with local delivery.",
+          "role": "<strong>Role.</strong> Co-creator focused on media, content, and storefront operations.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Shot product photography and short video spots.",
+            "Ran Instagram campaigns and DMs for conversion.",
+            "Coordinated packaging and last-mile delivery."
+          ],
+          "outcome": "<strong>Outcome.</strong> Sustained sales; initial investment recovered; account remains visible.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://instagram.com/air_rods", "label": "instagram.com/air_rods"}
+          ]
+        },
+        "diplosha": {
+          "title": "Диплошa (Diplosha)",
+          "situation": "<strong>Situation.</strong> Extend existing student work into thesis support.",
+          "role": "<strong>Role.</strong> Initiator; recruited domain experts; standardized delivery.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Used VK for intake and communication.",
+            "Defined scope, timelines, and acceptance criteria."
+          ],
+          "outcome": "<strong>Outcome.</strong> 3–4 deliveries; paused due to relocation.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://vk.com/diplosha", "label": "vk.com/diplosha"}
+          ]
+        },
+        "franco-columbu": {
+          "title": "Franco Columbu",
+          "situation": "<strong>Situation.</strong> Representation in Russia/Eastern Europe for a high-profile athlete and author.",
+          "role": "<strong>Role.</strong> Personal agent for the region.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Verified official VK presence with content standards.",
+            "Managed translations of books and interviews with approvals.",
+            "Ran community and coordinated press/product access."
+          ],
+          "outcome": "<strong>Outcome.</strong> Verified presence, consistent communications, and regional media placements.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://vk.com/fcolumbu", "label": "vk.com/fcolumbu"},
+            {"url": "https://vk.com/francocolumbu", "label": "vk.com/francocolumbu"}
+          ],
+          "proof_note": "Additional press on request"
+        },
+        "everbet": {
+          "title": "EverBet",
+          "situation": "<strong>Situation.</strong> Short-run experiment in math-driven sports predictions.",
+          "role": "<strong>Role.</strong> Co-founder in a 3-person team.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Prototyped models on historical stats.",
+            "Set early kill criteria when signal and resources misaligned."
+          ],
+          "outcome": "<strong>Outcome.</strong> Experiment discontinued after initial trials.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://vk.com/everbetmath", "label": "vk.com/everbetmath"}
+          ]
+        },
+        "universite-catholique-de-lille": {
+          "title": "Université Catholique de Lille",
+          "situation": "<strong>Situation.</strong> University teaching and international student support.",
+          "role": "<strong>Role.</strong> Lecturer (maître assistant) and program support.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Designed syllabus and assessments for genetics.",
+            "Set office-hours cadence and clear communication.",
+            "Coordinated exams, grading, and documentation with administration."
+          ],
+          "outcome": "<strong>Outcome.</strong> Semester delivered. Students assessed. Contract completed.",
+          "proof_note": "Syllabus excerpt, screenshots, and photos available by email"
+        },
+        "euratechnologies": {
+          "title": "EuraTechnologies",
+          "situation": "<strong>Situation.</strong> Incubation to accelerate inAi. Retail & E-commerce track in Lille.",
+          "role": "<strong>Role.</strong> Founder as participant. Aligned venture milestones and customer discovery.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Set a cadence for user interviews and partner outreach.",
+            "Define MVP boundaries and \"kill criteria.\"",
+            "Use incubator network for pilots and expert reviews."
+          ],
+          "outcome": "<strong>Outcome.</strong> Accepted and active since Sep 2025; program artefacts tracked; next stage planned.",
+          "proof_note": "Program details available by email"
+        },
+        "inai": {
+          "title": "inAi",
+          "situation": "<strong>Situation.</strong> Independent general-purpose AI agent. Built under tight constraints to deliver practical automation.",
+          "role": "<strong>Role.</strong> Founder. Product, architecture, delivery, and early GTM. Team of 3. Lille, France.",
+          "decisions_title": "Decisions",
+          "decisions": [
+            "Milestone gates with \"go/no-go\" reviews.",
+            "Provider routing and hard cost controls.",
+            "Reliability guardrails: timeouts, retries, sane defaults.",
+            "Deterministic handover: docs, runbooks, acceptance criteria, and metrics.",
+            "Partner lanes for integrations."
+          ],
+          "outcome": "<strong>Outcome.</strong> Product live; incubation at EuraTechnologies (Sep 2025–present); operating cadence in place.",
+          "proof_title": "Proof",
+          "proof_links": [
+            {"url": "https://inai.fr", "label": "inai.fr"}
+          ],
+          "proof_note": "EuraTechnologies acceptance available by email"
+        }
+      }
+    }
+  },
+  "ru": {
+    "meta": {
+      "title": "Империя Романа",
+      "description": "Добро пожаловать к Роману и его Империи. Минималистичная и ироничная одностраничная империя."
+    },
+    "hero": {
+      "greeting": "Привет.",
+      "lead": "Думали о Римской империи — нашли Империю Романа.",
+      "block1": "Этот Роман строит империю по миру и в разных дисциплинах.<br>Она широкая и многомерная. Он может построить такую и для вас.",
+      "block2": "Но в прошлом зависать не будем. Империи растут и падают.<br><strong>Лучше зайти на {brand}. Они строят будущее.</strong>",
+      "block3": "Если всё же хотите узнать, что делает Роман, вот что вы получите:",
+      "block4": "Свожу разрозненные фронты в одну кампанию, которая выходит в прод.",
+      "block5": "Построил сеть из нескольких точек · Преподаватель в университете · Личный агент и представительство",
+      "btn_try": "Попробовать",
+      "btn_skills": "Artes",
+      "btn_cv": "Cursus Honorum",
+      "btn_education": "Studia",
+      "contact_label": "⟨ Предложения и знакомства ⟩"
+    },
+    "pillars": {
+      "title": "Четыре столпа Империи",
+      "franco_name": "Франко Коломбу",
+      "franco_note": "Официальное присутствие, переводы и работа с прессой.",
+      "inai_name": "inAi",
+      "inai_note": "От концепта до продукта — самостоятельно.",
+      "ipressa_name": "iPressa",
+      "ipressa_note": "От нуля до трёх точек; устойчивость под нагрузкой.",
+      "ucl_name": "Католический университет Лилля",
+      "ucl_note": "Преподавал и вёл программу во французском университете."
+    },
+    "showcase": {
+      "title": "История Империи",
+      "prev": "Назад",
+      "next": "Вперёд"
+    },
+    "badges": {
+      "archived": "Архив",
+      "active": "Активно",
+      "outcome": "Сделано + инкубируется"
+    },
+    "captions": {
+      "drysh": "Ранний медиапроект о дисциплинированной трансформации; завершён после первого спринта.",
+      "franco": "Агент в России/Восточной Европе; верифицированный VK, переводы, сообщество, пресса.",
+      "everbet": "Короткий прототип математических прогнозов; закрыт после испытаний.",
+      "ipressa": "Типография/копи-центр: с нуля до трёх офисов; план непрерывности в COVID; social‑commerce операции.",
+      "copycat": "Разделение бренда для расширения выбора при едином бэк-офисе; офлайн-точка в Химках.",
+      "airrods": "Магазин AirPods в Instagram; лидогенерация через контент, локальная доставка.",
+      "rgau": "Тренер → менеджер залов; до восьми площадок; ремонт и планы перезапуска.",
+      "studgorodok": "Неофициальный хаб общежитий, принятый администрацией; ~4,5 тыс. участников.",
+      "diplosha": "Спин-офф поддержки дипломов; 3–4 выполненных заказа; пауза из-за релокации.",
+      "ucl": "Преподаватель генетики; курс проведён; поддержка иностранных студентов.",
+      "euratechnologies": "Инкубация для ускорения inAi; трек Retail & E‑commerce."
+    },
+    "modals": {
+      "cv": {
+        "title": "Cursus Honorum",
+        "summary": "Строю и оперирую продуктами в разных областях.<br>База — Франция. Фокус: inAi.<br>Когда нанимать: аудит, запуск, спасение.",
+        "campaigns_title": "Кампании",
+        "throughline_title": "Through‑line",
+        "throughline_text": "Оркестровать, выпускать, передавать. Доказательства вместо прилагательных.",
+        "contacts_title": "Контакты",
+        "timeline": [
+          {
+            "role": "Основатель",
+            "company": "inAi",
+            "meta": "июнь 2025 — н.в. · Лилль, Франция · венчур · основной",
+            "body": "Универсальный ИИ-агент. Команда 3. Надёжность, контроль затрат, детерминированная передача."
+          },
+          {
+            "role": "Участник",
+            "company": "EuraTechnologies (инкубация)",
+            "meta": "сент. 2025 — н.в. · Лилль, Франция · трек Retail & E‑commerce",
+            "body": "Инкубация для вех inAi, discovery и партнёрств. Доказательства по e-mail."
+          },
+          {
+            "role": "Преподаватель",
+            "company": "Католический университет Лилля",
+            "meta": "авг. 2022 — сент. 2023 · Лилль, Франция · трудоустройство",
+            "body": "Курс по генетике, поддержка международных программ. Материалы по запросу."
+          },
+          {
+            "role": "Со-создатель",
+            "company": "AirRods (AirPods store)",
+            "meta": "нояб. 2019 — март 2021 · Москва, Россия · венчур · side",
+            "body": "Instagram-витрина. Роман — медиа, контент, витрина и операционка."
+          },
+          {
+            "role": "Инициатор",
+            "company": "Диплошa (Diplosha)",
+            "meta": "май 2020 — июль 2021 · Москва, Россия · венчур · side",
+            "body": "Спин-офф из студенческой базы; пауза из-за релокации."
+          },
+          {
+            "role": "Основатель",
+            "company": "Студгородок (общежития)",
+            "meta": "нояб. 2019 — апр. 2020 (передача) · Москва, Россия · венчур · side",
+            "body": "Неофициальный хаб, затем партнёрство и передача управлению."
+          },
+          {
+            "role": "Операционный руководитель",
+            "company": "CopyCat",
+            "meta": "июнь 2019 — нояб. 2022 · Химки/Москва, Россия · венчур · основной",
+            "body": "Отделение бренда от iPressa для расширения выбора при едином бэк-офисе."
+          },
+          {
+            "role": "Основатель",
+            "company": "iПресса (iPressa)",
+            "meta": "нояб. 2017 — нояб. 2022 · Москва, Россия · венчур · основной",
+            "body": "С нуля до трёх точек. Онлайн-воронка. Непрерывность в COVID. Social‑commerce."
+          },
+          {
+            "role": "Тренер и менеджер",
+            "company": "РГАУ‑МСХА (залы)",
+            "meta": "февр. 2017 — нояб. 2018 · Москва, Россия · трудоустройство",
+            "body": "От коучинга к управлению сетью; ремонт и события."
+          },
+          {
+            "role": "Сооснователь",
+            "company": "EverBet",
+            "meta": "2018 · Москва, Россия · эксперимент",
+            "body": "Прототип на статистике; закрыт после проверки гипотез и ресурсов."
+          },
+          {
+            "role": "Агент",
+            "company": "Franco Columbu",
+            "meta": "дек. 2015 — апр. 2017 · Россия/Восточная Европа · представительство",
+            "body": "Верифицированный VK, переводы, комьюнити, координация прессы."
+          },
+          {
+            "role": "Руководитель эксперимента",
+            "company": "Из Дрыща в атлеты",
+            "meta": "июнь 2015 — авг. 2015 · Москва, Россия · эксперимент",
+            "body": "Ранний медиатест о быстрой трансформации по жёсткой программе."
+          }
+        ]
+      },
+      "skills": {
+        "title": "Artes",
+        "operate_title": "Как я работаю",
+        "operate_items": [
+          "<strong>Сначала система.</strong> Картируем интерфейсы, ограничения и обратные связи до задач — меньше переделок.",
+          "<strong>Жёсткая приоритизация.</strong> Защищаю критический путь и держу WIP низким; discovery в таймбокс.",
+          "<strong>Оркестровка.</strong> Понятные владельцы, контракты и критерии приёмки; быстро снимаю неопределённость.",
+          "<strong>Документирую.</strong> Спеки, ADR, runbook'и и постмортемы, исполнимые без моего участия.",
+          "<strong>Выпуск с ограничителями.</strong> Ретрии, таймауты, лимиты и плавная деградация по умолчанию — релизы скучные.",
+          "<strong>Детерминированная передача.</strong> Диаграммы, метрики и передача ownership, которая приживается."
+        ],
+        "domains_title": "Области работы",
+        "domains_items": [
+          "<strong>Софт-системы и агенты.</strong> Оркестрация по явным контрактам; стоимость, латентность, точность.",
+          "<strong>Веб-продукт.</strong> Структура контента и UX для ясности; тонкие бандлы, предсказуемые релизы.",
+          "<strong>Исследования и доказательства.</strong> Дизайн исследований, честное чтение данных, корректные ссылки; сигнал vs шум.",
+          "<strong>Медиа и визуал.</strong> Сториборды и ассеты; монтаж в DaVinci; обработка в Photoshop.",
+          "<strong>Жизненные науки.</strong> Перевожу биоконтекст в продукт и коммуникацию для неспециалистов."
+        ],
+        "web_title": "Веб-сборки и мини-приложения",
+        "web_text": "От брифа до деплоя. Ясный контент, быстрые перформанс-профили, предсказуемые релизы. Примеры по e-mail."
+      },
+      "education": {
+        "title": "Studia",
+        "formal_title": "Формальное",
+        "certifications_title": "Сертификаты и уровень",
+        "formal_items": [
+          {
+            "degree": "Аспирантура, биология (выбыл до защиты)",
+            "school": "РГАУ‑МСХА",
+            "meta": "сент. 2020 — дек. 2023 · Москва, Россия",
+            "body": "Операционная грамотность в исследованиях: дизайн, методы, анализ, работа с профессурой. 6 публикаций; ссылки по e-mail."
+          },
+          {
+            "degree": "MSc, международная экономика и менеджмент",
+            "school": "FGES, Католический университет Лилля",
+            "meta": "сент. 2022 — июль 2023 · Лилль, Франция",
+            "body": "Общий менеджмент и управленческая экономика. Капстоун об адаптации менеджмента в COVID."
+          },
+          {
+            "degree": "Инженерная программа (обмен), бизнес и маркетинг",
+            "school": "ISA Lille (JUNIA)",
+            "meta": "сент. 2021 — сент. 2022 · Лилль, Франция",
+            "body": "Точность инженерной школы, исследования рынка, позиционирование, агропищевые цепочки; практика французского."
+          },
+          {
+            "degree": "Проф. программа, кинематография и видео-продакшн",
+            "school": "Skillbox (дист.)",
+            "meta": "февр. 2020 — дек. 2022 · Дистанционно",
+            "body": "Имидж продукта и нарратив. Сториборды, камера, монтаж в DaVinci Resolve. Реклама и демо."
+          },
+          {
+            "degree": "Магистратура, сельское хозяйство (генетика)",
+            "school": "РГАУ‑МСХА",
+            "meta": "сент. 2018 — июль 2020 · Москва, Россия",
+            "body": "Зоотехния, аквакультура, агрономия, экосистемы; количественная отчётность, безопасность лаборатории."
+          },
+          {
+            "degree": "Бакалавриат, сельское хозяйство",
+            "school": "РГАУ‑МСХА",
+            "meta": "сент. 2013 — июль 2017 · Москва, Россия",
+            "body": "Базы: биология, химия, генетика, физиология, производственные системы."
+          }
+        ],
+        "certifications_items": [
+          {
+            "cert": "TOEIC",
+            "school": "975/990",
+            "meta": "март 2023 · тест",
+            "body": "Продвинутый деловой английский (чтение, аудирование)."
+          },
+          {
+            "cert": "Business English",
+            "school": "РГАУ‑МСХА",
+            "meta": "2018–2019 · завершено",
+            "body": "Академическая и деловая коммуникация, техписьмо и презентации."
+          },
+          {
+            "cert": "Сертификат по генетике",
+            "school": "РГАУ + МГУ",
+            "meta": "2019 · сертификат",
+            "body": "Менделевская и молекулярная генетика, попгенетика, лабораторные методы, интерпретация данных."
+          }
+        ]
+      },
+      "cases": {
+        "iz-drysha-v-atlety": {
+          "title": "Из Дрыща в атлеты",
+          "situation": "<strong>Ситуация.</strong> Ранний медиапроект о быстрой трансформации под строгую программу.",
+          "role": "<strong>Роль.</strong> Программа, коучинг, производственный ритм.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Недельный план тренинг/питание/восстановление.",
+            "Регулярный контент."
+          ],
+          "outcome": "<strong>Результат.</strong> Раннее завершение; урок про скоп, темп и давление команды.",
+          "proof_note": "Доказательства по e-mail"
+        },
+        "rgau-mskha": {
+          "title": "Тренажерные залы РГАУ‑МСХА",
+          "situation": "<strong>Ситуация.</strong> От тренера к управлению распределённой сетью.",
+          "role": "<strong>Роль.</strong> Тренер → менеджер залов (в подчинении у вице-президента).",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Одна полная реконструкция, подготовка второй, перезапуск третьей.",
+            "Безопасность и сервисы.",
+            "Поддержка событий."
+          ],
+          "outcome": "<strong>Результат.</strong> Стабилизация на до 8 площадках.",
+          "proof_note": "Фото и внутренние записки по e-mail"
+        },
+        "studgorodok-rgau": {
+          "title": "Студгородок",
+          "situation": "<strong>Ситуация.</strong> Не было официального канала общежитий.",
+          "role": "<strong>Роль.</strong> Основатель/оператор, затем партнёр администрации.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Неофициальная страница с ясным тоном и полезными апдейтами.",
+            "Координация и передача."
+          ],
+          "outcome": "<strong>Результат.</strong> ~4,5 тыс. участников; страница активна под управлением.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://vk.com/campusrgau", "label": "vk.com/campusrgau"}
+          ]
+        },
+        "i-pressa": {
+          "title": "iПресса (iPressa)",
+          "situation": "<strong>Ситуация.</strong> Копи/печать с нуля, цель — стабильный спрос и рост.",
+          "role": "<strong>Роль.</strong> Основатель-оператор.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Воронка VK, ранний личный фулфилмент.",
+            "Дисциплинированные реинвестиции.",
+            "Три точки (06.2019; 09/10.2019; третья инициирована 2020).",
+            "План COVID; стандартизированные SLA.",
+            "Отделение CopyCat с единым бэк-офисом."
+          ],
+          "outcome": "<strong>Результат.</strong> 3 локации; 30–50 заказов/день (100+ в пики); 500–700 тыс. ₽ выручки/мес.; непрерывность в COVID.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://vk.com/i.pressa", "label": "vk.com/i.pressa"}
+          ],
+          "proof_note": "Дополнительные документы по e-mail"
+        },
+        "copycat": {
+          "title": "CopyCat",
+          "situation": "<strong>Ситуация.</strong> Расширить выбор без удвоения операционки.",
+          "role": "<strong>Роль.</strong> Основатель/оператор.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Отделение бренда от iPressa при едином бэк-офисе.",
+            "Офлайн-точка в Химках.",
+            "Стандартизированные цены и SLA."
+          ],
+          "outcome": "<strong>Результат.</strong> Десятки заказов в день; рост вовлечённости на севере Москвы; сетевые эффекты.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://vk.com/copycatprint", "label": "vk.com/copycatprint"}
+          ]
+        },
+        "airrods": {
+          "title": "AirRods (AirPods Store)",
+          "situation": "<strong>Ситуация.</strong> Instagram-витрина с локальной доставкой по Москве.",
+          "role": "<strong>Роль.</strong> Со-создатель: медиа, контент, витрина.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Фото и короткие видео.",
+            "Кампании и DMs.",
+            "Упаковка и last-mile."
+          ],
+          "outcome": "<strong>Результат.</strong> Стабильные продажи; инвестиции отбиты; аккаунт виден.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://instagram.com/air_rods", "label": "instagram.com/air_rods"}
+          ]
+        },
+        "diplosha": {
+          "title": "Диплошa (Diplosha)",
+          "situation": "<strong>Ситуация.</strong> Расширение студенческой работы на поддержку дипломов.",
+          "role": "<strong>Роль.</strong> Инициатор; привлечение экспертов; стандартизация выдачи.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "VK для приёма и коммуникации.",
+            "Скоуп, сроки, критерии приёмки."
+          ],
+          "outcome": "<strong>Результат.</strong> 3–4 выполненных кейса; пауза из-за релокации.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://vk.com/diplosha", "label": "vk.com/diplosha"}
+          ]
+        },
+        "franco-columbu": {
+          "title": "Franco Columbu",
+          "situation": "<strong>Ситуация.</strong> Представительство в России/Восточной Европе.",
+          "role": "<strong>Роль.</strong> Персональный агент региона.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Официальный VK с контент-стандартами.",
+            "Переводы книг/интервью с согласованиями.",
+            "Комьюнити и пресс-координация."
+          ],
+          "outcome": "<strong>Результат.</strong> Верифицированное присутствие, согласованная коммуникация, региональные медиа.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://vk.com/fcolumbu", "label": "vk.com/fcolumbu"},
+            {"url": "https://vk.com/francocolumbu", "label": "vk.com/francocolumbu"}
+          ],
+          "proof_note": "Дополнительная пресса по запросу"
+        },
+        "everbet": {
+          "title": "EverBet",
+          "situation": "<strong>Ситуация.</strong> Короткий эксперимент математических прогнозов спорта.",
+          "role": "<strong>Роль.</strong> Сооснователь (3 человека).",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Прототипы на исторической статистике.",
+            "Ранние критерии «kill»."
+          ],
+          "outcome": "<strong>Результат.</strong> Закрыто после первичных испытаний.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://vk.com/everbetmath", "label": "vk.com/everbetmath"}
+          ]
+        },
+        "universite-catholique-de-lille": {
+          "title": "Католический университет Лилля",
+          "situation": "<strong>Ситуация.</strong> Преподавание и поддержка иностранных студентов.",
+          "role": "<strong>Роль.</strong> Преподаватель (maître assistant) и поддержка программы.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Силлабус и оценки.",
+            "Офис-часы.",
+            "Экзамены, оценивание, документооборот с администрацией."
+          ],
+          "outcome": "<strong>Результат.</strong> Семестр проведён, студенты оценены, контракт завершён.",
+          "proof_note": "Материалы по e-mail"
+        },
+        "euratechnologies": {
+          "title": "EuraTechnologies",
+          "situation": "<strong>Ситуация.</strong> Инкубация для ускорения inAi (Лилль, Retail & E-commerce).",
+          "role": "<strong>Роль.</strong> Основатель-участник.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Каденс интервью.",
+            "Границы MVP и kill-критерии.",
+            "Пилоты и экспертные ревью через сеть."
+          ],
+          "outcome": "<strong>Результат.</strong> Принят и активен с сент. 2025; артефакты ведутся; следующий этап запланирован.",
+          "proof_note": "Детали по e-mail"
+        },
+        "inai": {
+          "title": "inAi",
+          "situation": "<strong>Ситуация.</strong> Независимый универсальный ИИ-агент. Практическая автоматизация под ограничениями.",
+          "role": "<strong>Роль.</strong> Основатель: продукт, архитектура, delivery, ранний GTM. Команда 3. Лилль.",
+          "decisions_title": "Решения",
+          "decisions": [
+            "Вехи с go/no-go.",
+            "Маршрутизация провайдеров и жёсткий контроль затрат.",
+            "Надёжностные ограничители.",
+            "Детерминированная передача.",
+            "Партнёрские интеграции."
+          ],
+          "outcome": "<strong>Результат.</strong> Продукт онлайн; инкубация в EuraTechnologies (с сент. 2025); стабильная операционная каденс.",
+          "proof_title": "Доказательства",
+          "proof_links": [
+            {"url": "https://inai.fr", "label": "inai.fr"}
+          ],
+          "proof_note": "Подтверждение инкубации по e-mail"
+        }
+      }
+    }
+  }
+}
+</script>
+
+  <script src="assets/js/i18n.js"></script>
   <script>
     // Centered infinite carousel + orientation-aware frames
     (function(){
@@ -2848,19 +3498,33 @@
         if(!slug) return;
         scrollToSlug(slug);
       });
+      // Enhanced mobile touch handling (replace existing touch handlers)
       let touchStartX = null;
+      let touchStartTime = null;
+      const SWIPE_THRESHOLD = 20; // Reduced from 28 for more sensitivity
+      const SWIPE_TIMEOUT = 300;
+
       track.addEventListener('touchstart', event=>{
         touchStartX = event.touches[0].clientX;
+        touchStartTime = Date.now();
       }, {passive:true});
+
       track.addEventListener('touchmove', event=>{
         if(touchStartX === null) return;
         const dx = event.touches[0].clientX - touchStartX;
-        if(Math.abs(dx) > 28){
+        const dt = Date.now() - touchStartTime;
+        
+        if(Math.abs(dx) > SWIPE_THRESHOLD && dt < SWIPE_TIMEOUT){
           move(dx < 0 ? 1 : -1);
           touchStartX = null;
+          touchStartTime = null;
         }
       }, {passive:true});
-      const resetTouch = ()=>{ touchStartX = null; };
+
+      const resetTouch = ()=>{ 
+        touchStartX = null; 
+        touchStartTime = null;
+      };
       track.addEventListener('touchend', resetTouch, {passive:true});
       track.addEventListener('touchcancel', resetTouch, {passive:true});
       window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
@@ -2947,215 +3611,12 @@
       window.addEventListener('resize', ()=> positionTooltip(tooltipTarget));
       window.addEventListener('scroll', ()=> positionTooltip(tooltipTarget), {passive:true});
 
-      const root = document.getElementById('modal-root');
-      const templates = document.getElementById('case-templates');
-      if(!root || !templates) return;
-
-      const panel = root.querySelector('.modal-panel');
-      const closeBtn = root.querySelector('.modal-close');
-      const backdrop = root.querySelector('.modal-backdrop');
-      const titleEl = document.getElementById('case-title');
-      const bodyEl = document.getElementById('case-body');
-      const main = document.querySelector('main');
-
-      let activeSlug = null;
-      let lastFocus = null;
-
-      if(!history.state || typeof history.state !== 'object' || !('case' in history.state)){
-        const current = location.hash ? location.hash.slice(1) : null;
-        history.replaceState({case: current, initial:true}, '', window.location.href);
-      }
-
-      function getTemplate(slug){
-        if(!slug) return null;
-        return templates.querySelector(`#tpl-${slug}`);
-      }
-
-      function populateCase(slug){
-        const tpl = getTemplate(slug);
-        if(!tpl) return false;
-        const frag = tpl.content.cloneNode(true);
-        const title = frag.querySelector('h3');
-        const content = frag.querySelector('.case-body');
-        titleEl.textContent = title ? title.textContent : '';
-        bodyEl.innerHTML = content ? content.innerHTML : frag.innerHTML;
-        return true;
-      }
-
-      function findFocus(slug){
-        if(!slug) return null;
-        const original = track.querySelector(`.slide:not([data-clone]) .logo-card[data-slug="${slug}"]`);
-        if(original) return original;
-        if(slug === 'inai'){
-          return document.querySelector('.inai');
-        }
-        return track.querySelector(`.logo-card[data-slug="${slug}"]`);
-      }
-
-      function trapFocus(event){
-        if(event.key !== 'Tab') return;
-        const focusable = panel.querySelectorAll('a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
-        if(!focusable.length) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if(event.shiftKey){
-          if(document.activeElement === first || !panel.contains(document.activeElement)){
-            event.preventDefault();
-            last.focus();
-          }
-        }else{
-          if(document.activeElement === last){
-            event.preventDefault();
-            first.focus();
-          }
-        }
-      }
-
-      function handleKeydown(event){
-        if(event.key === 'Escape'){
-          event.preventDefault();
-          requestClose();
-        }else{
-          trapFocus(event);
-        }
-      }
-
-      function openCase(slug, source){
-        if(activeSlug === slug){
-          if(source) lastFocus = source;
-          return;
-        }
-        if(!populateCase(slug)) return;
-        hideTooltip();
-        activeSlug = slug;
-        lastFocus = source || findFocus(slug);
-        root.classList.add('open');
-        root.removeAttribute('aria-hidden');
-        document.body.classList.add('modal-open');
-        if(main) main.setAttribute('inert','');
-        panel.scrollTop = 0;
-        window.addEventListener('keydown', handleKeydown);
-        closeBtn.focus();
-      }
-
-      function closeCase({returnFocus = true} = {}){
-        if(!root.classList.contains('open')) return;
-        root.classList.remove('open');
-        root.setAttribute('aria-hidden','true');
-        document.body.classList.remove('modal-open');
-        if(main) main.removeAttribute('inert');
-        window.removeEventListener('keydown', handleKeydown);
-        const focusTarget = returnFocus ? lastFocus : null;
-        activeSlug = null;
-        lastFocus = null;
-        if(focusTarget && typeof focusTarget.focus === 'function'){
-          requestAnimationFrame(()=> focusTarget.focus());
-        }
-      }
-
-      function pushCaseState(slug){
-        const state = history.state;
-        if(state && state.case === slug){
-          history.replaceState({case:slug, initial:state.initial ?? false}, '', `#${slug}`);
-        }else{
-          history.pushState({case:slug, initial:false}, '', `#${slug}`);
-        }
-      }
-
-      const baseUrl = window.location.pathname + window.location.search;
-
-      function requestClose(){
-        if(!root.classList.contains('open')){
-          return;
-        }
-        const state = history.state;
-        const slug = activeSlug;
-        closeCase();
-        history.replaceState({case:null, initial:true}, '', baseUrl);
-      }
-
-      const handleCloseClick = event=>{
-        event.preventDefault();
-        requestClose();
-      };
-      closeBtn.addEventListener('click', handleCloseClick);
-      closeBtn.addEventListener('keydown', event=>{
-        if(event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar'){
-          event.preventDefault();
-          requestClose();
-        }
-      });
-      document.addEventListener('click', event=>{
-        if(!root.classList.contains('open')) return;
-        if(event.target.closest('.modal-close')){
-          event.preventDefault();
-          requestClose();
-        }
-      }, true);
-      if(backdrop){
-        backdrop.addEventListener('click', requestClose);
-      }
-
-      track.addEventListener('click', event=>{
-        const card = event.target.closest('.logo-card');
-        if(!card) return;
-        const slug = card.dataset.slug;
-        if(!slug) return;
-        pushCaseState(slug);
-        openCase(slug, card);
-      });
-
-      track.addEventListener('keydown', event=>{
-        if(event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
-        const card = event.target.closest('.logo-card');
-        if(!card) return;
-        event.preventDefault();
-        const slug = card.dataset.slug;
-        if(!slug) return;
-        pushCaseState(slug);
-        openCase(slug, card);
-      });
-
-      function handleHashChange(){
-        const slug = location.hash ? location.hash.slice(1) : '';
-        if(!slug){
-          closeCase();
-          return;
-        }
-        const tpl = getTemplate(slug);
-        if(!tpl){
-          return;
-        }
-        const state = history.state;
-        if(!state || state.case !== slug){
-          history.replaceState({case:slug, initial:true}, '', `#${slug}`);
-        }
-        openCase(slug);
-      }
-
-      window.addEventListener('hashchange', handleHashChange);
-
-      document.addEventListener('click', event=>{
-        const trigger = event.target.closest('[data-open]');
-        if(!trigger) return;
-        const slug = trigger.getAttribute('data-open');
-        if(!slug || !getTemplate(slug)) return;
-        event.preventDefault();
-        pushCaseState(slug);
-        handleHashChange();
-      });
       document.querySelectorAll('[data-pillar]').forEach(button=>{
+        if(button.dataset.pillar === 'inai') return;
         button.addEventListener('click', event=>{
           const slug = button.dataset.pillar;
           if(!slug) return;
           event.preventDefault();
-          if(slug === 'inai'){
-            if(getTemplate(slug)){
-              pushCaseState(slug);
-              openCase(slug, button);
-            }
-            return;
-          }
           window.dispatchEvent(new CustomEvent('romanempire:pillar', {detail:{slug}}));
         });
       });
@@ -3175,13 +3636,399 @@
         }
       }, true);
 
-      const initialSlug = location.hash ? location.hash.slice(1) : '';
-      if(initialSlug && getTemplate(initialSlug)){
-        history.replaceState({case:initialSlug, initial:true}, '', `#${initialSlug}`);
-        openCase(initialSlug);
-      }
     })();
 
   </script>
+<script>
+// ===== MODAL TRANSLATION SYSTEM =====
+(function(){
+  const root = document.getElementById('modal-root');
+  if(!root) return;
+
+  const panel = root.querySelector('.modal-panel');
+  const closeBtn = root.querySelector('.modal-close');
+  const backdrop = root.querySelector('.modal-backdrop');
+  const titleEl = document.getElementById('case-title');
+  const bodyEl = document.getElementById('case-body');
+  const main = document.querySelector('main');
+
+  let activeSlug = null;
+  let lastFocus = null;
+  let currentLang = localStorage.getItem('romanempire-lang') || 'en';
+
+  // Get translation value
+  function t(path){
+    const translationsEl = document.getElementById('translations');
+    if(!translationsEl) return '';
+    const translations = JSON.parse(translationsEl.textContent);
+    
+    const keys = path.split('.');
+    let value = translations[currentLang];
+    
+    for(const key of keys){
+      if(!value) return '';
+      value = value[key];
+    }
+    
+    if(typeof value === 'string' && value.includes('{brand}')){
+      value = value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.fr</span>');
+    }
+    
+    return value || '';
+  }
+
+  // Render CV modal
+  function renderCV(){
+    const data = t('modals.cv');
+    if(!data) return '';
+    
+    let html = `
+      <div class="modal-summary">
+        <p>${data.summary}</p>
+      </div>
+      <section class="timeline">
+        <h4>${data.campaigns_title}</h4>
+        <ol>
+    `;
+    
+    data.timeline.forEach(item => {
+      html += `
+        <li>
+          <div class="t-head">
+            <span class="t-role">${item.role}</span>
+            <span class="t-company">${item.company}</span>
+          </div>
+          <div class="t-meta">${item.meta}</div>
+          <div class="t-body">${item.body}</div>
+        </li>
+      `;
+    });
+    
+    html += `
+        </ol>
+      </section>
+      <section class="modal-declaration">
+        <h4>${data.throughline_title}</h4>
+        <p>${data.throughline_text}</p>
+      </section>
+      <section>
+        <h4>${data.contacts_title}</h4>
+        <div class="contact-links">
+          <a href="mailto:ave@romanempire.fr">ave@romanempire.fr</a>
+          <a href="https://www.linkedin.com/in/chuikovroman/" target="_blank" rel="me noopener">LinkedIn</a>
+        </div>
+      </section>
+    `;
+    
+    return {title: data.title, body: html};
+  }
+
+  // Render Skills modal
+  function renderSkills(){
+    const data = t('modals.skills');
+    if(!data) return '';
+    
+    let html = `
+      <section>
+        <h4>${data.operate_title}</h4>
+        <ul>
+    `;
+    
+    data.operate_items.forEach(item => {
+      html += `<li>${item}</li>`;
+    });
+    
+    html += `
+        </ul>
+      </section>
+      <section>
+        <h4>${data.domains_title}</h4>
+        <ul>
+    `;
+    
+    data.domains_items.forEach(item => {
+      html += `<li>${item}</li>`;
+    });
+    
+    html += `
+        </ul>
+      </section>
+      <section>
+        <h4>${data.web_title}</h4>
+        <p style="text-align: center; margin-top: 24px;">${data.web_text}</p>
+      </section>
+    `;
+    
+    return {title: data.title, body: html};
+  }
+
+  // Render Education modal
+  function renderEducation(){
+    const data = t('modals.education');
+    if(!data) return '';
+    
+    let html = `
+      <section class="timeline">
+        <h4>${data.formal_title}</h4>
+        <ol>
+    `;
+    
+    data.formal_items.forEach(item => {
+      html += `
+        <li>
+          <div class="t-head">
+            <span class="t-role">${item.degree}</span>
+            <span class="t-company">${item.school}</span>
+          </div>
+          <div class="t-meta">${item.meta}</div>
+          <div class="t-body">${item.body}</div>
+        </li>
+      `;
+    });
+    
+    html += `
+        </ol>
+      </section>
+      <section class="timeline" style="margin-top:12px">
+        <h4>${data.certifications_title}</h4>
+        <ol>
+    `;
+    
+    data.certifications_items.forEach(item => {
+      html += `
+        <li>
+          <div class="t-head">
+            <span class="t-role">${item.cert}</span>
+            <span class="t-company">${item.school}</span>
+          </div>
+          <div class="t-meta">${item.meta}</div>
+          <div class="t-body">${item.body}</div>
+        </li>
+      `;
+    });
+    
+    html += `
+        </ol>
+      </section>
+    `;
+    
+    return {title: data.title, body: html};
+  }
+
+  // Render Case Study modal
+  function renderCase(slug){
+    const data = t(`modals.cases.${slug}`);
+    if(!data) return '';
+    
+    let html = `
+      <p>${data.situation}</p>
+      <p>${data.role}</p>
+      <h4>${data.decisions_title}</h4>
+      <ul>
+    `;
+    
+    data.decisions.forEach(item => {
+      html += `<li>${item}</li>`;
+    });
+    
+    html += `</ul><p>${data.outcome}</p>`;
+    
+    if(data.proof_title){
+      html += `<p><strong>${data.proof_title}</strong></p>`;
+    }
+    
+    if(data.proof_links){
+      html += `<div class="proof-links">`;
+      data.proof_links.forEach(link => {
+        html += `<a href="${link.url}" target="_blank" rel="noopener" class="proof-btn">${link.label}</a>`;
+      });
+      html += `</div>`;
+    }
+    
+    if(data.proof_note){
+      html += `<div class="proof-note">${data.proof_note}</div>`;
+    }
+    
+    return {title: data.title, body: html};
+  }
+
+  // Populate modal content
+  function populateCase(slug){
+    let result;
+    
+    if(slug === 'cv'){
+      result = renderCV();
+    } else if(slug === 'skills'){
+      result = renderSkills();
+    } else if(slug === 'education'){
+      result = renderEducation();
+    } else {
+      result = renderCase(slug);
+    }
+    
+    if(!result) return false;
+    
+    titleEl.textContent = result.title;
+    bodyEl.innerHTML = result.body;
+    return true;
+  }
+
+  function findFocus(slug){
+    if(!slug) return null;
+    const original = document.querySelector(`.slide:not([data-clone]) .logo-card[data-slug="${slug}"]`);
+    if(original) return original;
+    if(slug === 'inai') return document.querySelector('.inai');
+    return document.querySelector(`.logo-card[data-slug="${slug}"]`);
+  }
+
+  function trapFocus(event){
+    if(event.key !== 'Tab') return;
+    const focusable = panel.querySelectorAll('a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    if(!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if(event.shiftKey){
+      if(document.activeElement === first || !panel.contains(document.activeElement)){
+        event.preventDefault();
+        last.focus();
+      }
+    }else{
+      if(document.activeElement === last){
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  function handleKeydown(event){
+    if(event.key === 'Escape'){
+      event.preventDefault();
+      requestClose();
+    }else{
+      trapFocus(event);
+    }
+  }
+
+  function openCase(slug, source){
+    if(activeSlug === slug){
+      if(source) lastFocus = source;
+      return;
+    }
+    if(!populateCase(slug)) return;
+    
+    activeSlug = slug;
+    lastFocus = source || findFocus(slug);
+    root.classList.add('open');
+    root.removeAttribute('aria-hidden');
+    document.body.classList.add('modal-open');
+    if(main) main.setAttribute('inert','');
+    panel.scrollTop = 0;
+    window.addEventListener('keydown', handleKeydown);
+    closeBtn.focus();
+  }
+
+  function closeCase({returnFocus = true} = {}){
+    if(!root.classList.contains('open')) return;
+    root.classList.remove('open');
+    root.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+    if(main) main.removeAttribute('inert');
+    window.removeEventListener('keydown', handleKeydown);
+    const focusTarget = returnFocus ? lastFocus : null;
+    activeSlug = null;
+    lastFocus = null;
+    if(focusTarget && typeof focusTarget.focus === 'function'){
+      requestAnimationFrame(()=> focusTarget.focus());
+    }
+  }
+
+  function pushCaseState(slug){
+    const state = history.state;
+    if(state && state.case === slug){
+      history.replaceState({case:slug, initial:state.initial ?? false}, '', `#${slug}`);
+    }else{
+      history.pushState({case:slug, initial:false}, '', `#${slug}`);
+    }
+  }
+
+  const baseUrl = window.location.pathname + window.location.search;
+
+  function requestClose(){
+    if(!root.classList.contains('open')) return;
+    closeCase();
+    history.replaceState({case:null, initial:true}, '', baseUrl);
+  }
+
+  closeBtn.addEventListener('click', requestClose);
+  if(backdrop) backdrop.addEventListener('click', requestClose);
+
+  // Update modals on language change
+  window.addEventListener('romanempire:langchange', () => {
+    currentLang = localStorage.getItem('romanempire-lang') || 'en';
+    if(activeSlug){
+      populateCase(activeSlug);
+    }
+  });
+
+  // Carousel clicks
+  const track = document.getElementById('logoTrack');
+  if(track){
+    track.addEventListener('click', event=>{
+      const card = event.target.closest('.logo-card');
+      if(!card) return;
+      const slug = card.dataset.slug;
+      if(!slug) return;
+      pushCaseState(slug);
+      openCase(slug, card);
+    });
+    
+    track.addEventListener('keydown', event=>{
+      if(event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
+      const card = event.target.closest('.logo-card');
+      if(!card) return;
+      event.preventDefault();
+      const slug = card.dataset.slug;
+      if(!slug) return;
+      pushCaseState(slug);
+      openCase(slug, card);
+    });
+  }
+
+  // Button triggers
+  document.addEventListener('click', event=>{
+    const trigger = event.target.closest('[data-open]');
+    if(!trigger) return;
+    const slug = trigger.getAttribute('data-open');
+    if(!slug) return;
+    event.preventDefault();
+    pushCaseState(slug);
+    openCase(slug, trigger);
+  });
+
+  // Hash change handling
+  function handleHashChange(){
+    const slug = location.hash ? location.hash.slice(1) : '';
+    if(!slug){
+      closeCase();
+      return;
+    }
+    const state = history.state;
+    if(!state || state.case !== slug){
+      history.replaceState({case:slug, initial:true}, '', `#${slug}`);
+    }
+    openCase(slug);
+  }
+
+  window.addEventListener('hashchange', handleHashChange);
+
+  // Initial load
+  const initialSlug = location.hash ? location.hash.slice(1) : '';
+  if(initialSlug){
+    history.replaceState({case:initialSlug, initial:true}, '', `#${initialSlug}`);
+    openCase(initialSlug);
+  }
+})();
+</script>
+
 </body>
 </html>
