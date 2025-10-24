@@ -60,6 +60,7 @@
       line-height:1.5;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      overscroll-behavior-y: none;
     }
     a{
       color: var(--fg);
@@ -298,6 +299,30 @@
     @media (max-width: 640px){
       .lead, .block{
         padding: 0 8px; /* More padding on very small screens */
+      }
+    }
+
+    @media (max-width: 640px){
+      html{
+        -webkit-text-size-adjust:100%;
+        text-size-adjust:100%;
+      }
+
+      .hero-inner{
+        padding: 16vh 20px 12vh;
+      }
+
+      .btn,
+      .btn-ghost,
+      .pillar,
+      .logo-card{
+        -webkit-tap-highlight-color: rgba(183,137,45,.2);
+      }
+
+      button,
+      .btn,
+      .btn-ghost{
+        touch-action: manipulation;
       }
     }
 
@@ -889,11 +914,13 @@
     .slider{
       position: relative;
       margin: 40px 0 24px;
+      contain: layout style;
     }
     .viewport{
       position:relative;
       overflow:hidden;
       padding-inline:var(--peek);
+      isolation: isolate;
     }
     .viewport::before,
     .viewport::after{
@@ -931,13 +958,19 @@
       display:flex;
       will-change:transform;
       transition:transform 520ms ease;
-      touch-action:pan-x;
+      touch-action:pan-y pinch-zoom; /* Allow vertical scroll, prevent horizontal interference */
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Mobile carousel improvements */
     @media (max-width: 640px){
       .track{
-        transition: transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother on mobile */
+        transition: transform 380ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        touch-action: pan-y pinch-zoom; /* Critical for smooth swipe */
+      }
+
+      .viewport{
+        contain: layout; /* Optimize repaints */
       }
     }
 
@@ -947,10 +980,15 @@
       padding:8px;
     }
 
-    /* Mobile slide sizing */
+    /* Improve carousel card sizing on mobile */
     @media (max-width: 640px){
       .slide{
-        width: clamp(260px, 75vw, 340px); /* Larger cards on mobile */
+        width: clamp(280px, 82vw, 360px); /* Slightly larger, better centering */
+        padding: 6px; /* Tighter spacing */
+      }
+
+      .logo-card{
+        padding: clamp(10px, 2vw, 14px);
       }
     }
 
@@ -1141,15 +1179,113 @@
     /* Mobile modal adjustments */
     @media (max-width: 640px){
       #modal-root .modal-panel{
-        width: 100vw;
-        max-height: 92vh;
-        border-radius: 16px 16px 0 0;
+        width: calc(100vw - 16px);
+        max-width: 480px;
+        max-height: 82vh;
+        border-radius: 20px 20px 0 0;
         border-bottom: none;
-        padding: 40px 24px 32px; /* Better mobile padding */
+        padding: 56px 20px 32px;
         left: 50%;
         top: auto;
         bottom: 0;
         transform: translateX(-50%);
+        margin: 0 8px;
+      }
+
+      #modal-root .modal-close{
+        top: 12px;
+        right: 12px;
+        width: 52px;
+        height: 52px;
+        font-size: 32px;
+        border: 3px solid var(--border-light);
+        background: rgba(0,0,0,.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        z-index: 10;
+      }
+
+      .case h3{
+        font-size: clamp(19px, 5vw, 24px);
+        line-height: 1.25;
+        margin: 8px 0 12px;
+        padding-bottom: 12px;
+      }
+
+      .modal-summary p{
+        font-size: clamp(14px, 3.5vw, 16px);
+        line-height: 1.5;
+      }
+
+      .case-body{
+        font-size: clamp(14px, 3.2vw, 15px);
+        line-height: 1.7;
+        padding: 0 4px;
+      }
+
+      .case-body h4{
+        font-size: clamp(16px, 4vw, 19px);
+        margin: 32px 0 20px;
+        padding: 12px 0;
+      }
+
+      .case-body ul{
+        padding-left: 24px;
+        margin: 16px 0;
+      }
+
+      .case-body ul li{
+        margin-bottom: 12px;
+        font-size: clamp(13px, 3.2vw, 14px);
+        padding-left: 16px;
+      }
+
+      .timeline li{
+        padding: 16px 16px;
+      }
+
+      .t-head{
+        font-size: clamp(14px, 3.5vw, 15px);
+      }
+
+      .t-meta{
+        font-size: clamp(12px, 3vw, 13px);
+        margin-bottom: 8px;
+      }
+
+      .t-body{
+        font-size: clamp(13px, 3.2vw, 14px);
+        line-height: 1.6;
+      }
+
+      .proof-btn{
+        padding: 10px 20px;
+        font-size: clamp(12px, 3vw, 13px);
+      }
+
+      .proof-note{
+        font-size: clamp(12px, 2.8vw, 13px);
+        margin: 16px 0 8px;
+      }
+
+      .contact-links a{
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 380px){
+      #modal-root .modal-panel{
+        padding: 48px 16px 24px;
+        max-height: 85vh;
+      }
+
+      .case h3{
+        font-size: 18px;
+      }
+
+      .case-body{
+        font-size: 13px;
       }
     }
 
@@ -1696,7 +1832,12 @@
       transform:scale(1.05);
     }
 
-    body.modal-open{overflow:hidden;}
+    body.modal-open{
+      overflow:hidden;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
 
     .tooltip{
       position: fixed;
@@ -1812,7 +1953,26 @@
       transform: scale(1.1);
     }
     @media (max-width:720px){
-      .arrow{ display: none; }
+      .arrow{
+        width: 56px;
+        height: 56px;
+        bottom: 16px;
+        top: auto;
+        transform: none;
+      }
+
+      .arrow.left{
+        left: 16px;
+      }
+
+      .arrow.right{
+        right: 16px;
+      }
+
+      .arrow svg{
+        width: 24px;
+        height: 24px;
+      }
     }
 
     .inai{
@@ -1984,6 +2144,7 @@
 
     html{
       scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -2002,6 +2163,8 @@
       top: 24px;
       right: 24px;
       z-index: 50;
+      will-change: transform;
+      transform: translateZ(0);
       display: flex;
       gap: 8px;
       background:
@@ -3498,35 +3661,60 @@
         if(!slug) return;
         scrollToSlug(slug);
       });
-      // Enhanced mobile touch handling (replace existing touch handlers)
+      // Enhanced mobile touch handling
       let touchStartX = null;
       let touchStartTime = null;
-      const SWIPE_THRESHOLD = 20; // Reduced from 28 for more sensitivity
-      const SWIPE_TIMEOUT = 300;
+      let touchCurrentX = null;
+      let isDragging = false;
+      let hasTriggeredMove = false;
+      const SWIPE_THRESHOLD = 50;
+      const VELOCITY_THRESHOLD = 0.3;
 
       track.addEventListener('touchstart', event=>{
         touchStartX = event.touches[0].clientX;
+        touchCurrentX = touchStartX;
         touchStartTime = Date.now();
-      }, {passive:true});
+        isDragging = false;
+        hasTriggeredMove = false;
+      }, {passive: true});
 
       track.addEventListener('touchmove', event=>{
         if(touchStartX === null) return;
-        const dx = event.touches[0].clientX - touchStartX;
-        const dt = Date.now() - touchStartTime;
+        touchCurrentX = event.touches[0].clientX;
+        const dx = touchCurrentX - touchStartX;
         
-        if(Math.abs(dx) > SWIPE_THRESHOLD && dt < SWIPE_TIMEOUT){
-          move(dx < 0 ? 1 : -1);
-          touchStartX = null;
-          touchStartTime = null;
+        if(Math.abs(dx) > 10 && !isDragging){
+          isDragging = true;
         }
-      }, {passive:true});
+      }, {passive: true});
 
-      const resetTouch = ()=>{ 
-        touchStartX = null; 
+      track.addEventListener('touchend', event=>{
+        if(touchStartX === null || hasTriggeredMove){
+          resetTouch();
+          return;
+        }
+
+        const dx = touchCurrentX - touchStartX;
+        const dt = Date.now() - touchStartTime;
+        const velocity = Math.abs(dx) / dt;
+
+        if(Math.abs(dx) > SWIPE_THRESHOLD || (isDragging && velocity > VELOCITY_THRESHOLD)){
+          hasTriggeredMove = true;
+          move(dx < 0 ? 1 : -1);
+        }
+
+        resetTouch();
+      }, {passive: true});
+
+      const resetTouch = ()=>{
+        touchStartX = null;
+        touchCurrentX = null;
         touchStartTime = null;
+        isDragging = false;
+        hasTriggeredMove = false;
       };
-      track.addEventListener('touchend', resetTouch, {passive:true});
-      track.addEventListener('touchcancel', resetTouch, {passive:true});
+
+      track.addEventListener('touchcancel', resetTouch, {passive: true});
       window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
       window.addEventListener('resize', ()=>{
         syncSlides();
