@@ -1975,13 +1975,19 @@
     .showcase-header{
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: clamp(12px, 4vw, 32px);
+      justify-content: space-between;
+      gap: clamp(8px, 2vw, 24px);
       margin: 0 auto 32px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
     .showcase-header .section-title{
+      flex: 1 1 auto;
       margin: 0;
+      text-align: center;
+      min-width: 0;
+    }
+    .showcase-header .arrow{
+      flex-shrink: 0;
     }
 
     .inai{
