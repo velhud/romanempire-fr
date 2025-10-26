@@ -1898,11 +1898,8 @@
     }
 
     .arrow{
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
+      width: 56px;
+      height: 56px;
       display: grid;
       place-items: center;
       border-radius: 50%;
@@ -1919,7 +1916,6 @@
         inset 0 1px 0 rgba(255,255,255,.1),
         0 0 0 1px rgba(183,137,45,.2),
         var(--shadow);
-      z-index: 3;
       transition:
         transform .2s ease,
         border-color .2s ease,
@@ -1934,10 +1930,8 @@
       }
     }
 
-    .arrow.left{ left: 8px; }
-    .arrow.right{ right: 8px; }
     .arrow:hover{
-      transform: translateY(-50%) scale(1.08);
+      transform: scale(1.08);
       border-color: var(--gold-dim);
       background:
         radial-gradient(
@@ -1952,7 +1946,7 @@
         var(--shadow);
     }
     .arrow:active{
-      transform: translateY(-50%) scale(1);
+      transform: scale(0.97);
     }
     .arrow:focus-visible{
       outline: 2px solid var(--gold-dim);
@@ -1968,25 +1962,26 @@
     }
     @media (max-width:720px){
       .arrow{
-        width: 56px;
-        height: 56px;
-        bottom: 16px;
-        top: auto;
-        transform: none;
-      }
-
-      .arrow.left{
-        left: 16px;
-      }
-
-      .arrow.right{
-        right: 16px;
+        width: 48px;
+        height: 48px;
       }
 
       .arrow svg{
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
       }
+    }
+
+    .showcase-header{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 4vw, 32px);
+      margin: 0 auto 32px;
+      flex-wrap: wrap;
+    }
+    .showcase-header .section-title{
+      margin: 0;
     }
 
     .inai{
@@ -2465,11 +2460,16 @@
         <!-- Add visual break -->
         <div style="height: 32px;"></div>
 
-        <h2 class="section-title">History of Empire</h2>
-        <div class="slider" role="region" aria-label="Project logos">
+        <div class="showcase-header">
           <button class="arrow left" type="button" aria-label="Previous" data-dir="-1">
             <svg viewBox="0 0 24 24" fill="none"><path d="M14.5 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
+          <h2 class="section-title">History of Empire</h2>
+          <button class="arrow right" type="button" aria-label="Next" data-dir="1">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 19l7-7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="slider" role="region" aria-label="Project logos">
           <div class="viewport">
             <div class="track" id="logoTrack">
               <div class="slide">
@@ -2595,9 +2595,7 @@
               </div>
             </div>
           </div>
-          <button class="arrow right" type="button" aria-label="Next" data-dir="1">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M9.5 19l7-7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+        </div>
         <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" data-open="inai" aria-label="Open the inAi case" role="button" tabindex="0">
           <span class="badge badge-outcome">Built + incubated</span>
