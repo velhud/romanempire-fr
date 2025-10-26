@@ -189,7 +189,7 @@
 
   function updateShowcase(showcase){
     if(!showcase) showcase = {};
-    setText(document.querySelector('.showcase .section-title'), showcase.title);
+    setText(document.querySelector('.history-title'), showcase.title);
     const slider = document.querySelector('.slider');
     if(slider && showcase.title){
       slider.setAttribute('aria-label', showcase.title);
