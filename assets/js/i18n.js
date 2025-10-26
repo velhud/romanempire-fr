@@ -152,6 +152,7 @@
   function updatePillars(pillars){
     if(!pillars) pillars = {};
     setText(document.querySelector('.pillars .section-title'), pillars.title);
+    setAttr(document.querySelector('.pillars'), 'aria-label', pillars.title);
     const pillarButtons = document.querySelectorAll('.pillars .pillar');
     pillarButtons.forEach(function(btn){
       const slug = btn.getAttribute('data-pillar');
