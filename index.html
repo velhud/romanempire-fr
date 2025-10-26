@@ -4118,17 +4118,24 @@
           if (img.complete) set(); else img.addEventListener('load', set, {once:true});
         });
       }
+      function markClone(slide, type){
+        if(!slide) return slide;
+        slide.dataset.clone = type;
+        const card = slide.querySelector('.logo-card');
+        if(card) card.dataset.clone = type;
+        return slide;
+      }
+      let realCount = 0;
+      let offset = 0;
       function makeClones(){
-        const kids = Array.from(track.children);
-        const first = kids[0].cloneNode(true); first.dataset.clone='first';
-        const last  = kids[kids.length-1].cloneNode(true); last.dataset.clone='last';
-        const firstCard = first.querySelector('.logo-card');
-        const lastCard = last.querySelector('.logo-card');
-        if(firstCard) firstCard.dataset.clone='first';
-        if(lastCard) lastCard.dataset.clone='last';
-        track.insertBefore(last, kids[0]);
-        track.appendChild(first);
-        classifyFrames(track);
+        const originals = Array.from(track.children);
+        realCount = originals.length;
+        if(!realCount) return;
+        offset = realCount;
+        const prepend = originals.slice().reverse().map(slide=> markClone(slide.cloneNode(true), 'head'));
+        const append = originals.map(slide=> markClone(slide.cloneNode(true), 'tail'));
+        prepend.forEach(clone=> track.insertBefore(clone, track.firstChild));
+        append.forEach(clone=> track.appendChild(clone));
       }
       function a11yForClones(){
         track.querySelectorAll('.slide[data-clone]')
@@ -4149,7 +4156,8 @@
       makeClones();
       classifyFrames();
       syncSlides();
-      let index = 1;
+      if(!realCount) return;
+      let index = offset;
       let anim = false;
       function slideW(){ return slides[0]?.getBoundingClientRect().width || 0; }
       function setX(animate=true){
@@ -4158,18 +4166,15 @@
         if(!animate){ track.offsetHeight; track.style.transition='transform 520ms ease'; }
       }
       function normalize(){
-        let adjusted = false;
-        if(slides[index]?.dataset.clone === 'first'){
-          index = 1;
+        if(!realCount) return;
+        const minIndex = offset;
+        const maxIndex = offset + realCount - 1;
+        if(index < minIndex){
+          index += realCount;
           setX(false);
-          adjusted = true;
-        }else if(slides[index]?.dataset.clone === 'last'){
-          index = slides.length - 2;
+        }else if(index > maxIndex){
+          index -= realCount;
           setX(false);
-          adjusted = true;
-        }
-        if(adjusted){
-          syncSlides();
         }
       }
       function move(dir){
@@ -4190,9 +4195,10 @@
         const viewport = track.closest('.viewport');
         const viewportWidth = viewport ? viewport.getBoundingClientRect().width : window.innerWidth;
         const visible = Math.max(1, Math.round(viewportWidth / width));
-        let nextIndex = realIndex - Math.floor(visible / 2) + 1;
-        if(nextIndex < 1) nextIndex = 1;
-        const maxIndex = Math.max(1, slides.length - 2);
+        const minIndex = offset;
+        const maxIndex = offset + realCount - 1;
+        let nextIndex = offset + realIndex - Math.floor(visible / 2);
+        if(nextIndex < minIndex) nextIndex = minIndex;
         if(nextIndex > maxIndex) nextIndex = maxIndex;
         if(nextIndex === index) return;
         index = nextIndex;
