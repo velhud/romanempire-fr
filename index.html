@@ -1996,7 +1996,6 @@
       align-items: center;
       justify-content: center;
       width: min(480px, 86vw);
-      aspect-ratio: 1/1;
       margin: 32px auto 72px;
       border-radius: 16px;
       border: 3px solid var(--border);
@@ -2017,6 +2016,7 @@
         inset 0 -1px 0 var(--gold-dim),
         var(--shadow-strong);
       padding: clamp(16px, 3vw, 36px);
+      padding-bottom: 44px;
       overflow: visible;
       transition:
         transform .25s ease,
@@ -2073,8 +2073,9 @@
       text-align: right;
     }
     .inai img{
+      background: #fff;
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 4px 12px rgba(0,0,0,.2));
@@ -2371,7 +2372,7 @@
 
 </head>
 <body>
-  <div class="lang-switcher" aria-label="Language selector">
+  <div class="lang-switcher" role="group" aria-label="Language selector">
     <button class="lang-btn active" type="button" data-lang="en" aria-label="English">EN</button>
     <button class="lang-btn" type="button" data-lang="fr" aria-label="Français">FR</button>
     <button class="lang-btn" type="button" data-lang="ru" aria-label="Русский">RU</button>
@@ -2383,7 +2384,7 @@
       <div class="container hero-inner">
         <figure class="portrait">
           <span class="portrait-inner">
-            <img src="mypicture.jpg" alt="Roman Chuikov" decoding="async" width="1786" height="2680">
+            <img src="assets/optimized/portrait-720.webp" srcset="assets/optimized/portrait-480.webp 480w, assets/optimized/portrait-720.webp 720w, assets/optimized/portrait-1080.webp 1080w" sizes="(max-width: 799px) 224px, (min-width: 1286px) 360px, 28vw" alt="Roman Chuikov" decoding="async" fetchpriority="high" width="1786" height="2680">
           </span>
           <figcaption class="sr-only">Portrait of Roman Chuikov</figcaption>
         </figure>
@@ -2401,12 +2402,12 @@
 
         <p class="block" style="margin-top:8px">
           But let’s not dwell on the past. Empires rise and fall.
-          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i.fr</span>. They are building the future.</strong>
+          <br><strong>Better to try <span class="brand">in<span class="A">A</span>i.world</span>. They are building the future.</strong>
         </p>
 
         <div class="cta-row">
-          <a class="btn" href="https://inai.fr/?utm_source=romanempire" target="_blank" rel="noopener">
-            Try <span class="btn-brand">in<span class="btn-A">A</span>i.fr</span>
+          <a class="btn" href="https://www.inai.world/?utm_source=romanempire" target="_blank" rel="noopener">
+            Try <span class="btn-brand">in<span class="btn-A">A</span>i.world</span>
           </a>
         </div>
 
@@ -2486,7 +2487,7 @@
                      aria-label="Early media experiment on disciplined transformation; ended after initial sprint.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2015</span>
-                  <img src="assets/logos/iz-drysha-v-atlety.png" alt="Iz Drysha v Atlety">
+                  <img src="assets/optimized/logos/iz-drysha-v-atlety.webp" alt="Iz Drysha v Atlety" width="600" height="948" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2497,7 +2498,7 @@
                      aria-label="Agent in Russia/E. Europe; verified VK, translations, fan community, press.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2015–2017</span>
-                  <img src="assets/logos/franco-columbu.png" alt="Franco Columbu">
+                  <img src="assets/optimized/logos/franco-columbu.webp" alt="Franco Columbu" width="799" height="927" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2508,7 +2509,7 @@
                      aria-label="Short‑run math‑driven predictions prototype; closed after trials.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2018</span>
-                  <img src="assets/logos/everbet.png" alt="EverBet">
+                  <img src="assets/optimized/logos/everbet.webp" alt="EverBet" width="1278" height="453" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2519,7 +2520,7 @@
                      aria-label="Print/copy business from zero to three offices; COVID continuity; social‑commerce ops.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2017–2022</span>
-                  <img src="assets/logos/i-pressa.png" alt="i‑Pressa">
+                  <img src="assets/optimized/logos/i-pressa.webp" alt="i‑Pressa" width="1133" height="1090" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2530,7 +2531,7 @@
                      aria-label="Brand split to widen choice with a single back office; physical site in Khimki.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2019–2022</span>
-                  <img src="assets/logos/copycat.png" alt="CopyCat">
+                  <img src="assets/optimized/logos/copycat.webp" alt="CopyCat" width="1280" height="599" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2541,7 +2542,7 @@
                      aria-label="Instagram‑based AirPods store; media‑led acquisition and local delivery.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2019–2021</span>
-                  <img src="assets/logos/air_rods.png" alt="AirRods">
+                  <img src="assets/optimized/logos/air_rods.webp" alt="AirRods" width="1025" height="1028" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2552,7 +2553,7 @@
                      aria-label="Coach → gym operations manager; eight sites; renovation and reopen plan.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2017–2018</span>
-                  <img src="assets/logos/rgau-mskha.png" alt="RGAU MSKHA">
+                  <img src="assets/optimized/logos/rgau-mskha.webp" alt="RGAU MSKHA" width="512" height="512" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2563,7 +2564,7 @@
                      aria-label="Unofficial residences hub adopted by management; ~4.5k members.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2019–2020</span>
-                  <img src="assets/logos/studgorodok-rgau.png" alt="Studgorodok RGAU">
+                  <img src="assets/optimized/logos/studgorodok-rgau.webp" alt="Studgorodok RGAU" width="868" height="868" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2574,7 +2575,7 @@
                      aria-label="Thesis‑support spin‑out; 3–4 deliveries; paused on relocation.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2020–2021</span>
-                  <img src="assets/logos/diplosha.png" alt="Diplosha">
+                  <img src="assets/optimized/logos/diplosha.webp" alt="Diplosha" width="600" height="600" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2585,7 +2586,7 @@
                      aria-label="Genetics lecturer; course delivered; international student support.">
                   <span class="badge badge-archived" aria-label="Archived">Archived</span>
                   <span class="badge badge-outcome">2022–2023</span>
-                  <img src="assets/logos/universite-catholique-de-lille.png" alt="Université Catholique de Lille">
+                  <img src="assets/optimized/logos/universite-catholique-de-lille.webp" alt="Université Catholique de Lille" width="2280" height="1169" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
               <div class="slide">
@@ -2596,7 +2597,7 @@
                      aria-label="Incubation accelerating inAi; Retail &amp; E‑commerce track.">
                   <span class="badge badge-active" aria-label="Active">Active</span>
                   <span class="badge badge-outcome">2025–present</span>
-                  <img src="assets/logos/logo-euratechnologies.png" alt="EuraTechnologies">
+                  <img src="assets/optimized/logos/logo-euratechnologies.webp" alt="EuraTechnologies" width="800" height="220" loading="lazy" decoding="async" fetchpriority="low">
                 </div>
               </div>
             </div>
@@ -2605,7 +2606,7 @@
         <!-- inAi spotlight (square, large, clickable) -->
         <a class="inai" data-open="inai" aria-label="Open the inAi case" role="button" tabindex="0">
           <span class="badge badge-outcome">Built + incubated</span>
-          <img src="assets/logos/inai.png" alt="inAi">
+          <img src="assets/logos/inai-heart-wordmark-black.png" alt="inAi" width="717" height="304" loading="lazy" decoding="async" fetchpriority="low">
         </a>
         <footer class="footer-bar" aria-label="Contact reminder">
           <div class="footer-divider" aria-hidden="true"></div>
@@ -2784,7 +2785,7 @@
           <li>Partner lanes for integrations.</li>
         </ul>
         <p><strong>Outcome.</strong> Product live; incubation at EuraTechnologies (Sep 2025–present); operating cadence in place.</p>
-        <p><strong>Proof.</strong> <a href="https://inai.fr" target="_blank" rel="noopener">inai.fr</a>. EuraTechnologies acceptance available by email.</p>
+        <p><strong>Proof.</strong> <a href="https://www.inai.world" target="_blank" rel="noopener">inai.world</a>. EuraTechnologies acceptance available by email.</p>
       </article>
     </section>
   </noscript>
@@ -3217,8 +3218,8 @@
           "proof_title": "Proof",
           "proof_links": [
             {
-              "url": "https://inai.fr",
-              "label": "inai.fr"
+              "url": "https://www.inai.world",
+              "label": "inai.world"
             }
           ],
           "proof_note": "EuraTechnologies acceptance available by email"
@@ -3653,8 +3654,8 @@
           "proof_title": "Доказательства",
           "proof_links": [
             {
-              "url": "https://inai.fr",
-              "label": "inai.fr"
+              "url": "https://www.inai.world",
+              "label": "inai.world"
             }
           ],
           "proof_note": "Подтверждение инкубации по e-mail"
@@ -4089,8 +4090,8 @@
           "proof_title": "Preuve",
           "proof_links": [
             {
-              "url": "https://inai.fr",
-              "label": "inai.fr"
+              "url": "https://www.inai.world",
+              "label": "inai.world"
             }
           ],
           "proof_note": "Acceptation EuraTechnologies disponible par email"
@@ -4163,6 +4164,17 @@
       classifyFrames();
       syncSlides();
       if(!realCount) return;
+      // Warm every loop copy before this section is reached, so jumps and swipes
+      // do not depend on a transformed off-screen image being lazily discovered.
+      if('IntersectionObserver' in window){
+        const imageWarmup = new IntersectionObserver(entries=>{
+          if(!entries.some(entry=>entry.isIntersecting)) return;
+          document.querySelectorAll('.showcase img').forEach(img=>{ img.loading = 'eager'; });
+          imageWarmup.disconnect();
+        }, {rootMargin: '800px 0px'});
+        imageWarmup.observe(document.querySelector('.showcase'));
+      }
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let index = offset;
       let anim = false;
       function slideW(){ return slides[0]?.getBoundingClientRect().width || 0; }
@@ -4183,9 +4195,20 @@
           setX(false);
         }
       }
+      function finishMove(){
+        normalize();
+        anim = false;
+      }
+      function showIndex(){
+        anim = true;
+        setX(!reducedMotion.matches);
+        // With reduced motion there is no transitionend event to release the lock.
+        if(reducedMotion.matches) finishMove();
+      }
       function move(dir){
         if(anim) return;
-        anim = true; index += dir; setX(true);
+        index += dir;
+        showIndex();
       }
       function scrollToSlug(slug){
         if(!slug || anim) return;
@@ -4208,10 +4231,17 @@
         if(nextIndex > maxIndex) nextIndex = maxIndex;
         if(nextIndex === index) return;
         index = nextIndex;
-        anim = true;
-        setX(true);
+        showIndex();
       }
-      track.addEventListener('transitionend', ()=>{ normalize(); anim = false; });
+      track.addEventListener('transitionend', event=>{
+        if(event.target === track && event.propertyName === 'transform') finishMove();
+      });
+      reducedMotion.addEventListener('change', ()=>{
+        if(reducedMotion.matches){
+          finishMove();
+          setX(false);
+        }
+      });
       rightBtn.addEventListener('click', ()=>move(1));
       leftBtn.addEventListener('click', ()=>move(-1));
       window.addEventListener('romanempire:pillar', event=>{
@@ -4282,6 +4312,7 @@
       track.addEventListener('touchcancel', resetTouch, {passive: true});
       window.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') move(1); if(e.key==='ArrowLeft') move(-1); });
       window.addEventListener('resize', ()=>{
+        finishMove();
         syncSlides();
         setX(false);
       });
@@ -4424,7 +4455,7 @@
     }
     
     if(typeof value === 'string' && value.includes('{brand}')){
-      value = value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.fr</span>');
+      value = value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.world</span>');
     }
     
     return value || '';
@@ -4756,6 +4787,16 @@
     event.preventDefault();
     pushCaseState(slug);
     openCase(slug, trigger);
+  });
+
+  // The spotlight uses the existing anchor styling and button semantics.
+  // Supply the native-button keyboard behavior without changing its appearance.
+  document.addEventListener('keydown', event=>{
+    if(event.key !== 'Enter' && event.key !== ' ') return;
+    const trigger = event.target.closest('a[data-open]:not([href])');
+    if(!trigger) return;
+    event.preventDefault();
+    trigger.click();
   });
 
   // Hash change handling

@@ -60,7 +60,7 @@
 
   function formatValue(value){
     if(typeof value === 'string' && value.indexOf('{brand}') !== -1){
-      return value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.fr</span>');
+      return value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.world</span>');
     }
     return value == null ? '' : value;
   }
@@ -131,7 +131,7 @@
         setText(primaryBtn, btnText);
       }
       if(btnText){
-        primaryBtn.setAttribute('aria-label', btnText);
+        primaryBtn.setAttribute('aria-label', btnText + (brandSpan ? ' ' + brandSpan.textContent : ''));
       }
     }
 
@@ -183,7 +183,7 @@
       const note = pillars[noteKey];
       setText(btn.querySelector('.pillar-name'), name);
       setText(btn.querySelector('.pillar-note'), note);
-      if(note) btn.setAttribute('aria-label', note);
+      if(name) btn.setAttribute('aria-label', name + (note ? '. ' + note : ''));
     });
   }
 

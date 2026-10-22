@@ -414,7 +414,7 @@ translations = {
         ],
         "outcome": "<strong>Outcome.</strong> Product live; incubation at EuraTechnologies (Sep 2025–present); operating cadence in place.",
         "proofTitle": "<strong>Proof</strong>",
-        "proofLinks": ["inai.fr"],
+        "proofLinks": ["inai.world"],
         "proofNote": "EuraTechnologies acceptance available by email"
       }
     }
@@ -833,7 +833,7 @@ translations["fr"] = {
       ],
       "outcome": "<strong>Résultat.</strong> Produit en ligne ; incubation à EuraTechnologies (sept. 2025–présent) ; cadence opérationnelle en place.",
       "proofTitle": "<strong>Preuves</strong>",
-      "proofLinks": ["inai.fr"],
+      "proofLinks": ["inai.world"],
       "proofNote": "Lettre d'acceptation EuraTechnologies disponible par email"
     }
   }
@@ -1251,7 +1251,7 @@ translations["ru"] = {
       ],
       "outcome": "<strong>Результат.</strong> Продукт в запуске; инкубация в EuraTechnologies (сен 2025–н.в.); операционный ритм выстроен.",
       "proofTitle": "<strong>Доказательства</strong>",
-      "proofLinks": ["inai.fr"],
+      "proofLinks": ["inai.world"],
       "proofNote": "Письмо о принятии в EuraTechnologies по email"
     }
   }
@@ -1291,7 +1291,7 @@ JS_TEMPLATE = """(function(){
 
   function formatValue(value){
     if(typeof value === "string" && value.indexOf('{brand}') !== -1){
-      return value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.fr</span>');
+      return value.replace('{brand}', '<span class="brand">in<span class="A">A</span>i.world</span>');
     }
     return value == null ? "" : value;
   }
